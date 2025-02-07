@@ -8,13 +8,16 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 
+/* En esta clase vamos a ingresar a TODOS LOS USUARIOS ya sean clientes,
+técnicos y administradores para luego asignarles un ROL.*/
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer IdUsuario;
     private String nombre;
     private String apellido;
     private String documento;
@@ -40,8 +43,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer Id, String nombre, String apellido, String documento, String nombreUsuario, String email, String provincia, String localidad, String direccion, String altura, String piso, String depto, String telefono, String rol, String contrasena, String foto, List<Equipo> equipos, List<Orden> ordenes) {
-        this.Id = Id;
+    public Usuario(Integer IdUsuario, String nombre, String apellido, String documento, String nombreUsuario, String email, String provincia, String localidad, String direccion, String altura, String piso, String depto, String telefono, String rol, String contrasena, String foto, List<Equipo> equipos, List<Orden> ordenes) {
+        this.IdUsuario = IdUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
@@ -61,12 +64,12 @@ public class Usuario {
         this.ordenes = ordenes;
     }
 
-    public Integer getId() {
-        return Id;
+    public Integer getIdUsuario() {
+        return IdUsuario;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+    public void setIdUsuario(Integer IdUsuario) {
+        this.IdUsuario = IdUsuario;
     }
 
     public String getNombre() {
