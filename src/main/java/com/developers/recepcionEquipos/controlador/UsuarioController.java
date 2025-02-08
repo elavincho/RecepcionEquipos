@@ -12,4 +12,14 @@ public class UsuarioController {
     public String home() {
         return "usuario/home";
     }
+    
+    @GetMapping("usuario/registro")
+    public String registro() {
+        return "usuario/registro";
+    }
+    
+    @GetMapping("usuario/iniciarSesion")
+    public String iniciarSesion() {
+        return "usuario/iniciarSesion";
+    }
 }
