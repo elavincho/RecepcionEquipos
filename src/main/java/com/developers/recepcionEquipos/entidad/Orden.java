@@ -102,6 +102,9 @@ public class Orden {
     public void setDetalle(List<DetalleOrden> detalle) {
         this.detalle = detalle;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", usuario=" + usuario + ", detalle=" + detalle + '}';
+    }
 }

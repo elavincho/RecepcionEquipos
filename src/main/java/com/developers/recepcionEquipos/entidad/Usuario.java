@@ -208,4 +208,8 @@ public class Usuario {
         this.ordenes = ordenes;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "IdUsuario=" + IdUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento + ", nombreUsuario=" + nombreUsuario + ", email=" + email + ", provincia=" + provincia + ", localidad=" + localidad + ", direccion=" + direccion + ", altura=" + altura + ", piso=" + piso + ", depto=" + depto + ", telefono=" + telefono + ", rol=" + rol + ", contrasena=" + contrasena + ", foto=" + foto + ", equipos=" + equipos + ", ordenes=" + ordenes + '}';
+    }
 }

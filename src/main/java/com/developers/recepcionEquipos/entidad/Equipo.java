@@ -131,5 +131,8 @@ public class Equipo {
         this.usuario = usuario;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Equipo{" + "IdEquipo=" + IdEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", usuario=" + usuario + '}';
+    }
 }
