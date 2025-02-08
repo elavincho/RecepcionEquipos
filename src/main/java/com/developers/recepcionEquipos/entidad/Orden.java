@@ -1,6 +1,10 @@
 package com.developers.recepcionEquipos.entidad;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -12,6 +16,8 @@ con los equipos */
 @Table(name = "ordenes")
 public class Orden {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdOrden;
     private String fallaCliente;
     private String fallaTecnico;
@@ -19,7 +25,7 @@ public class Orden {
     private String avisoCliente;
     private String medioAviso;
     
-    @OneToMany
+    @ManyToOne
     private Usuario usuario;
     
     @OneToMany(mappedBy = "orden")

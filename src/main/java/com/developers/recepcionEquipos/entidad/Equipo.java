@@ -1,6 +1,9 @@
 package com.developers.recepcionEquipos.entidad;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -11,8 +14,9 @@ y sus accesorios*/
 @Table(name = "equipos")
 public class Equipo {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdEquipo;
-   
     private String marca;
     private String modelo;
     private String nroSerie;

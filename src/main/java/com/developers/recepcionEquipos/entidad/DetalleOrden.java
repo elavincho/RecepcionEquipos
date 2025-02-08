@@ -1,7 +1,10 @@
 package com.developers.recepcionEquipos.entidad;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 
@@ -13,6 +16,8 @@ y sus respectivos precios, además del iva y del total.*/
 @Table(name = "detalles")
 public class DetalleOrden {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdDetalle;
     private String trabajoRealizado;
     private Date fechaInicio;
@@ -29,10 +34,10 @@ public class DetalleOrden {
     private double total;
     private String totalFormateado;
     
-    @OneToMany
+    @ManyToOne
     private Orden orden;
     
-    @OneToMany
+    @ManyToOne
     private Equipo equipo;
 
     public DetalleOrden() {
