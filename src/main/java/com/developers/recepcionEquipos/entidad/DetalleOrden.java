@@ -193,4 +193,9 @@ public class DetalleOrden {
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
+
+    @Override
+    public String toString() {
+        return "DetalleOrden{" + "IdDetalle=" + IdDetalle + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaInicioFormateado=" + fechaInicioFormateado + ", fechaFinalizacion=" + fechaFinalizacion + ", fechaFinalizacionFormateado=" + fechaFinalizacionFormateado + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoOBra=" + precioManoOBra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", orden=" + orden + ", equipo=" + equipo + '}';
+    }
 }
