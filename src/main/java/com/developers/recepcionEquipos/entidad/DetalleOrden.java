@@ -7,7 +7,7 @@ import java.util.Date;
 
 /* En esta clase la vamos a utilizar para cargar el trabajo realizado, 
 la fecha de inicio y fin de la reparación y cargar los repuestos utilizados
-y sus respectivos precios, además del iva y del total*/
+y sus respectivos precios, además del iva y del total.*/
 
 @Entity
 @Table(name = "detalles")
