@@ -1,0 +1,37 @@
+
+<!-- Header -->
+
+<div th:fragment="header">
+    <header>
+        <div class="contenedor-header">
+            <div class="logo-header">
+                <a th:href="@{/}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="menu-header">
+                <a th:href="@{/usuario/iniciarSesion}"><img class="icono-header" th:src="@{/iconos/login.png}" alt="login">
+                    Iniciar Sesión
+                </a>
+                <a th:href="@{/usuario/registro}"><img class="icono-header" th:src="@{/iconos/registro.png}" alt="registro">
+                    Registro
+                </a>
+            </div>
+        </div>
+    </header>
+</div>
+
+
+<!-- Footer -->
+<footer>
+    <div class="contenedor-footer">
+        <div class="logo-footer">
+            <a th:href="@{/}">
+                <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+            </a>
+        </div>
+        <div class="texto-footer">
+            <p>Developers 2026 - All Right Reserved</p>
+        </div>
+    </div>
+</footer>

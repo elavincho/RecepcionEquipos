@@ -12,22 +12,7 @@
 <body>
 
     <!-- Header -->
-    <header>
-        <div class="contenedor-header">
-            <div class="logo-header">
-                <img class="img-logo-header" src="imagenes/logo.png" alt="logo">
-            </div>
-            <div class="menu-header">
-                <a th:href="@{/usuario/iniciarSesion}"><img class="icono-header" src="iconos/login.png" alt="login">
-                    Iniciar Sesión
-                </a>
-                <a th:href="@{/usuario/registro}"><img class="icono-header" src="iconos/registro.png" alt="registro">
-                    Registro
-                </a>
-            </div>
-        </div>
-    </header>
-
+    <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
 
     <!-- Main -->
     <main>
@@ -79,16 +64,7 @@
 
 
     <!-- Footer -->
-    <footer>
-        <div class="contenedor-footer">
-            <div class="logo-footer">
-                <img class="img-logo-footer" src="imagenes/logo.png" alt="logo">
-            </div>
-            <div class="texto-footer">
-                <p>Developers 2026 - All Right Reserved</p>
-            </div>
-        </div>
-    </footer>
+    <div th:insert="~{usuario/templateUsuario.html::footer}"></div>
 </body>
 
 </html>

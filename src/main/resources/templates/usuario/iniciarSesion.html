@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- CSS -->
-    <link th:href="@{css/estilos.css}" rel="stylesheet">
-    </head>
-    <body>
-        
-        <header>
-            <h1>Recepción de Equipos - INICIAR SESIÓN</h1>
-        </header>
-        
-        <main>
-            <div>
-                <h3>Bienvenidos al INICIO DE SESIÓN de Recepción de Equipos</h3>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
+
+    <main>
+        <div class="contenedor-formulario">
+
+            <div class="contenedor-img-iniciarSesion">
+                <img class="img-iniciarSesion" th:src="@{/imagenes/iniciarSesion.png}" alt="login">
             </div>
-        </main>
-        
-        <footer>
-            <p>Developers 2026 - All Right Reserved</p>
-        </footer>
-    </body>
+
+            <form th:action="@{/usuario/acceder}" method="post">
+
+                <div class="">
+                    <div class="">
+                        <label for="email"> Email: </label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email"
+                            required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="">
+                        <label for="password"> Contraseña:</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Ingrese su contraseña" required>
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="">
+                        <button type="submit" class="btn btn-dark"> <span class="glyphicon glyphicon-ok"></span>
+                            Ingresar</button>
+                    </div>
+                </div>
+                <div class="centrado">
+                    <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div th:insert="~{usuario/templateUsuario.html::footer}"></div>
+
+</body>
+
 </html>
