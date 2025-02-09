@@ -1,35 +1,139 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : 6 feb 2025, 15:58:41
-    Author     : elavi
-*/
+* {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
 
-body{
+body {
     background-color: #0d47a1;
     color: lavender;
     font-family: "Krona One", serif;
 }
 
-strong{
-    color: #22D4FD;
-}
 
-footer{
-    background-color: rgb(37, 37, 91);
-    color: blanchedalmond;
-    
-}
+/* Estilos del header */
 
-a{
-    color-scheme: black, white;
-}
-
-ul{
+.contenedor-header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: rgb(37, 37, 91);
 }
 
+.logo-header {
+    display: flex;
+    flex-wrap: wrap;
+    width: 25%;
+}
+
+.img-logo-header {
+    width: 75px;
+    height: 75px;
+}
+
+.menu-header {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: right;
+}
+
+.menu-header a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.icono-header {
+    width: 45px;
+    height: 45px;
+    margin: 10px;
+}
+
+/* Estilos Main */
+
+.banner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.banner img {
+    width: 100%;
+    height: 10%;
+}
+
+.contenedor-seccion {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 15px;
+    justify-content: center;
+}
+
+.seccion-img {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: center;
+    padding: 15px;
+}
+
+.seccion-img img {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 15px;
+    max-width: 400px;
+    max-height: 400px;
+
+}
+
+.seccion-texto {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    max-width: 400px;
+    max-height: 400px;
+}
+
+.seccion-texto p {
+    text-align: justify;
+}
+
+
+
+/* Estilos Footer */
+
+.contenedor-footer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: rgb(37, 37, 91);
+}
+
+.logo-footer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 25%;
+}
+
+.img-logo-footer {
+    width: 75px;
+    height: 75px;
+}
+
+.texto-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

@@ -1,28 +1,94 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- CSS -->
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
     <link th:href="@{css/estilos.css}" rel="stylesheet">
-    </head>
-    <body>
-        
-        <header>
-            <h1>Recepción de Equipos - HOME</h1>
-            <a th:href="@{/usuario/iniciarSesion}">Iniciar Sesión</a>
-            <a th:href="@{/usuario/registro}">Registro</a>
-        </header>
-        
-        <main>
-            <div>
-                <h3>Bienvenidos a la Home de Recepción de Equipos</h3>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="contenedor-header">
+            <div class="logo-header">
+                <img class="img-logo-header" src="imagenes/logo.png" alt="logo">
             </div>
-        </main>
-        
-        <footer>
-            <p>Developers 2026 - All Right Reserved</p>
-        </footer>
-    </body>
+            <div class="menu-header">
+                <a th:href="@{/usuario/iniciarSesion}"><img class="icono-header" src="iconos/login.png" alt="login">
+                    Iniciar Sesión
+                </a>
+                <a th:href="@{/usuario/registro}"><img class="icono-header" src="iconos/registro.png" alt="registro">
+                    Registro
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main>
+
+        <div class="banner">
+            <img src="imagenes/banner.jpg" alt="banner">
+        </div>
+
+        <div class="contenedor-seccion">
+            <div class="seccion-img">
+                <img src="imagenes/diagnostico.png" alt="">
+            </div>
+            <div class="seccion-texto">
+                <h1>Realizamos todo tipo de Diagnostico.</h1>
+                <br>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nisi fuga eligendi maxime nemo ex
+                    quam error molestias totam. Perferendis eius accusantium error assumenda nisi odit incidunt qui aut
+                    quasi! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo eum ex, voluptates
+                    consequuntur voluptatum ad architecto rerum magnam vel deleniti impedit alias quibusdam facilis
+                    officiis. </p>
+                <br>
+                <p> Maxime ea
+                    consectetur minima molestias perspiciatis rem adipisci error enim repellendus quae inventore eum
+                    possimus magni earum architecto, repellat suscipit impedit. Animi!</p>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="contenedor-seccion">
+            <div class="seccion-texto">
+                <h1>Asesoramiento Técnico.</h1>
+                <br>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque repellendus, vero architecto possimus
+                    dolorem ipsa, nesciunt dignissimos nobis aut labore rerum voluptates nostrum quam distinctio
+                    consequatur et cum animi dolore? Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <br>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nisi fuga eligendi maxime nemo ex
+                    quam error molestias totam. Perferendis eius accusantium error assumenda nisi odit incidunt qui aut
+                    quasi! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo eum ex, voluptates
+                    consequuntur voluptatum ad architecto rerum magnam vel deleniti impedit alias quibusdam facilis
+                    officiis. </p>
+            </div>
+            <div class="seccion-img">
+                <img src="imagenes/reparacion.jpg" alt="">
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="contenedor-footer">
+            <div class="logo-footer">
+                <img class="img-logo-footer" src="imagenes/logo.png" alt="logo">
+            </div>
+            <div class="texto-footer">
+                <p>Developers 2026 - All Right Reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
 </html>
