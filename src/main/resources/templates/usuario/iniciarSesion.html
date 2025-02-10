@@ -21,20 +21,20 @@
                 <img class="img-iniciarSesion" th:src="@{/imagenes/iniciarSesion.png}" alt="login">
             </div>
 
-            <form th:action="@{/usuario/acceder}" method="post">
+            <form class="formulario" th:action="@{/usuario/acceder}" method="post">
 
-                <div class="">
-                    <div class="">
-                        <label for="email"> Email: </label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email"
+                <div class="contenedor-tarjeta">
+                    <div class="tarjeta">
+                        <label for="email" class="lab"> Email: </label>
+                        <input type="email" class="inp" id="email" name="email" placeholder="Ingrese su email"
                             required autocomplete="off">
                     </div>
                 </div>
-
-                <div class="">
-                    <div class="">
-                        <label for="password"> Contraseña:</label>
-                        <input type="password" class="form-control" id="password" name="password"
+                
+                <div class="contenedor-tarjeta mrt-30">
+                    <div class="tarjeta">
+                        <label for="contrasena" class="lab"> Contraseña:</label>
+                        <input type="contrasena" class="inp" id="contrasena" name="password"
                             placeholder="Ingrese su contraseña" required>
                     </div>
                 </div>
