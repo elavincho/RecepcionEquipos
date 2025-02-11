@@ -23,8 +23,6 @@
                 <img class="img-iniciarSesion" th:src="@{/imagenes/iniciarSesion.png}" alt="login">
             </div>
 
-
-
             <form class="formulario-inicio-sesion mrt-30" th:action="@{/usuario/acceder}" method="post">
 
                 <!-- Grupo: Correo Electronico -->
@@ -32,16 +30,15 @@
                     <label for="correo" class="formulario-label">Correo Electrónico</label>
                     <div class="formulario-grupo-input">
                         <input type="email" class="formulario-input" name="correo" id="correo"
-                            placeholder="correo@correo.com">
+                            placeholder="correo@correo.com" required autocomplete="off">
                     </div>
-
                 </div>
 
                 <!-- Grupo: Contraseña -->
                 <div class="formulario-grupo" id="grupo-password">
                     <label for="password" class="formulario-label">Contraseña</label>
                     <div class="formulario-grupo-input">
-                        <input type="password" class="formulario-input" name="password" id="password">
+                        <input type="password" class="formulario-input" name="password" id="password" required autocomplete="off">
                     </div>
                 </div>
 
@@ -52,10 +49,7 @@
                 <div class="contenedor-boton mrt-30">
                     <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
                 </div>
-
             </form>
-
-
         </div>
     </main>
 

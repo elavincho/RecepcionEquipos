@@ -16,7 +16,6 @@ const campos = {
 	apellido: false,
 	password: false,
 	correo: false,
-	// telefono: false
 }
 
 const validarFormulario = (e) => {
@@ -40,9 +39,6 @@ const validarFormulario = (e) => {
 		case "correo":
 			validarCampo(expresiones.correo, e.target, 'correo');
 		break;
-		// case "telefono":
-		// 	validarCampo(expresiones.telefono, e.target, 'telefono');
-		// break;
 	}
 }
 
