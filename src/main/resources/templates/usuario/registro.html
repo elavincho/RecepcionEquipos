@@ -27,35 +27,90 @@
 
 
             <form class="formulario mrt-30" th:action="@{/usuario/acceder}" method="post">
-
-                <div class="contenedor-tarjeta">
-                    <div class="tarjeta">
-                        <label class="lab w-100" for="img">Foto: (opcional)</label>
-                        <label for="img" class="inp boton"><img class="w-20" th:src="@{/iconos/felicidad.png}"
-                                alt="emogi"> Subí tu
-                            foto</label>
-                        <input type="file" class="mrt-30" id="img" name="img">
-
+                <!-- Grupo: Usuario -->
+                <div class="formulario__grupo" id="grupo__usuario">
+                    <label for="usuario" class="formulario__label">Usuario</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="usuario" id="usuario" placeholder="john123">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
+                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
+                        numeros, letras y guion bajo.</p>
+                </div>
 
-                    <div class="contenedor-tarjeta mrt-30">
-                        <div class="tarjeta">
-                            <label for="contrasena" class="lab"> Contraseña:</label>
-                            <input type="contrasena" class="inp" id="contrasena" name="password"
-                                placeholder="Ingrese su contraseña" required>
-                        </div>
+                <!-- Grupo: Nombre -->
+                <div class="formulario__grupo" id="grupo__nombre">
+                    <label for="nombre" class="formulario__label">Nombre</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="John Doe">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
+                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
+                        numeros, letras y guion bajo.</p>
+                </div>
 
-                    <div class="contenedor-boton mrt-30">
-
-                        <button type="submit" class="boton"> <span class="glyphicon glyphicon-ok"></span>
-                            Ingresar</button>
-
+                <!-- Grupo: Contraseña -->
+                <div class="formulario__grupo" id="grupo__password">
+                    <label for="password" class="formulario__label">Contraseña</label>
+                    <div class="formulario__grupo-input">
+                        <input type="password" class="formulario__input" name="password" id="password">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <div class="mrt-30">
-                        <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
-                    </div>
+                    <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
+                </div>
 
+                <!-- Grupo: Contraseña 2 -->
+                <div class="formulario__grupo" id="grupo__password2">
+                    <label for="password2" class="formulario__label">Repetir Contraseña</label>
+                    <div class="formulario__grupo-input">
+                        <input type="password" class="formulario__input" name="password2" id="password2">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Ambas contraseñas deben ser iguales.</p>
+                </div>
+
+                <!-- Grupo: Correo Electronico -->
+                <div class="formulario__grupo" id="grupo__correo">
+                    <label for="correo" class="formulario__label">Correo Electrónico</label>
+                    <div class="formulario__grupo-input">
+                        <input type="email" class="formulario__input" name="correo" id="correo"
+                            placeholder="correo@correo.com">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y
+                        guion bajo.</p>
+                </div>
+
+                <!-- Grupo: Teléfono -->
+                <div class="formulario__grupo" id="grupo__telefono">
+                    <label for="telefono" class="formulario__label">Teléfono</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="telefono" id="telefono"
+                            placeholder="4491234567">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El telefono solo puede contener numeros y el maximo son 14
+                        dígitos.</p>
+                </div>
+
+                <!-- Grupo: Terminos y Condiciones -->
+                <div class="formulario__grupo" id="grupo__terminos">
+                    <label class="formulario__label">
+                        <input class="formulario__checkbox" type="checkbox" name="terminos" id="terminos">
+                        Acepto los Terminos y Condiciones
+                    </label>
+                </div>
+
+                <div class="formulario__mensaje" id="formulario__mensaje">
+                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario
+                        correctamente. </p>
+                </div>
+
+                <div class="formulario__grupo formulario__grupo-btn-enviar">
+                    <button type="submit" class="formulario__btn">Enviar</button>
+                    <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!
+                    </p>
+                </div>
             </form>
         </div>
 
@@ -63,6 +118,9 @@
 
     <!-- Footer -->
     <div th:insert="~{usuario/templateUsuario.html::footer}"></div>
+
+    <script th:src="@{/scripts/script.js}"></script>
+    <script src="https://kit.fontawesome.com/80ba51f8fa.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

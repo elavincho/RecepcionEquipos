@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="contenedor-tarjeta mrt-30">
+                <div class="contenedor-tarjeta">
                     <label for="contrasena" class="lab-iniciar-sesion"> Contraseña:</label>
                     <div class="tarjeta">
                         <input type="contrasena" class="inp-iniciar-sesion" id="contrasena" name="password"
@@ -47,17 +47,17 @@
                     <button type="submit" class="boton"> <span class="glyphicon glyphicon-ok"></span>
                         Ingresar</button>
                 </div>
-                
-                <div class="mrt-30">
-                    <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
-                </div>
 
             </form>
+
+            <div class="mrt-30">
+                <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <div th:insert="~{usuario/templateUsuario.html::footer}"></div>
+    <div class="mrt-30" th:insert="~{usuario/templateUsuario.html::footer}"></div>
 
 </body>
 
