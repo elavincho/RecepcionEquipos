@@ -25,34 +25,37 @@
 
 
 
-            <form class="formulario mrt-30" th:action="@{/usuario/acceder}" method="post">
-                
-                <div class="contenedor-tarjeta">
-                    <label for="email" class="lab-iniciar-sesion"> Email: </label>
-                    <div class="tarjeta">
-                        <input type="email" class="inp-iniciar-sesion" id="email" name="email"
-                            placeholder="Ingrese su email" required autocomplete="off">
+            <form class="formulario-inicio-sesion mrt-30" th:action="@{/usuario/acceder}" method="post">
+
+                <!-- Grupo: Correo Electronico -->
+                <div class="formulario-grupo" id="grupo-correo">
+                    <label for="correo" class="formulario-label">Correo Electrónico</label>
+                    <div class="formulario-grupo-input">
+                        <input type="email" class="formulario-input" name="correo" id="correo"
+                            placeholder="correo@correo.com">
+                    </div>
+
+                </div>
+
+                <!-- Grupo: Contraseña -->
+                <div class="formulario-grupo" id="grupo-password">
+                    <label for="password" class="formulario-label">Contraseña</label>
+                    <div class="formulario-grupo-input">
+                        <input type="password" class="formulario-input" name="password" id="password">
                     </div>
                 </div>
 
-                <div class="contenedor-tarjeta">
-                    <label for="contrasena" class="lab-iniciar-sesion"> Contraseña:</label>
-                    <div class="tarjeta">
-                        <input type="contrasena" class="inp-iniciar-sesion" id="contrasena" name="password"
-                            placeholder="Ingrese su contraseña" required>
-                    </div>
+                <div class="contenedor-boton formulario-grupo mrt-30">
+                    <button type="submit" class="formulario-btn">Ingresar</button>
                 </div>
 
                 <div class="contenedor-boton mrt-30">
-                    <button type="submit" class="boton"> <span class="glyphicon glyphicon-ok"></span>
-                        Ingresar</button>
+                    <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
                 </div>
 
             </form>
 
-            <div class="mrt-30">
-                <a class="black" th:href="@{/email/recuperarContrasena}">¿Olvidaste la contraseña?</a>
-            </div>
+
         </div>
     </main>
 
