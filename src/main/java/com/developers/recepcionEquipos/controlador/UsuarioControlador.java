@@ -10,29 +10,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.*;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/usuario")
 public class UsuarioControlador {
     
-     
+    private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
     
     @Autowired
     private UsuarioServicio usuarioServicio;
     
-    @GetMapping("")
-    public String home() {
-        return "usuario/home";
-    }
-    
-    @GetMapping("usuario/registro")
-    public String registro() {
+    @GetMapping("/registro")
+    public String registro(Model model) {
         return "usuario/registro";
     }
     
-    @PostMapping("usuario/save")
+    @PostMapping("/save")
     public String save(Usuario usuario) {
-        usuario.setRol("USER");
+        logger.info("Usuario Registro: {}", usuario);
+        
+        //usuario.setRol("USER");
         
         // imagen
         //if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
@@ -40,12 +38,12 @@ public class UsuarioControlador {
         //    usuario.setFoto(nombreFoto);
         //}
         
-        usuarioServicio.save(usuario);
+        //usuarioServicio.save(usuario);
         
         return "redirect:/";
     }
     
-    @GetMapping("usuario/iniciarSesion")
+    @GetMapping("/iniciarSesion")
     public String iniciarSesion() {
         return "usuario/iniciarSesion";
     }

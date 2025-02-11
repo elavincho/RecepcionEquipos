@@ -24,28 +24,26 @@
                 <img class="img-iniciarSesion" th:src="@{/imagenes/registro.png}" alt="registro">
             </div>
 
-
-
             <form class="formulario" id="formulario" th:action="@{/usuario/save}" method="post"
                 enctype="multipart/form-data">
 
                 <!-- Grupo: Correo Electronico -->
-                <div class="formulario-grupo" id="grupo-correo">
-                    <label for="correo" class="formulario-label">Correo Electrónico</label>
+                <div class="formulario-grupo" id="grupo-email">
+                    <label for="email" class="formulario-label">e-mail</label>
                     <div class="formulario-grupo-input">
-                        <input type="email" class="formulario-input" name="correo" id="correo"
+                        <input type="email" class="formulario-input" name="email" id="email"
                             placeholder="correo@correo.com">
                         <i class="formulario-validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario-input-error">El correo solo puede contener letras, numeros, puntos, guiones y
+                    <p class="formulario-input-error">El e-mail solo puede contener letras, numeros, puntos, guiones y
                         guion bajo.</p>
                 </div>
 
                 <!-- Grupo: Usuario -->
-                <div class="formulario-grupo" id="grupo-usuario">
-                    <label for="usuario" class="formulario-label">Nombre Usuario</label>
+                <div class="formulario-grupo" id="grupo-nombreUsuario">
+                    <label for="nombreUsuario" class="formulario-label">Nombre Usuario</label>
                     <div class="formulario-grupo-input">
-                        <input type="text" class="formulario-input" name="usuario" id="usuario"
+                        <input type="text" class="formulario-input" name="nombreUsuario" id="nombreUsuario"
                             placeholder="Nombre Usuario">
                         <i class="formulario-validacion-estado fas fa-times-circle"></i>
                     </div>
@@ -68,7 +66,8 @@
                 <div class="formulario-grupo" id="grupo-apellido">
                     <label for="apellido" class="formulario-label">Apellido</label>
                     <div class="formulario-grupo-input">
-                        <input type="text" class="formulario-input" name="apellido" id="apellido" placeholder="Apellido">
+                        <input type="text" class="formulario-input" name="apellido" id="apellido"
+                            placeholder="Apellido">
                         <i class="formulario-validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario-input-error">El apellido tiene que ser de 4 a 16 dígitos y solo puede contener
@@ -76,10 +75,10 @@
                 </div>
 
                 <!-- Grupo: Contraseña -->
-                <div class="formulario-grupo" id="grupo-password">
-                    <label for="password" class="formulario-label">Contraseña</label>
+                <div class="formulario-grupo" id="grupo-contrasena">
+                    <label for="contrasena" class="formulario-label">Contraseña</label>
                     <div class="formulario-grupo-input">
-                        <input type="password" class="formulario-input" name="password" id="password">
+                        <input type="password" class="formulario-input" name="contrasena" id="contrasena">
                         <i class="formulario-validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario-input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
@@ -96,12 +95,12 @@
                 </div>
 
                 <!-- Grupo: Terminos y Condiciones -->
-                <div class="formulario-grupo" id="grupo-terminos">
+                <!-- <div class="formulario-grupo" id="grupo-terminos">
                     <label class="formulario-label">
                         <input class="formulario-checkbox" type="checkbox" name="terminos" id="terminos">
                         Acepto los Terminos y Condiciones
                     </label>
-                </div>
+                </div> -->
 
                 <div class="formulario-mensaje" id="formulario-mensaje">
                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario
@@ -110,7 +109,6 @@
 
                 <div class="formulario-grupo formulario-grupo-btn-enviar">
                     <button type="submit" class="formulario-btn">Enviar</button>
-                    <p class="formulario-mensaje-exito" id="formulario-mensaje-exito">Formulario enviado exitosamente!
                     </p>
                 </div>
             </form>
