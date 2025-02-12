@@ -2,7 +2,11 @@ package com.developers.recepcionEquipos.controlador;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
+
 import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.*;
 
 @Controller
@@ -20,6 +26,9 @@ public class UsuarioControlador {
     
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+     @Autowired
+    private UploadFileService upload;
     
     @GetMapping("/registro")
     public String registro(Model model) {
@@ -27,16 +36,16 @@ public class UsuarioControlador {
     }
     
     @PostMapping("/save")
-    public String save(Usuario usuario) {
+    public String save(Usuario usuario, @RequestParam("img") MultipartFile file) throws IOException {
         logger.info("Usuario Registro: {}", usuario);
         
         usuario.setRol("USER");
         
         // imagen
-        //if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
-        //    String nombreFoto = upload.saveImage(file);
-        //    usuario.setFoto(nombreFoto);
-        //}
+        if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
+           String nombreFoto = upload.saveImage(file);
+           usuario.setFoto(nombreFoto);
+        }
         
         usuarioServicio.save(usuario);
         
@@ -89,6 +98,7 @@ public class UsuarioControlador {
     @GetMapping("/cerrar")
     public String cerrarSesion(HttpSession session) {
         session.removeAttribute("idusuario");
+        session.removeAttribute("usersession");
         return "redirect:/";
     }
 

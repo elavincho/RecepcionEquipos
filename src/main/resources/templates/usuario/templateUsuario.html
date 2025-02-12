@@ -55,7 +55,7 @@
 
                         <div class="width-ico mr30" type="button" data-bs-toggle="dropdown" aria-expanded="true">
                             <div class="center w70">
-                                <img class="circle" th:src="@{/imagenes/{img} (img=${usuario.foto})}" alt="img">
+                                <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
                             </div>
                             <p class="user-name mrt-5" th:text="${usuario.nombreUsuario}"></p>
                         </div>
@@ -68,7 +68,7 @@
                                         <h5 class="white" th:text="${usuario.nombreUsuario}"></h5>
                                     </div>
                                     <img class="circle mrt-10" style="width: 70px; height: 70px;"
-                                        th:src="@{/imagenes/{img} (img=${usuario.foto})}" alt="img">
+                                        th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
                                     <h4 th:text="${usuario.nombre + ' ' + usuario.apellido}"></h4>
                                     <p th:text="${usuario.email}"></p>
                                 </div>
