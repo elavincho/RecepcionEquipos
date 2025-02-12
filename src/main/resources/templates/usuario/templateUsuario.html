@@ -55,9 +55,9 @@
 
                         <div class="width-ico mr30" type="button" data-bs-toggle="dropdown" aria-expanded="true">
                             <div class="center w70">
-                                <img class="w25 circle" th:src="@{/imagenes/{img} (img=${usuario.foto})}" alt="img">
+                                <img class="circle" th:src="@{/imagenes/{img} (img=${usuario.foto})}" alt="img">
                             </div>
-                            <p class="user-name" th:text="${usuario.nombreUsuario}"></p>
+                            <p class="user-name mrt-5" th:text="${usuario.nombreUsuario}"></p>
                         </div>
 
                         <ul class="dropdown-menu w220">
@@ -78,12 +78,12 @@
                                 <div class="card border mrt-5 w90 center">
                                     <a class="black" th:href="@{/usuario/editUser/{id} (id=${usuario.IdUsuario}) }">
                                         <div class="dos-columnas">
-                                            <div class="center">
+                                            <div>
                                                 <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}"
                                                     alt="usuario">
                                             </div>
                                             <div class="w-150 mrt-10">
-                                                <p >Editar Perfil</p>
+                                                <p>Editar Perfil</p>
                                             </div>
                                         </div>
                                     </a>
@@ -110,8 +110,7 @@
                                     <a th:href="@{/usuario/compras}">
                                         <div class="dos-columnas">
                                             <div>
-                                                <img class="w20" style="width: 20px; height: 20px;"
-                                                    th:src="@{/iconos/mis-compras.png}" alt="compras">
+                                                <img class="w20" th:src="@{/iconos/mis-compras.png}" alt="compras">
                                             </div>
                                             <div class="w-150 mrt-10">
                                                 <p>Mis Compras</p>

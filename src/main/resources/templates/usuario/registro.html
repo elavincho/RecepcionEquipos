@@ -27,6 +27,18 @@
             <form class="formulario" id="formulario" th:action="@{/usuario/save}" method="post"
                 enctype="multipart/form-data">
 
+                <!-- Grupo: Foto Perfil -->
+                <div class="card border mr10 ml10 mrt">
+                    <div class="form-group w90 mr10 ml10">
+                        <label class="formulario-label" for="img">Foto: (opcional)</label>
+                        <div class="col-sm-6">
+                            <label for="img" class="btn btn-dark"><img class="w20"
+                                    th:src="@{/img/felicidad.png}" alt="emogi"> Subí tu foto</label>
+                            <input type="file" class="form-control-file btn" id="img" name="img">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Grupo: Correo Electronico -->
                 <div class="formulario-grupo" id="grupo-email">
                     <label for="email" class="formulario-label">e-mail</label>
