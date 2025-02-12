@@ -1,0 +1,6 @@
+<div class="usersession" th:fragment="header-username">
+    <a href="">
+        <img class="w45" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
+        <h6 th:text="${usuario.nombre}"></h6>
+    </a>
+</div>

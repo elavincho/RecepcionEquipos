@@ -10,15 +10,17 @@
 </head>
 
 <body>
+
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header-user}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
 
     <!-- Main -->
     <main>
-        <div>
-            <h1>Contenido del Usuario Registrado</h1>
-        </div>
 
+        <div class="bloqueado">
+            <h1>Usuario Bloqueado</h1>
+        </div>
+        
     </main>
 
 

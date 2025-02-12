@@ -142,8 +142,8 @@ body {
 /* Estilos Iniciar Sesión */
 
 .formulario-inicio-sesion {
-	display: grid;
-	grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
 .contenedor-formulario {
@@ -213,151 +213,290 @@ a {
 /* Estilos Registro */
 
 .formulario {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .formulario-label {
-	display: block;
-	font-weight: 700;
-	padding: 10px;
-	cursor: pointer;
+    display: block;
+    font-weight: 700;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .formulario-grupo-input {
-	position: relative;
+    position: relative;
 }
 
 .formulario-input {
-	width: 100%;
-	background: #fff;
-	border: 3px solid transparent;
-	border-radius: 3px;
-	height: 45px;
-	line-height: 45px;
-	padding: 0 40px 0 10px;
-	transition: .3s ease all;
+    width: 100%;
+    background: #fff;
+    border: 3px solid transparent;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 40px 0 10px;
+    transition: .3s ease all;
 }
 
 .formulario-input:focus {
-	border: 3px solid #0075FF;
-	outline: none;
-	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+    border: 3px solid #0075FF;
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
 }
 
 .formulario-input-error {
-	font-size: 12px;
-	margin-bottom: 0;
-	display: none;
+    font-size: 12px;
+    margin-bottom: 0;
+    display: none;
 }
 
 .formulario-input-error-activo {
-	display: block;
+    display: block;
 }
 
 .formulario-validacion-estado {
-	position: absolute;
-	right: 10px;
-	bottom: 15px;
-	z-index: 100;
-	font-size: 16px;
-	opacity: 0;
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+    z-index: 100;
+    font-size: 16px;
+    opacity: 0;
 }
 
 .formulario-checkbox {
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
-.formulario-grupo-terminos, 
+.formulario-grupo-terminos,
 .formulario-mensaje,
 .formulario-grupo-btn-enviar {
-	grid-column: span 2;
+    grid-column: span 2;
 }
 
 .formulario-mensaje {
-	height: 45px;
-	line-height: 45px;
-	background: #F66060;
-	padding: 0 15px;
-	border-radius: 3px;
-	display: none;
+    height: 45px;
+    line-height: 45px;
+    background: #F66060;
+    padding: 0 15px;
+    border-radius: 3px;
+    display: none;
 }
 
 .formulario-mensaje-activo {
-	display: block;
+    display: block;
 }
 
 .formulario-mensaje p {
-	margin: 0;
+    margin: 0;
 }
 
 .formulario-grupo-btn-enviar {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formulario-btn {
-	height: 45px;
-	line-height: 45px;
-	width: 30%;
-	background: #000;
-	color: #fff;
-	font-weight: bold;
-	border: none;
-	border-radius: 3px;
-	cursor: pointer;
-	transition: .1s ease all;
+    height: 45px;
+    line-height: 45px;
+    width: 30%;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .1s ease all;
 }
 
 .formulario-btn:hover {
-	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
 }
 
 .formulario-mensaje-exito {
-	font-size: 14px;
-	color: #119200;
-	display: none;
+    font-size: 14px;
+    color: #119200;
+    display: none;
 }
 
 .formulario-mensaje-exito-activo {
-	display: block;
+    display: block;
 }
 
 /* ----- -----  Estilos para Validacion ----- ----- */
 .formulario-grupo-correcto .formulario-validacion-estado {
-	color: #1ed12d;
-	opacity: 1;
+    color: #1ed12d;
+    opacity: 1;
 }
 
 .formulario-grupo-incorrecto .formulario-label {
-	color: #bb2929;
+    color: #bb2929;
 }
 
 .formulario-grupo-incorrecto .formulario-validacion-estado {
-	color: #bb2929;
-	opacity: 1;
+    color: #bb2929;
+    opacity: 1;
 }
 
 .formulario-grupo-incorrecto .formulario-input {
-	border: 3px solid #bb2929;
+    border: 3px solid #bb2929;
 }
 
 
 /* ----- -----  Mediaqueries ----- ----- */
 @media screen and (max-width: 800px) {
-	.formulario {
-		grid-template-columns: 1fr;
-	}
+    .formulario {
+        grid-template-columns: 1fr;
+    }
 
-	.formulario-grupo-terminos, 
-	.formulario-mensaje,
-	.formulario-grupo-btn-enviar {
-		grid-column: 1;
-	}
+    .formulario-grupo-terminos,
+    .formulario-mensaje,
+    .formulario-grupo-btn-enviar {
+        grid-column: 1;
+    }
 
-	.formulario-btn {
-		width: 100%;
-	}
+    .formulario-btn {
+        width: 100%;
+    }
 }
+
+/* Estilos UserSession */
+
+.usersession {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: right; */
+    margin-right: 25px;
+    color: white;
+}
+
+.usersession img {
+    width: 45px;
+    height: 45px;
+    margin-top: 15px;
+    border-radius: 50%;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.usersession a {
+    text-decoration: none;
+    text-align: center;
+    color: black;
+}
+
+.border {
+    border: solid 2px;
+    filter: drop-shadow(2px 2px 3px #c6c3c3);
+}
+
+.border:hover {
+    filter: drop-shadow(3px 5px 7px #c6c3c3);
+}
+
+.w220 {
+    width: 280px;
+}
+
+.mr30 {
+    margin-right: 30px;
+}
+
+.mrt-10 {
+    margin-top: 10px;
+}
+
+.mrt-5 {
+    margin-top: 5px;
+}
+
+.mrb-10 {
+    margin-bottom: 10px;
+}
+
+.pad-10 {
+    padding: 10%;
+}
+
+.w70 {
+    width: 70px;
+}
+
+.width-ico {
+    width: 25px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.w90 {
+    width: 90%;
+}
+
+.w95 {
+    width: 95%;
+}
+
+.h100 {
+    height: 100%;
+}
+
+.white {
+    color: white;
+}
+
+.dropdown ul li a {
+    text-align: left;
+}
+
+.dropdown ul li a img {
+    width: 20px;
+    height: 20px;
+}
+
+.user-name {
+    color: white;
+    width: 70px;
+    text-align: center;
+    margin-bottom: 1px;
+}
+
+.contenedor-user-name {
+    background-color: rgb(57, 57, 57);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    height: 50px;
+    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.dos-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    align-self: center;
+}
+
+.dos-columnas p {
+    align-items: center;
+}
+

@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Recepción Equipos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- CSS -->
-    <link th:href="@{css/estilos.css}" rel="stylesheet">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
     </head>
     <body>
         
-        <header>
-            <h1>Recepción de Equipos Administrador</h1>
-        </header>
-        
-        <main>
-            <div>
-                <h3>Bienvenidos a la Home de Recepción de Equipos</h3>
-            </div>
-        </main>
-        
-        <footer>
-            <p>Developers 2026 - All Right Reserved</p>
-        </footer>
+        <!-- Header -->
+    <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
+
+    <!-- Main -->
+    <main>
+        <div>
+            <h1>Contenido del Administrador</h1>
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <div th:insert="~{usuario/templateUsuario.html::footer}"></div>
     </body>
 </html>

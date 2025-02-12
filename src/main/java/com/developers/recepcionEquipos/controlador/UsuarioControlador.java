@@ -30,7 +30,7 @@ public class UsuarioControlador {
     public String save(Usuario usuario) {
         logger.info("Usuario Registro: {}", usuario);
         
-        //usuario.setRol("USER");
+        usuario.setRol("USER");
         
         // imagen
         //if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
@@ -38,25 +38,25 @@ public class UsuarioControlador {
         //    usuario.setFoto(nombreFoto);
         //}
         
-        //usuarioServicio.save(usuario);
+        usuarioServicio.save(usuario);
         
-        return "redirect:/";
+        return "redirect:/usuario/iniciarSesion";
     }
     
     @GetMapping("/iniciarSesion")
     public String iniciarSesion() {
         return "usuario/iniciarSesion";
     }
+
+
     
     @PostMapping("/acceder")
     public String acceder(Usuario usuario, HttpSession session, Model model) {
 
-        
-
-        //logger.info("Accesos : {}", usuario);
+        logger.info("Accesos : {}", usuario);
 
         Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
-        // logger.info("Usuario de la bd: {}", user.get());
+        logger.info("Usuario de la bd: {}", user.get());
 
         // validacion momentanea
         if (user.isPresent()) {
@@ -69,20 +69,31 @@ public class UsuarioControlador {
             session.setAttribute("usersession", user.get());
 
             if (user.get().getRol().equals("ADMIN")) {
+                return "redirect:/administrador/homeAdministrador";
 
-                return "redirect:/administrador";
             } else if (user.get().getRol().equals("USER")) {
-
                 return "redirect:/";
+
             } else if (user.get().getRol().equals("BLOQUEADO")) {
                 return "redirect:/usuario/bloqueado";
             }
         } else {
-            //logger.info("Usuario no exsite");
+            logger.info("Usuario no exsite");
 
             // crear un html o una alerta de que el usuario no existe
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/cerrar")
+    public String cerrarSesion(HttpSession session) {
+        session.removeAttribute("idusuario");
+        return "redirect:/";
+    }
+
+    @GetMapping("/bloqueado")
+    public String bloqueado() {
+        return "usuario/bloqueado";
     }
 }
