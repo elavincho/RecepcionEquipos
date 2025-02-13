@@ -21,44 +21,42 @@ import org.slf4j.*;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioControlador {
-    
+
     private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
-    
+
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-     @Autowired
+    @Autowired
     private UploadFileService upload;
-    
+
     @GetMapping("/registro")
     public String registro(Model model) {
         return "usuario/registro";
     }
-    
+
     @PostMapping("/save")
     public String save(Usuario usuario, @RequestParam("img") MultipartFile file) throws IOException {
         logger.info("Usuario Registro: {}", usuario);
-        
+
         usuario.setRol("USER");
-        
+
         // imagen
         if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
-           String nombreFoto = upload.saveImage(file);
-           usuario.setFoto(nombreFoto);
+            String nombreFoto = upload.saveImage(file);
+            usuario.setFoto(nombreFoto);
         }
-        
+
         usuarioServicio.save(usuario);
-        
+
         return "redirect:/usuario/iniciarSesion";
     }
-    
+
     @GetMapping("/iniciarSesion")
     public String iniciarSesion() {
         return "usuario/iniciarSesion";
     }
 
-
-    
     @PostMapping("/acceder")
     public String acceder(Usuario usuario, HttpSession session, Model model) {
 
@@ -68,7 +66,7 @@ public class UsuarioControlador {
         logger.info("Usuario de la bd: {}", user.get());
 
         // validacion momentanea
-        if (user.isPresent()) {
+        if (user.isPresent() && (user.get().getContrasena().equals(usuario.getContrasena()))) {
 
             // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
             session.setAttribute("idusuario", user.get().getIdUsuario());
@@ -90,8 +88,11 @@ public class UsuarioControlador {
             logger.info("Usuario no exsite");
 
             // crear un html o una alerta de que el usuario no existe
-        }
+            //model.addAttribute("error", "¡Usuario o Contraseña Incorrectos!");
+            return "redirect:/usuario/iniciarSesion";
 
+        }
+        
         return "redirect:/";
     }
 
