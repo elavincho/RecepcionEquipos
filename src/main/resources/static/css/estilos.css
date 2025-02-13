@@ -444,6 +444,14 @@ a {
     width: 100%;
 }
 
+.w150 {
+    width: 150px;
+}
+
+.w25 {
+    width: 25px;
+}
+
 .w90 {
     width: 90%;
 }
@@ -458,6 +466,14 @@ a {
 
 .h100 {
     height: 100%;
+}
+
+.h90 {
+    height: 90px;
+}
+
+.oculto {
+    display: none;
 }
 
 .white {

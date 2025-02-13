@@ -50,7 +50,8 @@
                     Mi Perfil
                 </a>
                 <!-- Usuario con dropdown -->
-                <div class="usersession" th:fragment="header-username">
+                <div class="usersession">
+                    <!-- <div class="usersession" th:fragment="header-username"> -->
                     <div class="dropdown">
 
                         <div class="width-ico mr30" type="button" data-bs-toggle="dropdown" aria-expanded="true">
@@ -76,7 +77,7 @@
 
                             <li class="center">
                                 <div class="card border mrt-5 w90 center">
-                                    <a class="black" th:href="@{/usuario/editUser/{id} (id=${usuario.IdUsuario}) }">
+                                    <a class="black" th:href="@{/usuario/actualizar/{id} (id=${usuario.IdUsuario}) }">
                                         <div class="dos-columnas">
                                             <div>
                                                 <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}"

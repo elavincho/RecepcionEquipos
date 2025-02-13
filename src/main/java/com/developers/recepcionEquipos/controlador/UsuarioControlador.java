@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,6 +94,59 @@ public class UsuarioControlador {
 
         }
         
+        return "redirect:/";
+    }
+
+    @GetMapping("/actualizar/{id}")
+    public String actualizar(@PathVariable Integer id, Model model, HttpSession session) {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        
+
+        Usuario usuario = new Usuario();
+
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
+        usuario = optionalUsuario.get();
+
+        model.addAttribute("usuario", usuario);
+
+        logger.info("Usuario a Editar: {}", usuario);
+
+        return "usuario/editar";
+    }
+
+    @PostMapping("/editar")
+    public String editar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
+            HttpSession session) throws IOException {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        
+        Usuario u = new Usuario();
+        u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+
+        /* cuando editamos el producto pero no cambiamos la imagen */
+        if (file.isEmpty()) {
+            usuario.setFoto(u.getFoto());
+        } else {
+
+            /* eliminar cuando no sea la imagen por defecto */
+            if (!u.getFoto().equals("default.jpg")) {
+                upload.deleteImage(u.getFoto());
+            }
+            String nombreFoto = upload.saveImage(file);
+            usuario.setFoto(nombreFoto);
+        }
+
+        // Seteamos estos datos para que no se pierdan
+        //usuario.setUsername(u.getUsername());   cambiar estos atributos
+        usuario.setEmail(u.getEmail());
+        //usuario.setPassword(u.getPassword());
+        //usuario.setTipo("USER");
+
+        usuarioServicio.save(usuario);
+
         return "redirect:/";
     }
 
