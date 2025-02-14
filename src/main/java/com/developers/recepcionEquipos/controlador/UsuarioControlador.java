@@ -77,7 +77,7 @@ public class UsuarioControlador {
             session.setAttribute("usersession", user.get());
 
             if (user.get().getRol().equals("ADMIN")) {
-                return "redirect:/administrador/homeAdministrador";
+                return "redirect:/administrador/homeAdmin";
 
             } else if (user.get().getRol().equals("USER")) {
                 return "redirect:/";
