@@ -367,7 +367,6 @@ a {
 .usersession {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: right; */
     margin-right: 25px;
     color: white;
 }
@@ -469,7 +468,19 @@ a {
 }
 
 .h90 {
-    height: 90px;
+    height: 90%;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mr-30 {
+    margin-right: 30px;
+}
+
+.mrb-30 {
+    margin-bottom: 30px;
 }
 
 .oculto {
