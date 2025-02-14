@@ -14,7 +14,6 @@
 <body>
 
     <!-- Header -->
-    <!-- <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div> -->
     <div th:insert="~{usuario/templateUsuario.html::header-user}" th:unless="${sesion==null}"></div>
 
     <main>
@@ -23,11 +22,10 @@
 
             <form id="formulario" th:action="@{/usuario/actualizar}" method="post" enctype="multipart/form-data">
                 <!-- Obtenemos los datos del usuario -->
-                <input type="hidden" name="id" th:value="${usuario.IdUsuario}">
+                <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
 
                 <!-- Grupo: Perfil -->
                 <div class="card border mrt-10 center">
-
                     <div class="card w90 mrt-30 mrb-30">
                         <div class="contenedor-user-name white">
                             <h4 class="center" th:text="${usuario.nombreUsuario}"></h4>
@@ -53,8 +51,6 @@
 
                         <p class="center mrt-10" th:text="${usuario.email}"></p>
                     </div>
-
-
                 </div>
 
                 <div class="formulario mrt-10">
@@ -153,7 +149,7 @@
                 </div>
 
                 <div class="col-sm-12 center mrt-30">
-                    <a class="btn btn-secondary  mr-30" th:href="@{/}"><img class="w25" th:src="@{/iconos/cancelar.png}"
+                    <a class="btn btn-secondary mr-30" th:href="@{/}"><img class="w25" th:src="@{/iconos/cancelar.png}"
                             alt="cancelar"> Cancelar</a>
                     <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
                             alt="guardar"> Guardar Cambios</button>

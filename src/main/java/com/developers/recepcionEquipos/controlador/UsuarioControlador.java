@@ -97,8 +97,8 @@ public class UsuarioControlador {
         return "redirect:/";
     }
 
-    @GetMapping("/actualizar/{id}")
-    public String actualizar(@PathVariable Integer id, Model model, HttpSession session) {
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Integer id, Model model, HttpSession session) {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -116,8 +116,8 @@ public class UsuarioControlador {
         return "usuario/editar";
     }
 
-    @PostMapping("/editar")
-    public String editar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
+    @PostMapping("/actualizar")
+    public String actualizar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
             HttpSession session) throws IOException {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
@@ -140,10 +140,10 @@ public class UsuarioControlador {
         }
 
         // Seteamos estos datos para que no se pierdan
-        //usuario.setUsername(u.getUsername());   cambiar estos atributos
+        usuario.setNombreUsuario(u.getNombreUsuario());
         usuario.setEmail(u.getEmail());
-        //usuario.setPassword(u.getPassword());
-        //usuario.setTipo("USER");
+        usuario.setContrasena(u.getContrasena());
+        usuario.setRol("USER");
 
         usuarioServicio.save(usuario);
 
