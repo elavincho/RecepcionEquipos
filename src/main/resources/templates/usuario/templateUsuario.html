@@ -150,7 +150,7 @@
     <header>
         <div class="contenedor-header" th:each="usuario:${usuario}">
             <div class="logo-header">
-                <a th:href="@{/}">
+                <a th:href="@{/administrador/homeAdmin}">
                     <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
                 </a>
             </div>
@@ -180,7 +180,7 @@
                                 <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
                             </div>
                             <p class="user-name mrt-5" th:text="${usuario.nombreUsuario}"></p>
-                            
+
                         </div>
 
                         <ul class="dropdown-menu w220">
@@ -269,16 +269,35 @@
 </div>
 
 
-<!-- Footer -->
-<footer>
-    <div class="contenedor-footer">
-        <div class="logo-footer">
-            <a th:href="@{/}">
-                <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
-            </a>
+<!-- Footer Usuario-->
+<div th:fragment="footer-user">
+    <footer>
+        <div class="contenedor-footer">
+            <div class="logo-footer">
+                <a th:href="@{/}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="texto-footer">
+                <p>Developers 2026 - All Right Reserved</p>
+            </div>
         </div>
-        <div class="texto-footer">
-            <p>Developers 2026 - All Right Reserved</p>
+    </footer>
+</div>
+
+<!-- Footer Administrador-->
+
+<div th:fragment="footer-admin">
+    <footer>
+        <div class="contenedor-footer">
+            <div class="logo-footer">
+                <a th:href="@{/administrador/homeAdmin}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="texto-footer">
+                <p>Developers 2026 - All Right Reserved</p>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
