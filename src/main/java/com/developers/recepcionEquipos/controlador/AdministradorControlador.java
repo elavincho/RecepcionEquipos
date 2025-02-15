@@ -47,14 +47,14 @@ public class AdministradorControlador {
 
     @GetMapping("/registroAdmin")
     public String registroAdmin(Model model) {
-        return "usuario/registro";
+        return "administrador/registroAdmin";
     }
 
     @PostMapping("/saveAdmin")
     public String saveAdmin(Usuario usuario, @RequestParam("img") MultipartFile file) throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
-        usuario.setRol("USER");
+        usuario.setRol("ADMIN");
 
         // imagen
         if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
