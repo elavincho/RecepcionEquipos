@@ -9,7 +9,7 @@ const expresiones = {
   email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   telefono: /^\d{7,14}$/, // 7 a 14 numeros.
   documento: /^\d{7,8}$/, // 7 a 8 numeros.
-  direccion: /^[a-zA-ZÀ-ÿ\s\_\-]{1,20}$/, // Letras, numeros, guion y guion_bajo
+  direccion: /^[a-zA-ZÀ-ÿ\s\_\-\.]{1,20}$/, // Letras, numeros, guion, guion_bajo y puntos.
   altura: /^\d{1,5}$/, // 1 a 4 numeros.
   piso: /^[a-zA-Z0-9]{1,2}$/, // Letras y espacios, pueden llevar acentos.
   depto: /^[a-zA-Z0-9]{1,2}$/, // Letras y espacios, pueden llevar acentos.
