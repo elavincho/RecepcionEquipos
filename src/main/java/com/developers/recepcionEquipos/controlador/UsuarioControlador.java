@@ -59,57 +59,18 @@ public class UsuarioControlador {
         return "usuario/iniciarSesion";
     }
 
-    // @PostMapping("/acceder")
-    // public String acceder(Usuario usuario, HttpSession session, Model model) {
-
-    // logger.info("Accesos : {}", usuario);
-
-    // Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
-    // logger.info("Usuario de la bd: {}", user.get());
-
-    // // validacion momentanea
-    // if (user.isPresent() &&
-    // (user.get().getContrasena().equals(usuario.getContrasena()))) {
-
-    // // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
-    // session.setAttribute("idusuario", user.get().getIdUsuario());
-
-    // // Obtenemos todos los datos del usuario para usarlo en cualquier lugar de la
-    // // app
-    // session.setAttribute("usersession", user.get());
-
-    // if (user.get().getRol().equals("ADMIN")) {
-    // return "redirect:/administrador/homeAdmin";
-
-    // } else if (user.get().getRol().equals("USER")) {
-    // return "redirect:/";
-
-    // } else if (user.get().getRol().equals("BLOQUEADO")) {
-    // return "redirect:/usuario/bloqueado";
-    // }
-    // } else {
-    // logger.info("Usuario no exsite");
-
-    // // crear un html o una alerta de que el usuario no existe
-    // // model.addAttribute("error", "¡Usuario o Contraseña Incorrectos!");
-    // return "redirect:/usuario/iniciarSesion";
-
-    // }
-
-    // return "redirect:/usuario/iniciarSesion";
-    // }
-
     @PostMapping("/acceder")
-    public String acceder(Usuario usuario, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+    public String acceder(Usuario usuario, HttpSession session, RedirectAttributes redirectAttributes) {
 
         logger.info("Accesos : {}", usuario);
 
         Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
 
-        // Verificar si el usuario existe en la base de datos
+        // Verificamos si el usuario existe en la base de datos
         if (!user.isPresent()) {
             logger.info("Usuario no existe");
-            //model.addAttribute("error", "¡El correo electrónico no está registrado!");
+
+            //Alerta para email no registrado
             redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está registrado!");
             return "redirect:/usuario/iniciarSesion";
         }
@@ -138,8 +99,7 @@ public class UsuarioControlador {
         } else {
             logger.info("Contraseña incorrecta");
 
-            // Crear un html o una alerta de que la contraseña es incorrecta
-            //model.addAttribute("error", "¡Contraseña incorrecta!");
+            // Alerta para contraseña incorrecta
             redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
             return "redirect:/usuario/iniciarSesion";
         }
