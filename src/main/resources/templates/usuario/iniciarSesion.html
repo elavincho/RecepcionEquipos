@@ -25,6 +25,8 @@
                 <img class="img-iniciarSesion" th:src="@{/imagenes/iniciarSesion.png}" alt="login">
             </div>
 
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
             <form class="formulario-inicio-sesion mrt-30" th:action="@{/usuario/acceder}" method="post">
 
                 <!-- Grupo: Correo Electronico -->

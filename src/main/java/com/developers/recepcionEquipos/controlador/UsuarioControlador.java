@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.slf4j.*;
 
 @Controller
@@ -58,16 +59,65 @@ public class UsuarioControlador {
         return "usuario/iniciarSesion";
     }
 
+    // @PostMapping("/acceder")
+    // public String acceder(Usuario usuario, HttpSession session, Model model) {
+
+    // logger.info("Accesos : {}", usuario);
+
+    // Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
+    // logger.info("Usuario de la bd: {}", user.get());
+
+    // // validacion momentanea
+    // if (user.isPresent() &&
+    // (user.get().getContrasena().equals(usuario.getContrasena()))) {
+
+    // // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
+    // session.setAttribute("idusuario", user.get().getIdUsuario());
+
+    // // Obtenemos todos los datos del usuario para usarlo en cualquier lugar de la
+    // // app
+    // session.setAttribute("usersession", user.get());
+
+    // if (user.get().getRol().equals("ADMIN")) {
+    // return "redirect:/administrador/homeAdmin";
+
+    // } else if (user.get().getRol().equals("USER")) {
+    // return "redirect:/";
+
+    // } else if (user.get().getRol().equals("BLOQUEADO")) {
+    // return "redirect:/usuario/bloqueado";
+    // }
+    // } else {
+    // logger.info("Usuario no exsite");
+
+    // // crear un html o una alerta de que el usuario no existe
+    // // model.addAttribute("error", "¡Usuario o Contraseña Incorrectos!");
+    // return "redirect:/usuario/iniciarSesion";
+
+    // }
+
+    // return "redirect:/usuario/iniciarSesion";
+    // }
+
     @PostMapping("/acceder")
-    public String acceder(Usuario usuario, HttpSession session, Model model) {
+    public String acceder(Usuario usuario, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
         logger.info("Accesos : {}", usuario);
 
         Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
+
+        // Verificar si el usuario existe en la base de datos
+        if (!user.isPresent()) {
+            logger.info("Usuario no existe");
+            //model.addAttribute("error", "¡El correo electrónico no está registrado!");
+            redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está registrado!");
+            return "redirect:/usuario/iniciarSesion";
+        }
+
         logger.info("Usuario de la bd: {}", user.get());
 
-        // validacion momentanea
-        if (user.isPresent() && (user.get().getContrasena().equals(usuario.getContrasena()))) {
+        // Validación de la contraseña
+        if (user.get().getContrasena().equals(usuario.getContrasena())) {
 
             // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
             session.setAttribute("idusuario", user.get().getIdUsuario());
@@ -86,23 +136,21 @@ public class UsuarioControlador {
                 return "redirect:/usuario/bloqueado";
             }
         } else {
-            logger.info("Usuario no exsite");
+            logger.info("Contraseña incorrecta");
 
-            // crear un html o una alerta de que el usuario no existe
-            //model.addAttribute("error", "¡Usuario o Contraseña Incorrectos!");
+            // Crear un html o una alerta de que la contraseña es incorrecta
+            //model.addAttribute("error", "¡Contraseña incorrecta!");
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
             return "redirect:/usuario/iniciarSesion";
-
         }
-        
-        return "redirect:/";
+
+        return "redirect:/usuario/iniciarSesion";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Integer id, Model model, HttpSession session) {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
-
-        
 
         Usuario usuario = new Usuario();
 
@@ -122,7 +170,6 @@ public class UsuarioControlador {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-        
         Usuario u = new Usuario();
         u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
