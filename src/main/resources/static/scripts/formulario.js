@@ -152,6 +152,47 @@ const validarPassword2 = () => {
   }
 };
 
+const validarRepetirContrasena = () => {
+  const inputPassword1 = document.getElementById("nuevaContrasena");
+  const inputPassword2 = document.getElementById("repetirContrasena");
+
+  if (inputPassword1.value !== inputPassword2.value) {
+    document
+      .getElementById(`grupo-password2`)
+      .classList.add("formulario-grupo-incorrecto");
+    document
+      .getElementById(`grupo-password2`)
+      .classList.remove("formulario-grupo-correcto");
+    document
+      .querySelector(`#grupo-password2 i`)
+      .classList.add("fa-times-circle");
+    document
+      .querySelector(`#grupo-password2 i`)
+      .classList.remove("fa-check-circle");
+    document
+      .querySelector(`#grupo-password2 .formulario-input-error`)
+      .classList.add("formulario-input-error-activo");
+    campos["contrasena"] = false;
+  } else {
+    document
+      .getElementById(`grupo-password2`)
+      .classList.remove("formulario-grupo-incorrecto");
+    document
+      .getElementById(`grupo-password2`)
+      .classList.add("formulario-grupo-correcto");
+    document
+      .querySelector(`#grupo-password2 i`)
+      .classList.remove("fa-times-circle");
+    document
+      .querySelector(`#grupo-password2 i`)
+      .classList.add("fa-check-circle");
+    document
+      .querySelector(`#grupo-password2 .formulario-input-error`)
+      .classList.remove("formulario-input-error-activo");
+    campos["contrasena"] = true;
+  }
+};
+
 inputs.forEach((input) => {
   input.addEventListener("keyup", validarFormulario);
   input.addEventListener("blur", validarFormulario);

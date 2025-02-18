@@ -168,4 +168,90 @@ public class UsuarioControlador {
     public String bloqueado() {
         return "usuario/bloqueado";
     }
+
+    @GetMapping("/cambiarContrasena/{id}")
+    public String cambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+       
+
+        Usuario usuario = new Usuario();
+
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
+        usuario = optionalUsuario.get();
+
+        model.addAttribute("usuario", usuario);
+
+        logger.info("Usuario a Editar: {}", usuario);
+
+        return "usuario/cambiarContrasena";
+    }
+
+    @PostMapping("/actualizarContrasena")
+    public String actualizarContrasena(Model model, Usuario usuario, @RequestParam String actualContrasena,
+            @RequestParam String contrasena, @RequestParam String password2, HttpSession session, RedirectAttributes redirectAttributes)
+            throws IOException {
+
+        Usuario u = new Usuario();
+        u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Verificamos el password del usuario y la cambiamos
+        if (u.getContrasena().equals(actualContrasena)) {
+            if (contrasena.equals(password2)) {
+                usuario.setContrasena(contrasena);
+            } 
+            
+        
+        } else {
+            // Alerta para contraseña incorrecta
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
+            return "redirect:/usuario/cambiarContrasena";
+        }
+
+        // Seteamos estos datos para que no se pierdan
+        usuario.setNombreUsuario(u.getNombreUsuario());
+        usuario.setEmail(u.getEmail());
+        usuario.setRol(u.getRol());
+        usuario.setFoto(u.getFoto());
+        usuario.setNombre(u.getNombre());
+        usuario.setApellido(u.getApellido());
+        usuario.setDocumento(u.getDocumento());
+        usuario.setTelefono(u.getTelefono());
+        usuario.setDireccion(u.getDireccion());
+        usuario.setAltura(u.getAltura());
+        usuario.setPiso(u.getPiso());
+        usuario.setDepto(u.getDepto());
+        usuario.setLocalidad(u.getLocalidad());
+        usuario.setProvincia(u.getProvincia());
+
+        usuarioServicio.save(usuario);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
+        
+        return "redirect:/usuario/iniciarSesion";
+    }
+
+    // @GetMapping("/linkCambiarContrasena/{id}")
+    // public String linkCambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
+
+    //     model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+    //     // Pasamos todos los datos de la empresa
+    //     model.addAttribute("empresa", empresaService.findAll());
+
+    //     Usuario usuario = new Usuario();
+
+    //     Optional<Usuario> optionalUsuario = usuarioService.findById(id);
+    //     usuario = optionalUsuario.get();
+
+    //     model.addAttribute("usuario", usuario);
+
+    //     logger.info("Usuario a Editar: {}", usuario);
+
+    //     return "usuario/linkCambiarContrasena";
+    // }
 }
