@@ -38,7 +38,7 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/save")
-    public String save(Usuario usuario, @RequestParam("img") MultipartFile file) throws IOException {
+    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
         usuario.setRol("USER");
@@ -50,6 +50,9 @@ public class UsuarioControlador {
         }
 
         usuarioServicio.save(usuario);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Usuario registrado correctamente!");
 
         return "redirect:/usuario/iniciarSesion";
     }
