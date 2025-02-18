@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
@@ -114,6 +115,72 @@ public class AdministradorControlador {
         usuario.setRol("ADMIN");
 
         usuarioServicio.save(usuario);
+
+        return "redirect:/administrador/homeAdmin";
+    }
+
+    @GetMapping("/cambiarContrasena/{id}")
+    public String cambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        Usuario usuario = new Usuario();
+
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
+        usuario = optionalUsuario.get();
+
+        model.addAttribute("usuario", usuario);
+
+        logger.info("Usuario a Editar: {}", usuario);
+
+        return "administrador/cambiarContrasena";
+    }
+
+    @PostMapping("/actualizarContrasena")
+    public String actualizarContrasena(Model model, Usuario usuario, @RequestParam String actualContrasena,
+            @RequestParam String contrasena, @RequestParam String password2, HttpSession session,
+            RedirectAttributes redirectAttributes)
+            throws IOException {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        Usuario u = new Usuario();
+        u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+
+        // Verificamos el password del usuario y la cambiamos
+        if (u.getContrasena().equals(actualContrasena)) {
+            if (contrasena.equals(password2)) {
+                usuario.setContrasena(contrasena);
+            }
+
+        } else {
+            // Alerta para contraseña incorrecta
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
+            redirectAttributes.addAttribute("id", u.getIdUsuario());
+            return "redirect:/administrador/cambiarContrasena/{id}";
+        }
+
+        // Seteamos estos datos para que no se pierdan
+        usuario.setIdUsuario(u.getIdUsuario());
+        usuario.setNombreUsuario(u.getNombreUsuario());
+        usuario.setEmail(u.getEmail());
+        usuario.setRol("ADMIN");
+        usuario.setFoto(u.getFoto());
+        usuario.setNombre(u.getNombre());
+        usuario.setApellido(u.getApellido());
+        usuario.setDocumento(u.getDocumento());
+        usuario.setTelefono(u.getTelefono());
+        usuario.setDireccion(u.getDireccion());
+        usuario.setAltura(u.getAltura());
+        usuario.setPiso(u.getPiso());
+        usuario.setDepto(u.getDepto());
+        usuario.setLocalidad(u.getLocalidad());
+        usuario.setProvincia(u.getProvincia());
+
+        usuarioServicio.save(usuario);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
 
         return "redirect:/administrador/homeAdmin";
     }

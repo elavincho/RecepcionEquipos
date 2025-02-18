@@ -220,7 +220,7 @@ public class UsuarioControlador {
         usuario.setIdUsuario(u.getIdUsuario());
         usuario.setNombreUsuario(u.getNombreUsuario());
         usuario.setEmail(u.getEmail());
-        usuario.setRol(u.getRol());
+        usuario.setRol("USER");
         usuario.setFoto(u.getFoto());
         usuario.setNombre(u.getNombre());
         usuario.setApellido(u.getApellido());
