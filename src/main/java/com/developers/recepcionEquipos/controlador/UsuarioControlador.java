@@ -126,7 +126,7 @@ public class UsuarioControlador {
 
     @PostMapping("/actualizar")
     public String actualizar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
-            HttpSession session) throws IOException {
+            HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -153,6 +153,9 @@ public class UsuarioControlador {
         usuario.setRol("USER");
 
         usuarioServicio.save(usuario);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Perfil editado correctamente!");
 
         return "redirect:/";
     }
