@@ -19,6 +19,10 @@
 
     <!-- Main -->
     <main>
+        
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
+        </div>
 
         <div class="contenedor-seccion">
             <div class="seccion-img">

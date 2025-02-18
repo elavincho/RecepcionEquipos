@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="formulario-inicio-sesion mrt-10" th:each="usuario:${usuario}">
+                <div class="formulario-inicio-sesion mrt-10">
 
                     <div class="contenedor-error">
                         <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
@@ -52,12 +52,11 @@
 
                     <!-- Grupo: Contraseña Actual -->
                     <div class="formulario-grupo" id="grupo-actualContrasena">
-                        <label for="contrasena" class="formulario-label">Contraseña Actual</label>
+                        <label for="actualContrasena" class="formulario-label">Contraseña Actual</label>
                         <div class="formulario-grupo-input">
                             <input type="password" class="formulario-input" name="actualContrasena" id="actualContrasena" required
                                 autocomplete="off">
                         </div>
-                        <p class="formulario-input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
                     </div>
                 </div>
 

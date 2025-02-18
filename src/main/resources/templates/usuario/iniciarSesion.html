@@ -29,9 +29,6 @@
                 <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
             </div>
 
-            <div class="contenedor-exito">
-                <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
-            </div>
 
             <form class="formulario-inicio-sesion mrt-30" th:action="@{/usuario/acceder}" method="post">
 

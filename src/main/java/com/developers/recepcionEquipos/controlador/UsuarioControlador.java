@@ -70,7 +70,7 @@ public class UsuarioControlador {
         if (!user.isPresent()) {
             logger.info("Usuario no existe");
 
-            //Alerta para email no registrado
+            // Alerta para email no registrado
             redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está registrado!");
             return "redirect:/usuario/iniciarSesion";
         }
@@ -174,8 +174,6 @@ public class UsuarioControlador {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-       
-
         Usuario usuario = new Usuario();
 
         Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
@@ -190,28 +188,30 @@ public class UsuarioControlador {
 
     @PostMapping("/actualizarContrasena")
     public String actualizarContrasena(Model model, Usuario usuario, @RequestParam String actualContrasena,
-            @RequestParam String contrasena, @RequestParam String password2, HttpSession session, RedirectAttributes redirectAttributes)
+            @RequestParam String contrasena, @RequestParam String password2, HttpSession session,
+            RedirectAttributes redirectAttributes)
             throws IOException {
+
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
 
         Usuario u = new Usuario();
         u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
-
-        model.addAttribute("sesion", session.getAttribute("idusuario"));
 
         // Verificamos el password del usuario y la cambiamos
         if (u.getContrasena().equals(actualContrasena)) {
             if (contrasena.equals(password2)) {
                 usuario.setContrasena(contrasena);
-            } 
-            
-        
+            }
+
         } else {
             // Alerta para contraseña incorrecta
             redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
-            return "redirect:/usuario/cambiarContrasena";
+            redirectAttributes.addAttribute("id", u.getIdUsuario());
+            return "redirect:/usuario/cambiarContrasena/{id}";
         }
 
         // Seteamos estos datos para que no se pierdan
+        usuario.setIdUsuario(u.getIdUsuario());
         usuario.setNombreUsuario(u.getNombreUsuario());
         usuario.setEmail(u.getEmail());
         usuario.setRol(u.getRol());
@@ -231,27 +231,28 @@ public class UsuarioControlador {
 
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
-        
-        return "redirect:/usuario/iniciarSesion";
+
+        return "redirect:/";
     }
 
     // @GetMapping("/linkCambiarContrasena/{id}")
-    // public String linkCambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
+    // public String linkCambiarContrasena(@PathVariable Integer id, Model model,
+    // HttpSession session) {
 
-    //     model.addAttribute("sesion", session.getAttribute("idusuario"));
+    // model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-    //     // Pasamos todos los datos de la empresa
-    //     model.addAttribute("empresa", empresaService.findAll());
+    // // Pasamos todos los datos de la empresa
+    // model.addAttribute("empresa", empresaService.findAll());
 
-    //     Usuario usuario = new Usuario();
+    // Usuario usuario = new Usuario();
 
-    //     Optional<Usuario> optionalUsuario = usuarioService.findById(id);
-    //     usuario = optionalUsuario.get();
+    // Optional<Usuario> optionalUsuario = usuarioService.findById(id);
+    // usuario = optionalUsuario.get();
 
-    //     model.addAttribute("usuario", usuario);
+    // model.addAttribute("usuario", usuario);
 
-    //     logger.info("Usuario a Editar: {}", usuario);
+    // logger.info("Usuario a Editar: {}", usuario);
 
-    //     return "usuario/linkCambiarContrasena";
+    // return "usuario/linkCambiarContrasena";
     // }
 }
