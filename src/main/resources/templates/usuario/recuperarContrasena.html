@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>eCommerce</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+
+    <div th:insert="~{usuario/template_usuario.html::header-login}" th:if="${sesion==null}"></div>
+
+    <br><br><br><br>
+
+    <!-- Page Content -->
+    <div class="container w75">
+
+        <div class="card h-100 border">
+            <div class="centrado">
+                <img class="card-img-top w150" th:src="@{/img/inicio-sesion.png}" alt="login">
+            </div>
+            <h2 class="centrado">¿Olvidaste tu Contraseña?</h2>
+            <div class="card-body">
+                <div class="card border centrado">
+                    <h6 class="justify text-indent w90 mrt mrb">Si olvidaste tu contraseña, utiliza el siguiente
+                        formulario para solicitar un enlace para cambiarla.</h6>
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <form th:action="@{/email/send}" method="post" enctype="multipart/form-data">
+                    <div class="card border">
+                        <div class="form-group w90 mrl15">
+                            <label for="destinatario"> Email: </label>
+                            <input type="email" class="form-control" id="destinatario" name="destinatario"
+                                placeholder="Ingrese su email" required autocomplete="off">
+                                <input type="hidden" class="form-control" id="asunto" name="asunto" value="Recuperar Contraseña">
+                                <input type="hidden" class="form-control" id="mensaje" name="mensaje">
+                        </div>
+                    </div>
+
+                    <div class="form-group w100 mrt-30">
+                        <div class="col-sm-12 center">
+                            <button type="submit" class="btn btn-dark"> <span class="glyphicon glyphicon-ok"></span>
+                                Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3 center deco-none border mrt">
+            <div class="row no-gutters center">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <a class="black" th:href="@{/usuario/login}">¿Ya tenes una cuenta? <strong> Inicia Sesión</strong></a>
+                        <br>
+                        <a class="black" th:href="@{/usuario/registro}">¿No tenes cuenta? <strong> Registrate</strong></a>
+                        <br>
+                        <a class="black" href="#destinatario">¿No recibiste el correo? <strong>Reenvialo</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <br>
+    <!-- Footer -->
+    <div th:insert="~{usuario/template_usuario.html::footer}"></div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>
