@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recuperar Contraseña</title>
+    <!-- <meta charset="utf-8"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+    <center>
+        <img style="width: 150px; height: 150px;" th:src="'cid:imagen'" alt="inicio-sesion">
+    </center>
+    <center>
+        <h1>¡Restablecé tu contaseña!</h1>
+    </center>
+    <hr>
+
+    <h4 style="display: flex; text-align: justify; text-indent: 30px;">¡Hola! [[${nombre}]]. Solicitaste un enlace para
+        cambiar tu
+        contraseña. Puedes hacerlo a través del siguiente botón.</h4>
+
+    <br>
+
+    <center>
+
+        <!-- <a th:href="@{https://pknwqtzv-8080.brs.devtunnels.ms/usuario/linkCambiarContrasena/{id}(id=${id})}" -->
+        <a th:href="@{http://localhost:8080/usuario/linkCambiarContrasena/{id}(id=${id})}"
+            style="background-color: #252526; font-size:20px;color:#ffffff;text-decoration:none;color:#ffffff;text-decoration:none;padding:15px 25px;border-radius:5px;border:1px solid #252526;display:inline-block"
+            target="_blank" data-saferedirecturl="">
+            Cambiar mi contraseña
+        </a>
+    </center>
+    <br>
+    <h4 style="text-align: justify; text-indent: 30px;">Si no solicitaste este enlace, por favor ignorá
+        este email. Tu contraseña no cambiará hasta que accedas al enlace de arriba y crees una nueva.</h4>
+    <h4 style="text-align: justify; text-indent: 30px;">Este correo esta dirigido a <strong th:text="${email}"></strong>
+    </h4>
+    <!-- <h4 Recibiste este correo porque estas registrado en <strong th:text="${empresa}+'.'"></strong></h4> -->
+    <h4>Recibiste este correo porque estas registrado en <strong>Recepción de Equipos</strong></h4>
+    <br>
+    <p style="text-align: justify; text-indent: 30px;">La información contenida en este mensaje y/o en sus anexos es
+        estrictamente confidencial. Si usted recibió por
+        error esta comunicación, por favor bórrela puesto que su uso no autorizado acarreará las sanciones y medidas
+        legales a las
+        que haya lugar. La empresa no se hace responsable por la presencia en este mensaje o en sus anexos, de algún
+        virus o malware que pueda generar o genere daños en sus equipos, programas o afecte su información.</p>
+    <br>
+</body>
+
+</html>

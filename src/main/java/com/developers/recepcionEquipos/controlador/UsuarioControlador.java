@@ -74,7 +74,7 @@ public class UsuarioControlador {
             logger.info("Usuario no existe");
 
             // Alerta para email no registrado
-            redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está registrado!");
+            redirectAttributes.addAttribute("error", "¡El correo electrónico no está registrado!");
             return "redirect:/usuario/iniciarSesion";
         }
 
@@ -103,7 +103,7 @@ public class UsuarioControlador {
             logger.info("Contraseña incorrecta");
 
             // Alerta para contraseña incorrecta
-            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
+            redirectAttributes.addAttribute("error", "¡Contraseña incorrecta!");
             return "redirect:/usuario/iniciarSesion";
         }
 
@@ -158,7 +158,7 @@ public class UsuarioControlador {
         usuarioServicio.save(usuario);
 
         // Alerta para un cambio correcto
-        redirectAttributes.addFlashAttribute("exito", "¡Perfil editado correctamente!");
+        redirectAttributes.addAttribute("exito", "¡Perfil editado correctamente!");
 
         return "redirect:/";
     }
@@ -211,7 +211,7 @@ public class UsuarioControlador {
 
         } else {
             // Alerta para contraseña incorrecta
-            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
+            redirectAttributes.addAttribute("error", "¡Contraseña incorrecta!");
             redirectAttributes.addAttribute("id", u.getIdUsuario());
             return "redirect:/usuario/cambiarContrasena/{id}";
         }
@@ -236,7 +236,7 @@ public class UsuarioControlador {
         usuarioServicio.save(usuario);
 
         // Alerta para un cambio correcto
-        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
+        redirectAttributes.addAttribute("exito", "¡Contraseña modificada correctamente!");
 
         return "redirect:/";
     }
