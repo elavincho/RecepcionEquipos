@@ -241,24 +241,62 @@ public class UsuarioControlador {
         return "redirect:/";
     }
 
-    // @GetMapping("/linkCambiarContrasena/{id}")
-    // public String linkCambiarContrasena(@PathVariable Integer id, Model model,
-    // HttpSession session) {
+    @GetMapping("/linkCambiarContrasena/{id}")
+    public String linkCambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
 
-    // model.addAttribute("sesion", session.getAttribute("idusuario"));
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-    // // Pasamos todos los datos de la empresa
-    // model.addAttribute("empresa", empresaService.findAll());
+        
+        Usuario usuario = new Usuario();
 
-    // Usuario usuario = new Usuario();
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
+        usuario = optionalUsuario.get();
 
-    // Optional<Usuario> optionalUsuario = usuarioService.findById(id);
-    // usuario = optionalUsuario.get();
+        model.addAttribute("usuario", usuario);
 
-    // model.addAttribute("usuario", usuario);
+        logger.info("Usuario a Editar: {}", usuario);
 
-    // logger.info("Usuario a Editar: {}", usuario);
+        return "usuario/linkCambiarContrasena";
+    }
 
-    // return "usuario/linkCambiarContrasena";
+    // @PostMapping("/linkUpdatePassword")
+    // public String linkUpdatePassword(Model model, Usuario usuario, @RequestParam String password2,
+    //         @RequestParam String password3, HttpSession session)
+    //         throws IOException {
+
+    //     model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+      
+    //     Usuario u = new Usuario();
+    //     u = usuarioServicio.get(usuario.getIdUsuario()).get();
+       
+       
+    //     Cambiamos el password del usuario
+
+    //     if (password2.equals(password3)) {
+    //         usuario.setPassword(password3);
+    //     } else {
+    //         return "usuario/login";
+    //     }
+
+    //     Seteamos estos datos para que no se pierdan
+    //     usuario.setUsername(u.getUsername());
+    //     usuario.setEmail(u.getEmail());
+    //     usuario.setTipo(u.getTipo());
+    //     usuario.setFoto(u.getFoto());
+    //     usuario.setNombre(u.getNombre());
+    //     usuario.setApellido(u.getApellido());
+    //     usuario.setDocumento(u.getDocumento());
+    //     usuario.setTelefono(u.getTelefono());
+    //     usuario.setDireccion(u.getDireccion());
+    //     usuario.setAltura(u.getAltura());
+    //     usuario.setPiso(u.getPiso());
+    //     usuario.setDepto(u.getDepto());
+    //     usuario.setLocalidad(u.getLocalidad());
+    //     usuario.setProvincia(u.getProvincia());
+
+    //     usuarioService.save(usuario);
+
+    //     return "redirect:/usuario/login";
     // }
 }

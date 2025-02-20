@@ -31,48 +31,39 @@ public class EmailSenderServicioImpl implements EmailSenderServicio {
 
     @Override
     public String sendMail(EmailSender emailSender) throws MessagingException {
-
-        try {
-
-            MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UFT-8");
-
-            helper.setTo(emailSender.getDestinatario());
-            helper.setSubject(emailSender.getAsunto());
-            // utilizamos un set text para añadir la imagen
-            helper.setText("<img src='cid:imagen'/", true);
-
-            Context context = new Context();
-
-            context.setVariable("mensaje", emailSender.getMensaje());
-
-            // Obtenemos el usuario para pasar los datos
-            Usuario usuario = new Usuario();
-            Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(emailSender.getDestinatario());
-            usuario = optionalUsuario.get();
-
-            // Convertimos el id en string para poder pasarlo al link
-            String idString = usuario.getIdUsuario().toString();
-            context.setVariable("IdUsuario", idString);
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+    
+        helper.setTo(emailSender.getDestinatario());
+        helper.setSubject(emailSender.getAsunto());
+        helper.setText("<img src='cid:imagen'/>", true);
+    
+        Context context = new Context();
+        context.setVariable("mensaje", emailSender.getMensaje());
+    
+        // Obtener el usuario
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(emailSender.getDestinatario());
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            context.setVariable("IdUsuario", usuario.getIdUsuario().toString());
             context.setVariable("nombre", usuario.getNombre());
             context.setVariable("email", emailSender.getDestinatario());
-
-            String contextHTML = templateEngine.process("usuario/email", context);
-
-            helper.setText(contextHTML, true);
-
-            // Agregamos la imagen en linea
-            ClassPathResource imageResource = new ClassPathResource("/static/imagenes/iniciarSesion.png");
-            helper.addInline("imagen", imageResource);
-
-            javaMailSender.send(message);
-            javaMailSender.send(helper.getMimeMessage());
-
-            return "Email enviado exitosamente";
-
-        } catch (Exception e) {
-            return "Error al enviar el mail";
+        } else {
+            throw new MessagingException("Usuario no encontrado");
         }
+    
+        String contextHTML = templateEngine.process("usuario/email", context);
+        helper.setText(contextHTML, true);
+    
+        // Agregar la imagen en línea
+        ClassPathResource imageResource = new ClassPathResource("/static/imagenes/iniciarSesion.png");
+        helper.addInline("imagen", imageResource);
+    
+        // Enviar el correo
+        javaMailSender.send(message);
+    
+        return "Email enviado exitosamente";
     }
+
 
 }

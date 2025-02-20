@@ -268,6 +268,32 @@
 </div>
 
 
+<!-- Header link -->
+<div th:fragment="header-link">
+    <header>
+        <div class="contenedor-header">
+            <div class="logo-header">
+                <a th:href="@{/}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="menu-header">
+                <a th:href="@{/usuario/iniciarSesion}"><img class="icono-header" th:src="@{/iconos/login.png}"
+                        alt="login">
+                    Iniciar Sesión
+                </a>
+                <a th:href="@{/usuario/registro}"><img class="icono-header" th:src="@{/iconos/registro.png}"
+                        alt="registro">
+                    Registro
+                </a>
+            </div>
+        </div>
+    </header>
+</div>
+
+
+
+
 <!-- Footer Usuario-->
 <div th:fragment="footer-user">
     <footer>

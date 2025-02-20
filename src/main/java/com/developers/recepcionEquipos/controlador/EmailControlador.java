@@ -34,9 +34,12 @@ public class EmailControlador {
     private String sendEmail(@RequestParam String destinatario, EmailSender emailSender,
             RedirectAttributes redirectAttributes) throws MessagingException {
 
+        // Asignar el destinatario al objeto EmailSender
+        emailSender.setDestinatario(destinatario);
+        // Enviar el correo
         emailSenderServicio.sendMail(emailSender);
         // Alerta Exito
-        redirectAttributes.addAttribute("exito", "¡Email enviado correctamente!");
+        redirectAttributes.addAttribute("exito", "¡email enviado correctamente!");
 
         return "redirect:/usuario/iniciarSesion";
     }
