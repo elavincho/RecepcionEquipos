@@ -492,6 +492,14 @@ a {
     text-align: center;
 }
 
+.justify {
+    text-align: justify;
+}
+
+.text-indent {
+    text-indent: 30px;
+}
+
 .w100 {
     width: 100%;
 }
@@ -534,6 +542,14 @@ a {
 
 .mrb-30 {
     margin-bottom: 30px;
+}
+
+.mrl15 {
+    margin-left: 15px;
+}
+
+.mr-20 {
+    margin: 20px;
 }
 
 .oculto {

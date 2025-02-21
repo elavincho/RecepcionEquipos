@@ -19,7 +19,7 @@
     <body>
         <!-- Navigation -->
 
-        <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
+        <div th:insert="~{usuario/templateUsuario.html::header-inicial}" th:if="${sesion==null}"></div>
 
         <br><br><br><br>
 
@@ -27,22 +27,21 @@
         <div class="container w75">
 
             <div class="card h-100 border">
-                <div class="centrado">
+                <div class="w100 center">
                     <img class="card-img-top w150" th:src="@{/imagenes/iniciarSesion.png}" alt="login">
                 </div>
-                <h2 class="centrado">¿Olvidaste tu Contraseña?</h2>
+                <h2 class="center">¿Olvidaste tu Contraseña?</h2>
                 <div class="card-body">
-                    <div class="card border centrado">
-                        <h6 class="justify text-indent w90 mrt mrb">Si olvidaste tu contraseña, utiliza el siguiente
+                    <div class="card border center">
+                        <h6 class="justify text-indent w90 mr-20">Si olvidaste tu contraseña, utiliza el siguiente
                             formulario para solicitar un enlace para cambiarla.</h6>
                     </div>
                 </div>
 
-
                 <div class="card-body">
                     <form th:action="@{/email/send}" method="post" enctype="multipart/form-data">
                         <div class="card border">
-                            <div class="form-group w90 mrl15">
+                            <div class="form-group w90 mr-20">
                                 <label for="destinatario"> Email: </label>
                                 <input type="email" class="form-control" id="destinatario" name="destinatario"
                                        placeholder="Ingrese su email" required autocomplete="off">
