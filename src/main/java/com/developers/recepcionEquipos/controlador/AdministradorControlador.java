@@ -155,7 +155,7 @@ public class AdministradorControlador {
 
         } else {
             // Alerta para contraseña incorrecta
-            redirectAttributes.addAttribute("error", "¡Contraseña incorrecta!");
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
             redirectAttributes.addAttribute("id", u.getIdUsuario());
             return "redirect:/administrador/cambiarContrasena/{id}";
         }
@@ -180,7 +180,7 @@ public class AdministradorControlador {
         usuarioServicio.save(usuario);
 
         // Alerta para un cambio correcto
-        redirectAttributes.addAttribute("exito", "¡Contraseña modificada correctamente!");
+        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
 
         return "redirect:/administrador/homeAdmin";
     }

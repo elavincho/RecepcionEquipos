@@ -465,6 +465,10 @@ a {
     margin-top: 10px;
 }
 
+.mrt-70 {
+    margin-top: 70px;
+}
+
 .mrt-5 {
     margin-top: 5px;
 }
@@ -594,5 +598,7 @@ a {
     gap: 15px;
 }
 
-
+.black {
+    color: #000;
+}
 
