@@ -35,5 +35,15 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public List<Usuario> findAll() {
         return usuarioRepositorio.findAll();
     }
+
+    @Override
+    public void delete(Integer IdUsuario) {
+        usuarioRepositorio.deleteById(IdUsuario);
+    }
+
+    @Override
+    public Optional<Usuario> get(Integer IdUsuario) {
+        return usuarioRepositorio.findById(IdUsuario);
+    }
     
 }

@@ -477,6 +477,10 @@ a {
     margin-bottom: 10px;
 }
 
+.ml-10 {
+    margin-left: 10px;
+}
+
 .pad-10 {
     padding: 10%;
 }

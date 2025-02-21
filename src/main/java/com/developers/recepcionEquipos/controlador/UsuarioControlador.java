@@ -38,7 +38,8 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/save")
-    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, RedirectAttributes redirectAttributes)
+            throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
         usuario.setRol("USER");
@@ -246,7 +247,6 @@ public class UsuarioControlador {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-        
         Usuario usuario = new Usuario();
 
         Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
@@ -259,44 +259,47 @@ public class UsuarioControlador {
         return "usuario/linkCambiarContrasena";
     }
 
-    // @PostMapping("/linkUpdatePassword")
-    // public String linkUpdatePassword(Model model, Usuario usuario, @RequestParam String password2,
-    //         @RequestParam String password3, HttpSession session)
-    //         throws IOException {
+    @PostMapping("/linkUpdatePassword")
+    public String linkUpdatePassword(Model model, Usuario usuario, @RequestParam String password2,
+            @RequestParam String password3, HttpSession session, RedirectAttributes redirectAttributes)
+            throws IOException {
 
-    //     model.addAttribute("sesion", session.getAttribute("idusuario"));
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-      
-    //     Usuario u = new Usuario();
-    //     u = usuarioServicio.get(usuario.getIdUsuario()).get();
-       
-       
-    //     Cambiamos el password del usuario
+        Usuario u = new Usuario();
+        u = usuarioServicio.get(usuario.getIdUsuario()).get();
 
-    //     if (password2.equals(password3)) {
-    //         usuario.setPassword(password3);
-    //     } else {
-    //         return "usuario/login";
-    //     }
+        // Cambiamos el password del usuario
 
-    //     Seteamos estos datos para que no se pierdan
-    //     usuario.setUsername(u.getUsername());
-    //     usuario.setEmail(u.getEmail());
-    //     usuario.setTipo(u.getTipo());
-    //     usuario.setFoto(u.getFoto());
-    //     usuario.setNombre(u.getNombre());
-    //     usuario.setApellido(u.getApellido());
-    //     usuario.setDocumento(u.getDocumento());
-    //     usuario.setTelefono(u.getTelefono());
-    //     usuario.setDireccion(u.getDireccion());
-    //     usuario.setAltura(u.getAltura());
-    //     usuario.setPiso(u.getPiso());
-    //     usuario.setDepto(u.getDepto());
-    //     usuario.setLocalidad(u.getLocalidad());
-    //     usuario.setProvincia(u.getProvincia());
+        if (password2.equals(password3)) {
+            usuario.setContrasena(password3);
+        } else {
 
-    //     usuarioService.save(usuario);
+            // Alerta error
+            redirectAttributes.addFlashAttribute("error", "¡La Contraseña no pudo ser modificada!");
+            return "usuario/iniciarSesion";
+        }
 
-    //     return "redirect:/usuario/login";
-    // }
+        // Seteamos estos datos para que no se pierdan
+        usuario.setNombreUsuario(u.getNombreUsuario());
+        usuario.setEmail(u.getEmail());
+        usuario.setRol(u.getRol());
+        usuario.setFoto(u.getFoto());
+        usuario.setNombre(u.getNombre());
+        usuario.setApellido(u.getApellido());
+        usuario.setDocumento(u.getDocumento());
+        usuario.setTelefono(u.getTelefono());
+        usuario.setDireccion(u.getDireccion());
+        usuario.setAltura(u.getAltura());
+        usuario.setPiso(u.getPiso());
+        usuario.setDepto(u.getDepto());
+        usuario.setLocalidad(u.getLocalidad());
+        usuario.setProvincia(u.getProvincia());
+
+        usuarioServicio.save(usuario);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
+        return "redirect:/usuario/iniciarSesion";
+    }
 }

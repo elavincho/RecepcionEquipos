@@ -27,44 +27,46 @@
             <form id="register-form" th:action="@{/usuario/linkUpdatePassword}" method="post"
                 enctype="multipart/form-data">
                 <!-- Obtenemos los datos del usuario -->
-                <input type="hidden" name="id" th:value="${usuario.IdUsuario}">
+                <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
 
-                <div class="centrado">
-                    <div class="w50 mrt">
-                        <h3 class="centrado mrt">Cambiar Contraseña</h3>
+                <div class="center">
+                    <div class="w50 mrt-10">
+                        <h3 class="center mrt-30">Cambiar Contraseña</h3>
                     </div>
                 </div>
 
-                <div class="centrado mrt">
-                    <img class="w150 circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto">
+                <div class="center mrt-10">
+                    <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto">
                 </div>
 
-                <h2 class="centrado" th:text="${usuario.nombre + ' ' + usuario.apellido}"></h2>
+                <h2 class="center mrt-10" th:text="${usuario.nombre + ' ' + usuario.apellido}"></h2>
 
-                <div class="centrado">
-                    <div class="card border w50 mr10 ml10 mrt">
-                        <div class="form-group mr10 ml10">
-                            <label for="password2">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="password2" name="password2" required
-                                placeholder="Ingrese su Contraseña" autocomplete="off">
+                <div class="center">
+                    <div class="ml-10 mrt-30">
+                        <div class="card border mr-10 mrt-10">
+                            <div class="mrt-10">
+                                <label for="password2"><strong>Nueva Contraseña</strong></label>
+                                <input type="password" class="form-control" id="password2" name="password2" required
+                                    placeholder="Ingrese su Contraseña" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mrt-30">
+                        <div class="card border mr-10 mrt-10">
+                            <div class="mrt-10">
+                                <label for="password3"><strong>Confirmar Nueva Contraseña</strong></label>
+                                <input type="password" class="form-control" id="password3" name="password3" required
+                                    placeholder="Ingrese su Contraseña" autocomplete="off">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="centrado">
-                    <div class="card border w50 mr10 ml10 mrt">
-                        <div class="form-group mr10 ml10">
-                            <label for="password3">Confirmar Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="password3" name="password3" required
-                                placeholder="Ingrese su Contraseña" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 center mrt">
-                    <a class="btn btn-secondary" th:href="@{/}"><img class="w25" th:src="@{/img/cancelar.png}"
+                <div class="center mrt-30">
+                    <a class="btn btn-secondary" th:href="@{/usuario/iniciarSesion}"><img class="w25" th:src="@{/iconos/cancelar.png}"
                             alt="cancelar"> Cancelar</a>
-                    <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/img/guardar.png}"
+                    <button type="submit" class="btn btn-dark ml-10"><img class="w25" th:src="@{/iconos/guardar.png}"
                             alt="guardar"> Guardar Cambios</button>
                     <!-- <a th:onclick="actualizarContrasena()" class="btn btn-dark ml10" style="color: white;"><img class="w25"
                             th:src="@{/img/guardar.png}" alt="guardar"> Guardar Cambios</a> -->
