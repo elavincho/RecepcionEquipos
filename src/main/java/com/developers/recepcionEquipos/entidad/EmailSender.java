@@ -5,14 +5,16 @@ public class EmailSender {
     private String destinatario;
     private String asunto;
     private String mensaje;
+    private String token;
 
     public EmailSender() {
     }
 
-    public EmailSender(String destinatario, String asunto, String mensaje) {
+    public EmailSender(String destinatario, String asunto, String mensaje, String token) {
         this.destinatario = destinatario;
         this.asunto = asunto;
         this.mensaje = mensaje;
+        this.token = token;
     }
 
     public String getDestinatario() {
@@ -39,9 +41,17 @@ public class EmailSender {
         this.mensaje = mensaje;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
-        return "EmailSender{" + "destinatario=" + destinatario + ", asunto=" + asunto + ", mensaje=" + mensaje + '}';
+        return "EmailSender{" + "destinatario=" + destinatario + ", asunto=" + asunto + ", mensaje=" + mensaje + ", token=" + token + '}';
     }
-    
+
 }
