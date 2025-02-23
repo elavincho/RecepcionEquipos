@@ -9,7 +9,6 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -69,25 +68,64 @@ public class EmailSenderServicioImpl implements EmailSenderServicio {
         return "Email enviado exitosamente";
     }
 
+    public String enviarCorreoRestablecimiento(String email, Integer IdUsuario) throws MessagingException {
 
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); // true indica que es multipart (para
+                                                                             // adjuntos o imágenes)
 
-    public void enviarCorreoRestablecimiento(String email, Integer IdUsuario) {
         // Generar un token único
         String token = tokenServicio.generarToken(IdUsuario);
 
         // Crear el enlace de restablecimiento
-        String resetUrl = "http://localhost:8080/linkCambiarContrasena?token=" + token;
-        String mensaje = "Haz clic en el siguiente enlace para restablecer tu contraseña: " + resetUrl;
+        //String resetUrl = "http://localhost:8080/usuario/linkCambiarContrasena?token=" + token;
+
+        Usuario usuario = usuarioServicio.findByIdUsuario(IdUsuario).get();
+        Context context = new Context();
+        // context.setVariable("mensaje", emailSender.getMensaje());
+        context.setVariable("token", token);
+        context.setVariable("email", email);
+        context.setVariable("nombre", usuario.getNombre());
+
+        // Procesar la plantilla HTML con los atributos
+        String contextHTML = templateEngine.process("usuario/email", context);
+        helper.setText(contextHTML, true);
+
+        // Agregar la imagen en línea
+        ClassPathResource imageResource = new ClassPathResource("/static/imagenes/iniciarSesion.png");
+        helper.addInline("imagen", imageResource);
+
+        // helper.setText("<img src='cid:imagen'/>", true);
+
+        // Crear el contenido HTML y enviar el correo
+        // String mensaje = "<html>"
+        // + "<body>"
+        // + "<center><img src='cid:login' alt='Login' style='width: 150px; height:
+        // 150px;'/></center>" // Imagen incrustada
+        // + "<center><h1>Restablecimiento de Contraseña</h1></center>"
+        // + "<p>¡Hola! " + nombre + ". Solicitaste un enlace para cambiar tu
+        // contraseña.</p>"
+        // + "<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>"
+        // + "<a href='" + resetUrl + "'>Restablecer Contraseña</a>"
+        // + "<br/><br/>"
+
+        // + "</body>"
+        // + "</html>";
 
         // Crear y enviar el correo
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(email);
-        mailMessage.setSubject("Restablecimiento de Contraseña");
-        mailMessage.setText(mensaje);
-        javaMailSender.send(mailMessage);
+        helper.setTo(email);
+        helper.setSubject("Restablecimiento de Contraseña");
 
-        System.out.println("Correo enviado a " + email + ": " + mensaje);
+        // Incrustar la imagen en el correo
+        ClassPathResource resource = new ClassPathResource("static/imagenes/iniciarSesion.png"); // Ruta de la imagen
+        helper.addInline("login", resource); // "login" es el identificador usado en el HTML (cid:logo)
+
+        // helper.setText(mensaje, true); // true indica que el contenido es HTML
+        // javaMailSender.send(mailMessage);
+
+        javaMailSender.send(mimeMessage);
+
+        return "usuario/iniciarSesion";
     }
-
 
 }

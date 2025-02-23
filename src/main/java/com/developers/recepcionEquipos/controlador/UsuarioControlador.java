@@ -6,6 +6,7 @@ import com.developers.recepcionEquipos.servicio.UsuarioServicio;
 import com.developers.recepcionEquipos.servicioImpl.TokenServicio;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -316,11 +317,11 @@ public class UsuarioControlador {
     // return "redirect:/usuario/iniciarSesion";
     // }
 
-
-    
     // Endpoint para mostrar el formulario de cambio de contraseña
     @GetMapping("/linkCambiarContrasena")
     public String linkCambiarContrasena(@RequestParam String token, Model model, HttpSession session) {
+
+        logger.info("Token recibido: ", token);
         Integer IdUsuario = tokenServicio.validarToken(token);
         if (IdUsuario == null) {
             return "redirect:/usuario/iniciarSesion?error=Token inválido";
@@ -328,14 +329,18 @@ public class UsuarioControlador {
 
         Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(IdUsuario);
         if (optionalUsuario.isEmpty()) {
+            logger.info("Usuario no encontrado para el ID: ", IdUsuario);
             return "redirect:/usuario/iniciarSesion?error=Usuario no encontrado";
         }
 
         Usuario usuario = optionalUsuario.get();
         model.addAttribute("usuario", usuario);
+
         model.addAttribute("token", token); // Pasar el token al formulario
 
-        return "usuario/linkCambiarContrasena2";
+        logger.info("Vista a retornar: usuario/linkCambiarContrasena", token);
+
+        return "usuario/linkCambiarContrasena";
     }
 
     @PostMapping("/linkUpdatePassword")
@@ -380,7 +385,8 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/solicitarRestablecimiento")
-    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes) {
+    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes)
+            throws MessagingException {
         // Buscar al usuario por su correo electrónico
         Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(destinatario);
         if (optionalUsuario.isPresent()) {
@@ -391,15 +397,8 @@ public class UsuarioControlador {
         } else {
             redirectAttributes.addFlashAttribute("error", "No se encontró un usuario con ese correo.");
         }
-        return "redirect:/usuario/iniciarSesion";
+        // return "redirect:/usuario/iniciarSesion";
+        return "usuario/recuperarContrasena";
     }
-
-
-
-
-
-
-
-
 
 }
