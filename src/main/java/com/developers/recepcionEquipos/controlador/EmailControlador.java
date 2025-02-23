@@ -43,8 +43,4 @@ public class EmailControlador {
 
         return "redirect:/usuario/iniciarSesion";
     }
-
-
-    
-
 }

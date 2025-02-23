@@ -251,72 +251,6 @@ public class UsuarioControlador {
         return "redirect:/";
     }
 
-    // @GetMapping("/linkCambiarContrasena/{id}")
-    // public String linkCambiarContrasena(@PathVariable Integer id, Model model,
-    // HttpSession session) {
-
-    // model.addAttribute("sesion", session.getAttribute("idusuario"));
-
-    // Usuario usuario = new Usuario();
-
-    // Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
-    // usuario = optionalUsuario.get();
-
-    // model.addAttribute("usuario", usuario);
-
-    // logger.info("Usuario a Editar: {}", usuario);
-
-    // return "usuario/linkCambiarContrasena";
-    // }
-
-    // @PostMapping("/linkUpdatePassword")
-    // public String linkUpdatePassword(Model model, Usuario usuario, @RequestParam
-    // String password2,
-    // @RequestParam String password3, HttpSession session, RedirectAttributes
-    // redirectAttributes)
-    // throws IOException {
-
-    // model.addAttribute("sesion", session.getAttribute("idusuario"));
-
-    // Usuario u = new Usuario();
-    // u = usuarioServicio.get(usuario.getIdUsuario()).get();
-
-    // // Cambiamos el password del usuario
-
-    // if (password2.equals(password3)) {
-    // usuario.setContrasena(password3);
-    // } else {
-
-    // // Alerta error
-    // redirectAttributes.addFlashAttribute("error", "¡La Contraseña no pudo ser
-    // modificada!");
-    // return "usuario/iniciarSesion";
-    // }
-
-    // // Seteamos estos datos para que no se pierdan
-    // usuario.setNombreUsuario(u.getNombreUsuario());
-    // usuario.setEmail(u.getEmail());
-    // usuario.setRol(u.getRol());
-    // usuario.setFoto(u.getFoto());
-    // usuario.setNombre(u.getNombre());
-    // usuario.setApellido(u.getApellido());
-    // usuario.setDocumento(u.getDocumento());
-    // usuario.setTelefono(u.getTelefono());
-    // usuario.setDireccion(u.getDireccion());
-    // usuario.setAltura(u.getAltura());
-    // usuario.setPiso(u.getPiso());
-    // usuario.setDepto(u.getDepto());
-    // usuario.setLocalidad(u.getLocalidad());
-    // usuario.setProvincia(u.getProvincia());
-
-    // usuarioServicio.save(usuario);
-
-    // // Alerta para un cambio correcto
-    // redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada
-    // correctamente!");
-    // return "redirect:/usuario/iniciarSesion";
-    // }
-
     // Endpoint para mostrar el formulario de cambio de contraseña
     @GetMapping("/linkCambiarContrasena")
     public String linkCambiarContrasena(@RequestParam String token, Model model, HttpSession session) {
@@ -341,6 +275,28 @@ public class UsuarioControlador {
         logger.info("Vista a retornar: usuario/linkCambiarContrasena", token);
 
         return "usuario/linkCambiarContrasena";
+    }
+
+    @GetMapping("/solicitarRestablecimiento")
+    public String mostrarFormularioRestablecimiento() {
+        return "usuario/recuperarContrasena";
+    }
+
+    @PostMapping("/solicitarRestablecimiento")
+    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes)
+            throws MessagingException {
+        // Buscar al usuario por su correo electrónico
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(destinatario);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            // Enviar el correo con el token
+            emailSenderServicio.enviarCorreoRestablecimiento(destinatario, usuario.getIdUsuario());
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha enviado un correo con las instrucciones.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "No se encontró un usuario con ese correo.");
+        }
+        // return "redirect:/usuario/iniciarSesion";
+        return "usuario/recuperarContrasena";
     }
 
     @PostMapping("/linkUpdatePassword")
@@ -377,28 +333,6 @@ public class UsuarioControlador {
 
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
         return "redirect:/usuario/iniciarSesion";
-    }
-
-    @GetMapping("/solicitarRestablecimiento")
-    public String mostrarFormularioRestablecimiento() {
-        return "usuario/recuperarContrasena";
-    }
-
-    @PostMapping("/solicitarRestablecimiento")
-    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes)
-            throws MessagingException {
-        // Buscar al usuario por su correo electrónico
-        Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(destinatario);
-        if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
-            // Enviar el correo con el token
-            emailSenderServicio.enviarCorreoRestablecimiento(destinatario, usuario.getIdUsuario());
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha enviado un correo con las instrucciones.");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "No se encontró un usuario con ese correo.");
-        }
-        // return "redirect:/usuario/iniciarSesion";
-        return "usuario/recuperarContrasena";
     }
 
 }

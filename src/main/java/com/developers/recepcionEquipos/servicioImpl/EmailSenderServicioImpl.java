@@ -82,7 +82,7 @@ public class EmailSenderServicioImpl implements EmailSenderServicio {
 
         Usuario usuario = usuarioServicio.findByIdUsuario(IdUsuario).get();
         Context context = new Context();
-        // context.setVariable("mensaje", emailSender.getMensaje());
+        
         context.setVariable("token", token);
         context.setVariable("email", email);
         context.setVariable("nombre", usuario.getNombre());
@@ -95,23 +95,6 @@ public class EmailSenderServicioImpl implements EmailSenderServicio {
         ClassPathResource imageResource = new ClassPathResource("/static/imagenes/iniciarSesion.png");
         helper.addInline("imagen", imageResource);
 
-        // helper.setText("<img src='cid:imagen'/>", true);
-
-        // Crear el contenido HTML y enviar el correo
-        // String mensaje = "<html>"
-        // + "<body>"
-        // + "<center><img src='cid:login' alt='Login' style='width: 150px; height:
-        // 150px;'/></center>" // Imagen incrustada
-        // + "<center><h1>Restablecimiento de Contraseña</h1></center>"
-        // + "<p>¡Hola! " + nombre + ". Solicitaste un enlace para cambiar tu
-        // contraseña.</p>"
-        // + "<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>"
-        // + "<a href='" + resetUrl + "'>Restablecer Contraseña</a>"
-        // + "<br/><br/>"
-
-        // + "</body>"
-        // + "</html>";
-
         // Crear y enviar el correo
         helper.setTo(email);
         helper.setSubject("Restablecimiento de Contraseña");
@@ -120,12 +103,9 @@ public class EmailSenderServicioImpl implements EmailSenderServicio {
         ClassPathResource resource = new ClassPathResource("static/imagenes/iniciarSesion.png"); // Ruta de la imagen
         helper.addInline("login", resource); // "login" es el identificador usado en el HTML (cid:logo)
 
-        // helper.setText(mensaje, true); // true indica que el contenido es HTML
-        // javaMailSender.send(mailMessage);
-
         javaMailSender.send(mimeMessage);
 
-        return "usuario/iniciarSesion";
+        return "redirect:/usuario/iniciarSesion";
     }
 
 }
