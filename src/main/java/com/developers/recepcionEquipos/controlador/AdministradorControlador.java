@@ -2,6 +2,7 @@ package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,38 +69,55 @@ public class AdministradorControlador {
         return "redirect:/usuario/iniciarSesion";
     }
 
-    @GetMapping("/editarAdmin/{id}")
-    public String editarAdmin(@PathVariable Integer id, Model model, HttpSession session) {
+    // Metodo editarAdmin con token
+    @GetMapping("/editarAdmin")
+    public String editar(Model model, HttpSession session) {
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
-        model.addAttribute("sesion", session.getAttribute("idusuario"));
+        // Generar un UUID único
+        String uuid = UUID.randomUUID().toString();
 
-        Usuario usuario = new Usuario();
+        // Almacenar el UUID en la sesión
+        session.setAttribute("editToken", uuid);
 
-        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
-        usuario = optionalUsuario.get();
+        // Obtener el usuario desde la base de datos
+        Usuario usuario = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        // Agregar el usuario y el UUID al modelo
         model.addAttribute("usuario", usuario);
+        model.addAttribute("editToken", uuid);
 
         logger.info("Usuario a Editar: {}", usuario);
 
         return "administrador/editarAdmin";
     }
 
+    // Metodo actualizar con token
     @PostMapping("/actualizarAdmin")
-    public String actualizarAdmin(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
-            HttpSession session) throws IOException {
+    public String actualizar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
+            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("editToken") String editToken)
+            throws IOException {
 
-        model.addAttribute("sesion", session.getAttribute("idusuario"));
+        // Validar el token de edición
+        String sessionToken = (String) session.getAttribute("editToken");
+        if (sessionToken == null || !sessionToken.equals(editToken)) {
+            redirectAttributes.addFlashAttribute("error", "Token de edición inválido");
+            return "redirect:/administrador/homeAdmin";
+        }
 
-        
-        Usuario u = new Usuario();
-        u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
+
+        // Obtener el usuario desde la base de datos
+        Usuario u = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         /* cuando editamos el producto pero no cambiamos la imagen */
         if (file.isEmpty()) {
             usuario.setFoto(u.getFoto());
         } else {
-
             /* eliminar cuando no sea la imagen por defecto */
             if (!u.getFoto().equals("default.jpg")) {
                 upload.deleteImage(u.getFoto());
@@ -115,6 +133,12 @@ public class AdministradorControlador {
         usuario.setRol("ADMIN");
 
         usuarioServicio.save(usuario);
+
+        // Eliminar el token de la sesión después de la actualización
+        session.removeAttribute("editToken");
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Perfil editado correctamente!");
 
         return "redirect:/administrador/homeAdmin";
     }

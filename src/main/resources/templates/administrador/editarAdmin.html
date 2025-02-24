@@ -20,10 +20,12 @@
 
         <div class="contenedor-formulario">
 
-            <form id="formulario" th:action="@{/administrador/actualizarAdmin}" method="post" enctype="multipart/form-data"  th:each="usuario:${usuario}">
+            <form id="formulario" th:action="@{/administrador/actualizarAdmin}" method="post"
+                enctype="multipart/form-data" th:each="usuario:${usuario}">
                 <!-- Obtenemos los datos del usuario -->
                 <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
-
+                <!-- Obtenemos el token -->
+                <input type="hidden" name="editToken" th:value="${editToken}" />
                 <!-- Grupo: Perfil -->
                 <div class="card border mrt-10 center">
                     <div class="card w90 mrt-30 mrb-30">
@@ -149,8 +151,8 @@
                 </div>
 
                 <div class="col-sm-12 center mrt-30">
-                    <a class="btn btn-secondary mr-30" th:href="@{/administrador/homeAdmin}"><img class="w25" th:src="@{/iconos/cancelar.png}"
-                            alt="cancelar"> Cancelar</a>
+                    <a class="btn btn-secondary mr-30" th:href="@{/administrador/homeAdmin}"><img class="w25"
+                            th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
                     <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
                             alt="guardar"> Guardar Cambios</button>
                 </div>

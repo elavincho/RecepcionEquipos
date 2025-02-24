@@ -188,7 +188,6 @@
                                 <div class="card mrt-10 mrb-10 w90 center">
                                     <div class="contenedor-user-name w100">
                                         <h5 class="white" th:text="${usuario.rol}"></h5>
-                                        <!-- <h5 class="white" th:text="${usuario.nombreUsuario}"></h5> -->
                                     </div>
                                     <img class="circle mrt-10" style="width: 70px; height: 70px;"
                                         th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
@@ -199,7 +198,7 @@
 
                             <li class="center">
                                 <div class="card border mrt-5 w90 center">
-                                    <a class="black" th:href="@{/administrador/editarAdmin/{id} (id=${usuario.IdUsuario}) }">
+                                    <a class="black" th:href="@{/administrador/editarAdmin}">
                                         <div class="dos-columnas">
                                             <div>
                                                 <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}"
@@ -216,7 +215,7 @@
                             <li class="center">
                                 <div class="card border mrt-5 w90 center">
                                     <a class="black"
-                                        th:href="@{/administrador/cambiarContrasena/{id} (id=${usuario.IdUsuario}) }">
+                                        th:href="@{/administrador/cambiarContrasena}">
                                         <div class="dos-columnas">
                                             <div>
                                                 <img class="w20" th:src="@{/iconos/contrasena.png}" alt="usuario">
