@@ -61,7 +61,7 @@ public class EmailControlador {
         return "redirect:/usuario/iniciarSesion";
     }
 
-    // Link para mostrar el formulario Olvidaste tu Contraseña
+    // Metodo para mostrar el formulario Olvidaste tu Contraseña
     @GetMapping("/solicitarRestablecimiento")
     public String mostrarFormularioRestablecimiento() {
         return "usuario/recuperarContrasena";
@@ -84,7 +84,7 @@ public class EmailControlador {
         return "redirect:/usuario/iniciarSesion";
     }
 
-    // Endpoint para mostrar el formulario de cambio de contraseña
+    // Metodo para mostrar el formulario de cambio de contraseña
     @GetMapping("/linkCambiarContrasena")
     public String linkCambiarContrasena(@RequestParam String token, Model model, HttpSession session) {
 

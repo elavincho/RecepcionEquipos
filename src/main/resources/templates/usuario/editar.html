@@ -23,7 +23,8 @@
             <form id="formulario" th:action="@{/usuario/actualizar}" method="post" enctype="multipart/form-data">
                 <!-- Obtenemos los datos del usuario -->
                 <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
-
+                <!-- Obtenemos el token -->
+                <input type="hidden" name="editToken" th:value="${editToken}" />
                 <!-- Grupo: Perfil -->
                 <div class="card border mrt-10 center">
                     <div class="card w90 mrt-30 mrb-30">
