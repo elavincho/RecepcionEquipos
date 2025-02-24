@@ -24,7 +24,7 @@ public class TokenServicio {
         return tokenMap.getOrDefault(token, null);
     }
 
-    // Eliminar el token después de su uso (opcional)
+    // Eliminar el token después de su uso
     public void eliminarToken(String token) {
         tokenMap.remove(token);
     }

@@ -61,6 +61,29 @@ public class EmailControlador {
         return "redirect:/usuario/iniciarSesion";
     }
 
+    // Link para mostrar el formulario Olvidaste tu Contraseña
+    @GetMapping("/solicitarRestablecimiento")
+    public String mostrarFormularioRestablecimiento() {
+        return "usuario/recuperarContrasena";
+    }
+
+    // Metodo Post para enviar los datos del usuario al formulario
+    @PostMapping("/solicitarRestablecimiento")
+    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes)
+            throws MessagingException {
+        // Buscar al usuario por su correo electrónico
+        Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(destinatario);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            // Enviar el correo con el token
+            emailSenderServicio.enviarCorreoRestablecimiento(destinatario, usuario.getIdUsuario());
+            redirectAttributes.addFlashAttribute("exito", "Se ha enviado un correo con las instrucciones.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "No se encontró un usuario con ese correo.");
+        }
+        return "redirect:/usuario/iniciarSesion";
+    }
+
     // Endpoint para mostrar el formulario de cambio de contraseña
     @GetMapping("/linkCambiarContrasena")
     public String linkCambiarContrasena(@RequestParam String token, Model model, HttpSession session) {
@@ -80,44 +103,21 @@ public class EmailControlador {
         Usuario usuario = optionalUsuario.get();
         model.addAttribute("usuario", usuario);
 
-        model.addAttribute("token", token); // Pasar el token al formulario
-
-        logger.info("Vista a retornar: usuario/linkCambiarContrasena", token);
+        // Pasar el token al formulario
+        model.addAttribute("token", token);
 
         return "usuario/linkCambiarContrasena";
     }
 
-    @GetMapping("/solicitarRestablecimiento")
-    public String mostrarFormularioRestablecimiento() {
-        return "usuario/recuperarContrasena";
-    }
-
-    @PostMapping("/solicitarRestablecimiento")
-    public String solicitarRestablecimiento(@RequestParam String destinatario, RedirectAttributes redirectAttributes)
-            throws MessagingException {
-        // Buscar al usuario por su correo electrónico
-        Optional<Usuario> optionalUsuario = usuarioServicio.findByEmail(destinatario);
-        if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
-            // Enviar el correo con el token
-            emailSenderServicio.enviarCorreoRestablecimiento(destinatario, usuario.getIdUsuario());
-            redirectAttributes.addFlashAttribute("exito", "Se ha enviado un correo con las instrucciones.");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "No se encontró un usuario con ese correo.");
-        }
-
-        redirectAttributes.addFlashAttribute("exito", "Se ha enviado un correo con las instrucciones.");
-
-        return "redirect:/usuario/iniciarSesion";
-    }
-
+    // Metodo por el cual el usuario ingresa su nueva contraseña
     @PostMapping("/linkUpdatePassword")
     public String linkUpdatePassword(String token,
             @RequestParam String password2,
             @RequestParam String password3,
             Model model, HttpSession session,
             RedirectAttributes redirectAttributes) throws IOException {
-        logger.info("Token recibido: {}", token); // Verifica si el token llega correctamente
+        // Verifica si el token llega correctamente
+        logger.info("Token recibido: {}", token);
 
         Integer IdUsuario = tokenServicio.validarToken(token);
         if (IdUsuario == null) {
