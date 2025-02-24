@@ -1,7 +1,6 @@
 package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,46 +141,67 @@ public class AdministradorControlador {
         return "redirect:/administrador/homeAdmin";
     }
 
-    @GetMapping("/cambiarContrasena/{id}")
-    public String cambiarContrasena(@PathVariable Integer id, Model model, HttpSession session) {
+    // Cambiar contraseña con token
+    @GetMapping("/cambiarContrasena")
+    public String cambiarContrasena(Model model, HttpSession session) {
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
-        model.addAttribute("sesion", session.getAttribute("idusuario"));
+        // Generar un UUID único
+        String uuid = UUID.randomUUID().toString();
 
-        Usuario usuario = new Usuario();
+        // Almacenar el UUID en la sesión
+        session.setAttribute("tokenCambioContrasena", uuid);
 
-        Optional<Usuario> optionalUsuario = usuarioServicio.findByIdUsuario(id);
-        usuario = optionalUsuario.get();
+        // Obtener el usuario desde la base de datos
+        Usuario usuario = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        // Agregar el usuario y el UUID al modelo
         model.addAttribute("usuario", usuario);
+        model.addAttribute("tokenCambioContrasena", uuid);
 
-        logger.info("Usuario a Editar: {}", usuario);
+        logger.info("Usuario a cambiar contraseña: {}", usuario);
 
         return "administrador/cambiarContrasena";
     }
 
+    // Actualizar contraseña con token
     @PostMapping("/actualizarContrasena")
-    public String actualizarContrasena(Model model, Usuario usuario, @RequestParam String actualContrasena,
-            @RequestParam String contrasena, @RequestParam String password2, HttpSession session,
-            RedirectAttributes redirectAttributes)
-            throws IOException {
+    public String actualizarContrasena(Model model, Usuario usuario,
+            @RequestParam String actualContrasena,
+            @RequestParam String contrasena, @RequestParam String password2,
+            @RequestParam String tokenCambioContrasena, HttpSession session,
+            RedirectAttributes redirectAttributes) throws IOException {
 
-        model.addAttribute("sesion", session.getAttribute("idusuario"));
-
-        Usuario u = new Usuario();
-        u = usuarioServicio.findByIdUsuario(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
-
-        // Verificamos el password del usuario y la cambiamos
-        if (u.getContrasena().equals(actualContrasena)) {
-            if (contrasena.equals(password2)) {
-                usuario.setContrasena(contrasena);
-            }
-
-        } else {
-            // Alerta para contraseña incorrecta
-            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
-            redirectAttributes.addAttribute("id", u.getIdUsuario());
-            return "redirect:/administrador/cambiarContrasena/{id}";
+        // Validar el token de cambio de contraseña
+        String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
+        if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
+            redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña inválido");
+            return "redirect:/";
         }
+
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
+
+        // Obtener el usuario desde la base de datos
+        Usuario u = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Verificamos la contraseña actual del usuario
+        if (!u.getContrasena().equals(actualContrasena)) {
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
+            return "redirect:/administrador/cambiarContrasena";
+        }
+
+        // Verificamos que las nuevas contraseñas coincidan
+        if (!contrasena.equals(password2)) {
+            redirectAttributes.addFlashAttribute("error", "¡Las contraseñas no coinciden!");
+            return "redirect:/administrador/cambiarContrasena";
+        }
+
+        // Actualizar la contraseña
+        usuario.setContrasena(contrasena);
 
         // Seteamos estos datos para que no se pierdan
         usuario.setIdUsuario(u.getIdUsuario());
@@ -201,7 +220,11 @@ public class AdministradorControlador {
         usuario.setLocalidad(u.getLocalidad());
         usuario.setProvincia(u.getProvincia());
 
+        // Guardar el usuario actualizado
         usuarioServicio.save(usuario);
+
+        // Eliminar el token de la sesión después de la actualización
+        session.removeAttribute("tokenCambioContrasena");
 
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");

@@ -25,6 +25,8 @@
 
                 <!-- Obtenemos los datos del usuario -->
                 <input type="hidden" name="id" th:value="${usuario.IdUsuario}">
+                <!-- Obtenemos el token para cambiar contraseña -->
+                <input type="hidden" name="tokenCambioContrasena" th:value="${tokenCambioContrasena}" />
                 <!-- Grupo: Perfil -->
                 <div class="card border mrt-10 center">
                     <div class="card w90 mrt-30 mrb-30">
