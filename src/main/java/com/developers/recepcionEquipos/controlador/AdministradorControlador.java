@@ -51,18 +51,34 @@ public class AdministradorControlador {
     }
 
     @PostMapping("/saveAdmin")
-    public String saveAdmin(Usuario usuario, @RequestParam("img") MultipartFile file) throws IOException {
+    public String saveAdmin(Usuario usuario, @RequestParam("img") MultipartFile file,
+            @RequestParam("autorizacion") String autorizacion,
+            RedirectAttributes redirectAttributes)
+            throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
-        usuario.setRol("ADMIN");
+        // Verificación de Autorización
 
-        // imagen
-        if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
-            String nombreFoto = upload.saveImage(file);
-            usuario.setFoto(nombreFoto);
+        if (autorizacion.equals("admin")) {
+
+            usuario.setRol("ADMIN");
+
+            // imagen
+            if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
+                String nombreFoto = upload.saveImage(file);
+                usuario.setFoto(nombreFoto);
+            }
+
+            usuarioServicio.save(usuario);
+
+            // Alerta para un cambio correcto
+            redirectAttributes.addFlashAttribute("exito", "¡Administrador agregado correctamente!");
+
+        } else {
+            // Alerta Autorización Equivocada
+            redirectAttributes.addFlashAttribute("error", "¡Autorización Denegada!");
+            return "redirect:/usuario/iniciarSesion";
         }
-
-        usuarioServicio.save(usuario);
 
         return "redirect:/usuario/iniciarSesion";
     }

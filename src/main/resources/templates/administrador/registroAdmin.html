@@ -14,7 +14,7 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header}" th:if="${sesion==null}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::header-inicial}" th:if="${sesion==null}"></div>
 
     <main>
 
@@ -109,6 +109,14 @@
                             <i class="formulario-validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario-input-error">Ambas contraseñas deben ser iguales.</p>
+                    </div>
+
+                    <!-- Grupo: Autorización -->
+                    <div class="formulario-grupo" id="grupo-password2">
+                        <label for="autorizacion" class="formulario-label">Autorización</label>
+                        <div class="formulario-grupo-input">
+                            <input type="password" class="formulario-input" name="autorizacion" id="autorizacion" required placeholder="Ingrese Clave de Autorización">
+                        </div>
                     </div>
 
                     <div class="formulario-mensaje" id="formulario-mensaje">
