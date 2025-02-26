@@ -44,8 +44,8 @@ public class UsuarioControlador {
             throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
+        // Verificación de un usuario existente
         if (usuario.getEmail().equalsIgnoreCase(email)) {
-
             // Alerta para un usuario existente
             redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
             
