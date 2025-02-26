@@ -52,7 +52,7 @@ public class AdministradorControlador {
 
     @PostMapping("/saveAdmin")
     public String saveAdmin(Usuario usuario, @RequestParam("img") MultipartFile file,
-            @RequestParam("autorizacion") String autorizacion,
+            @RequestParam String autorizacion,
             RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", usuario);
@@ -63,8 +63,8 @@ public class AdministradorControlador {
 
             usuario.setRol("ADMIN");
 
-            // imagen
-            if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
+            // Imagen cuando se crea un usuario
+            if (usuario.getIdUsuario() == null) {
                 String nombreFoto = upload.saveImage(file);
                 usuario.setFoto(nombreFoto);
             }
@@ -75,7 +75,7 @@ public class AdministradorControlador {
             redirectAttributes.addFlashAttribute("exito", "¡Administrador agregado correctamente!");
 
         } else {
-            // Alerta Autorización Equivocada
+            // Alerta Autorización Denegada
             redirectAttributes.addFlashAttribute("error", "¡Autorización Denegada!");
             return "redirect:/usuario/iniciarSesion";
         }
@@ -111,7 +111,7 @@ public class AdministradorControlador {
     // Metodo actualizar con token
     @PostMapping("/actualizarAdmin")
     public String actualizar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
-            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("editToken") String editToken)
+            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
             throws IOException {
 
         // Validar el token de edición
