@@ -39,22 +39,30 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/save")
-    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, RedirectAttributes redirectAttributes)
+    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, @RequestParam String email,
+            RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
-        usuario.setRol("USER");
+        if (usuario.getEmail().equalsIgnoreCase(email)) {
 
-        // imagen
-        if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
-            String nombreFoto = upload.saveImage(file);
-            usuario.setFoto(nombreFoto);
+            // Alerta para un usuario existente
+            redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
+            
+        } else {
+            usuario.setRol("USER");
+
+            // imagen
+            if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
+                String nombreFoto = upload.saveImage(file);
+                usuario.setFoto(nombreFoto);
+            }
+
+            usuarioServicio.save(usuario);
+
+            // Alerta para un registro exitoso
+            redirectAttributes.addFlashAttribute("exito", "¡Usuario registrado correctamente!");
         }
-
-        usuarioServicio.save(usuario);
-
-        // Alerta para un cambio correcto
-        redirectAttributes.addFlashAttribute("exito", "¡Usuario registrado correctamente!");
 
         return "redirect:/usuario/iniciarSesion";
     }
