@@ -4,24 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-//import java.util.List;
+import java.util.List;
 
-/* En esta clase vamos a ingresar a TODOS LOS USUARIOS ya sean ADMINISTRATIVOS,
-TECNICOS Y ADMINISTRADORES para luego asignarles un ROL.*/
+/* En esta clase vamos a ingresar a SOLAMENTE A LOS CLIENTES.*/
 
 @Entity
-@Table(name = "usuarios")
-public class Usuario {
-
+@Table(name = "clientes")
+public class Cliente {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdUsuario;
+    private Integer IdCliente;
     private String nombre;
     private String apellido;
     private String documento;
-    private String nombreUsuario;
     private String email;
     private String provincia;
     private String localidad;
@@ -30,26 +28,22 @@ public class Usuario {
     private String piso;
     private String depto;
     private String telefono;
-    private String rol;
-    private String contrasena;
     private String foto;
 
-    // El mapeo se va a hacer desde cliente
-    //@OneToMany(mappedBy = "usuario")
-    //private List<Equipo> equipos;
+    @OneToMany(mappedBy = "cliente")
+    private List<Equipo> equipos;
 
-    //@OneToMany(mappedBy = "usuario")
-    //private List<Orden> ordenes;
+    @OneToMany(mappedBy = "cliente")
+    private List<Orden> ordenes;
 
-    public Usuario() {
+    public Cliente() {
     }
 
-    public Usuario(Integer IdUsuario, String nombre, String apellido, String documento, String nombreUsuario, String email, String provincia, String localidad, String direccion, String altura, String piso, String depto, String telefono, String rol, String contrasena, String foto) {
-        this.IdUsuario = IdUsuario;
+    public Cliente(Integer IdCliente, String nombre, String apellido, String documento, String email, String provincia, String localidad, String direccion, String altura, String piso, String depto, String telefono, String foto, List<Equipo> equipos, List<Orden> ordenes) {
+        this.IdCliente = IdCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
-        this.nombreUsuario = nombreUsuario;
         this.email = email;
         this.provincia = provincia;
         this.localidad = localidad;
@@ -58,17 +52,17 @@ public class Usuario {
         this.piso = piso;
         this.depto = depto;
         this.telefono = telefono;
-        this.rol = rol;
-        this.contrasena = contrasena;
         this.foto = foto;
+        this.equipos = equipos;
+        this.ordenes = ordenes;
     }
 
-    public Integer getIdUsuario() {
-        return IdUsuario;
+    public Integer getIdCliente() {
+        return IdCliente;
     }
 
-    public void setIdUsuario(Integer IdUsuario) {
-        this.IdUsuario = IdUsuario;
+    public void setIdCliente(Integer IdCliente) {
+        this.IdCliente = IdCliente;
     }
 
     public String getNombre() {
@@ -93,14 +87,6 @@ public class Usuario {
 
     public void setDocumento(String documento) {
         this.documento = documento;
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
     }
 
     public String getEmail() {
@@ -167,22 +153,6 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -191,8 +161,24 @@ public class Usuario {
         this.foto = foto;
     }
 
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Orden> ordenes) {
+        this.ordenes = ordenes;
+    }
+
     @Override
     public String toString() {
-        return "Usuario{" + "IdUsuario=" + IdUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento + ", nombreUsuario=" + nombreUsuario + ", email=" + email + ", provincia=" + provincia + ", localidad=" + localidad + ", direccion=" + direccion + ", altura=" + altura + ", piso=" + piso + ", depto=" + depto + ", telefono=" + telefono + ", rol=" + rol + ", contrasena=" + contrasena + ", foto=" + foto + '}';
+        return "Cliente{" + "IdCliente=" + IdCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento + ", email=" + email + ", provincia=" + provincia + ", localidad=" + localidad + ", direccion=" + direccion + ", altura=" + altura + ", piso=" + piso + ", depto=" + depto + ", telefono=" + telefono + ", foto=" + foto + ", equipos=" + equipos + ", ordenes=" + ordenes + '}';
     }
 }
