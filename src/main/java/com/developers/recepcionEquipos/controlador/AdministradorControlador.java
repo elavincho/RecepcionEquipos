@@ -131,6 +131,12 @@ public class AdministradorControlador {
             HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
             throws IOException {
 
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Validar el token de edición
         String sessionToken = (String) session.getAttribute("editToken");
         if (sessionToken == null || !sessionToken.equals(editToken)) {
@@ -282,12 +288,11 @@ public class AdministradorControlador {
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
-        //Mandamos todos los datos de los usuarios registrados
+        // Mandamos todos los datos de los usuarios registrados
         model.addAttribute("usuarios", usuarioServicio.findAll());
 
         return "administrador/usuarios";
     }
-
 
     @GetMapping("/editarRol/{id}")
     public String editarRol(@PathVariable Integer id, Model model, HttpSession session) {
@@ -309,7 +314,7 @@ public class AdministradorControlador {
 
     @PostMapping("/actualizarRol")
     public String actualizarRol(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
-            @RequestParam Integer IdUsuario, @RequestParam String rol,HttpSession session) throws IOException {
+            @RequestParam Integer IdUsuario, @RequestParam String rol, HttpSession session) throws IOException {
 
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -339,7 +344,5 @@ public class AdministradorControlador {
 
         return "redirect:/administrador/usuarios";
     }
-
-    
 
 }

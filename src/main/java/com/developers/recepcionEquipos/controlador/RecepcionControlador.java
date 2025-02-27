@@ -1,15 +1,10 @@
 package com.developers.recepcionEquipos.controlador;
 
-import com.developers.recepcionEquipos.entidad.Usuario;
-import com.developers.recepcionEquipos.servicio.UsuarioServicio;
-import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
-
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.slf4j.*;
+
+import com.developers.recepcionEquipos.entidad.Usuario;
+import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/usuario")
-public class UsuarioControlador {
+@RequestMapping("/recepcion")
+public class RecepcionControlador {
 
     private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
@@ -33,102 +33,20 @@ public class UsuarioControlador {
     @Autowired
     private UploadFileService upload;
 
-    @GetMapping("/registro")
-    public String registro(Model model) {
-        return "usuario/registro";
-    }
+    @GetMapping("/homeRecepcion")
+    public String homeRecepcion(Usuario usuario, Model model, HttpSession session) {
 
-    @PostMapping("/save")
-    public String save(Usuario usuario, @RequestParam("img") MultipartFile file, @RequestParam String email,
-            RedirectAttributes redirectAttributes)
-            throws IOException {
-        logger.info("Usuario Registro: {}", usuario);
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
 
-        // Verificación de un usuario existente
-        Optional<Usuario> usuarioExistente = usuarioServicio.findByEmail(email);
-        logger.info("Usuario Exsistente: {}", usuarioExistente);
-        if (usuarioExistente.isPresent()) {
-            // Alerta para un usuario existente
-            redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
-        } else {
-            usuario.setRol("USER");
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
 
-            // imagen
-            if (usuario.getIdUsuario() == null) { // cuando se crea un usuario
-                String nombreFoto = upload.saveImage(file);
-                usuario.setFoto(nombreFoto);
-            }
-
-            usuarioServicio.save(usuario);
-
-            // Alerta para un registro exitoso
-            redirectAttributes.addFlashAttribute("exito", "¡Usuario registrado correctamente!");
-        }
-
-        return "redirect:/usuario/iniciarSesion";
-    }
-
-    @GetMapping("/iniciarSesion")
-    public String iniciarSesion() {
-        return "usuario/iniciarSesion";
-    }
-
-    @PostMapping("/acceder")
-    public String acceder(Usuario usuario, HttpSession session, RedirectAttributes redirectAttributes) {
-
-        logger.info("Accesos : {}", usuario);
-
-        Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
-
-        // Verificamos si el usuario existe en la base de datos
-        if (!user.isPresent()) {
-            logger.info("Usuario no existe");
-
-            // Alerta para email no registrado
-            redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está registrado!");
-            return "redirect:/usuario/iniciarSesion";
-        }
-
-        logger.info("Usuario de la bd: {}", user.get());
-
-        // Validación de la contraseña
-        if (user.get().getContrasena().equals(usuario.getContrasena())) {
-
-            // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
-            session.setAttribute("idusuario", user.get().getIdUsuario());
-
-            // Obtenemos todos los datos del usuario para usarlo en cualquier lugar de la
-            // app
-            session.setAttribute("usersession", user.get());
-
-            if (user.get().getRol().equals("ADMIN")) {
-                return "redirect:/administrador/homeAdmin";
-
-            } else if (user.get().getRol().equals("USER")) {
-                return "redirect:/";
-
-            } else if (user.get().getRol().equals("TECNICO")) {
-                return "redirect:/tecnico/homeTecnico";
-
-            } else if (user.get().getRol().equals("RECEPCIONISTA")) {
-                return "redirect:/recepcion/homeRecepcion";
-
-            } else if (user.get().getRol().equals("BLOQUEADO")) {
-                return "redirect:/usuario/bloqueado";
-            }
-        } else {
-            logger.info("Contraseña incorrecta");
-
-            // Alerta para contraseña incorrecta
-            redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
-            return "redirect:/usuario/iniciarSesion";
-        }
-
-        return "redirect:/usuario/iniciarSesion";
+        return "recepcion/homeRecepcion";
     }
 
     // Metodo editar con token
-    @GetMapping("/editar")
+    @GetMapping("/editarRecepcion")
     public String editar(Model model, HttpSession session) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
@@ -155,20 +73,26 @@ public class UsuarioControlador {
 
         logger.info("Usuario a Editar: {}", usuario);
 
-        return "usuario/editar";
+        return "recepcion/editarRecepcion";
     }
 
     // Metodo actualizar con token
-    @PostMapping("/actualizar")
-    public String actualizar(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
+    @PostMapping("/actualizarRecepcion")
+    public String actualizarRecepcion(Model model, Usuario usuario, @RequestParam("img") MultipartFile file,
             HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
             throws IOException {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
 
         // Validar el token de edición
         String sessionToken = (String) session.getAttribute("editToken");
         if (sessionToken == null || !sessionToken.equals(editToken)) {
             redirectAttributes.addFlashAttribute("error", "Token de edición inválido");
-            return "redirect:/";
+            return "recepcion/homeRecepcion";
         }
 
         // Obtener el ID del usuario desde la sesión
@@ -194,7 +118,7 @@ public class UsuarioControlador {
         usuario.setNombreUsuario(u.getNombreUsuario());
         usuario.setEmail(u.getEmail());
         usuario.setContrasena(u.getContrasena());
-        usuario.setRol("USER");
+        usuario.setRol("RECEPCIONISTA");
 
         usuarioServicio.save(usuario);
 
@@ -204,24 +128,13 @@ public class UsuarioControlador {
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Perfil editado correctamente!");
 
-        return "redirect:/";
-    }
-
-    @GetMapping("/cerrar")
-    public String cerrarSesion(HttpSession session) {
-        session.removeAttribute("idusuario");
-        session.removeAttribute("usersession");
-        return "redirect:/";
-    }
-
-    @GetMapping("/bloqueado")
-    public String bloqueado() {
-        return "usuario/bloqueado";
+        return "redirect:/recepcion/homeRecepcion";
     }
 
     // Cambiar contraseña con token
     @GetMapping("/cambiarContrasena")
     public String cambiarContrasena(Model model, HttpSession session) {
+
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -247,7 +160,7 @@ public class UsuarioControlador {
 
         logger.info("Usuario a cambiar contraseña: {}", usuario);
 
-        return "usuario/cambiarContrasena";
+        return "recepcion/cambiarContrasena";
     }
 
     // Actualizar contraseña con token
@@ -262,7 +175,7 @@ public class UsuarioControlador {
         String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
         if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
             redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña inválido");
-            return "redirect:/";
+            return "redirect:/recepcion/homeRecepcion";
         }
 
         // Obtener el ID del usuario desde la sesión
@@ -275,13 +188,13 @@ public class UsuarioControlador {
         // Verificamos la contraseña actual del usuario
         if (!u.getContrasena().equals(actualContrasena)) {
             redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
-            return "redirect:/usuario/cambiarContrasena";
+            return "redirect:/recepcion/cambiarContrasena";
         }
 
         // Verificamos que las nuevas contraseñas coincidan
         if (!contrasena.equals(password2)) {
             redirectAttributes.addFlashAttribute("error", "¡Las contraseñas no coinciden!");
-            return "redirect:/usuario/cambiarContrasena";
+            return "redirect:/recepcion/cambiarContrasena";
         }
 
         // Actualizar la contraseña
@@ -291,7 +204,7 @@ public class UsuarioControlador {
         usuario.setIdUsuario(u.getIdUsuario());
         usuario.setNombreUsuario(u.getNombreUsuario());
         usuario.setEmail(u.getEmail());
-        usuario.setRol("USER");
+        usuario.setRol("RECEPCIONISTA");
         usuario.setFoto(u.getFoto());
         usuario.setNombre(u.getNombre());
         usuario.setApellido(u.getApellido());
@@ -313,7 +226,6 @@ public class UsuarioControlador {
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
 
-        return "redirect:/";
+        return "redirect:/recepcion/homeRecepcion";
     }
-
 }

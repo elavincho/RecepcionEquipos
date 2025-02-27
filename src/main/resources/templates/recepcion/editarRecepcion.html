@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recepción Equipos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+
+    <main>
+
+        <div class="contenedor-formulario">
+
+            <form id="formulario" th:action="@{/recepcion/actualizarRecepcion}" method="post"
+                enctype="multipart/form-data" th:each="usuario:${usuario}">
+                <!-- Obtenemos los datos del usuario -->
+                <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
+                <!-- Obtenemos el token -->
+                <input type="hidden" name="editToken" th:value="${editToken}" />
+                <!-- Grupo: Perfil -->
+                <div class="card border mrt-10 center">
+                    <div class="card w90 mrt-30 mrb-30">
+                        <div class="contenedor-user-name white">
+                            <h4 class="center" th:text="${usuario.nombreUsuario}"></h4>
+                        </div>
+
+                        <div class="center mrt-30 w100 center">
+                            <div class="contenedor-img">
+                                <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto">
+                            </div>
+                        </div>
+
+                        <div class="w100 center mrt-10">
+                            <label for="img" class="btn btn-dark"><img class="w25" th:src="@{/iconos/camara.png}"
+                                    alt="camara">
+                                Cambiar foto</label>
+                        </div>
+
+                        <div class="oculto">
+                            <input type="file" class="form-control-file btn" id="img" name="img">
+                        </div>
+
+                        <h2 class="center mrt-10" th:text="${usuario.nombre + ' ' + usuario.apellido}"></h2>
+
+                        <p class="center mrt-10" th:text="${usuario.email}"></p>
+                    </div>
+                </div>
+
+                <div class="formulario mrt-10">
+
+                    <!-- Grupo: Nombre -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="nombre" class="formulario-label">Nombre</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="nombre" name="nombre" required
+                                placeholder="Ingrese su Nombre" autocomplete="off" th:value="${usuario.nombre}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Apellido -->
+                    <div class="formulario-grupo" id="grupo-apellido">
+                        <label for="apellido" class="formulario-label">Apellido</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="apellido" name="apellido" required
+                                placeholder="Ingrese su Apellido" autocomplete="off" th:value="${usuario.apellido}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: DNI -->
+                    <div class="formulario-grupo" id="grupo-documento">
+                        <label for="documento" class="formulario-label">DNI / CI / Pasaporte / Otro</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="documento" name="documento"
+                                placeholder="Ingrese su Número de Documento" autocomplete="off"
+                                th:value="${usuario.documento}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Teléfono -->
+                    <div class="formulario-grupo" id="grupo-telefono">
+                        <label for="telefono" class="formulario-label">Teléfono</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="telefono" name="telefono" required
+                                placeholder="Ingrese Número de Teléfono" autocomplete="off"
+                                th:value="${usuario.telefono}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Calle -->
+                    <div class="formulario-grupo" id="grupo-direccion">
+                        <label for="direccion" class="formulario-label">Calle</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="direccion" name="direccion"
+                                placeholder="Ingrese su Calle" autocomplete="off" th:value="${usuario.direccion}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Nro -->
+                    <div class="formulario-grupo" id="grupo-altura">
+                        <label for="altura" class="formulario-label">Nro</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="altura" name="altura"
+                                placeholder="Ingrese el Número" autocomplete="off" th:value="${usuario.altura}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Piso -->
+                    <div class="formulario-grupo" id="grupo-piso">
+                        <label for="piso" class="formulario-label">Piso</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="piso" name="piso"
+                                placeholder="Ingrese su Piso" autocomplete="off" th:value="${usuario.piso}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Depto -->
+                    <div class="formulario-grupo" id="grupo-depto">
+                        <label for="depto" class="formulario-label">Depto</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="depto" name="depto"
+                                placeholder="Ingrese su Depto" autocomplete="off" th:value="${usuario.depto}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Localidad -->
+                    <div class="formulario-grupo" id="grupo-localidad">
+                        <label for="localidad" class="formulario-label">Localidad</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="localidad" name="localidad"
+                                placeholder="Ingrese su Localidad" autocomplete="off" th:value="${usuario.localidad}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Provincia -->
+                    <div class="formulario-grupo" id="grupo-provincia">
+                        <label for="provincia" class="formulario-label">Provincia</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="provincia" name="provincia"
+                                placeholder="Ingrese su Provincia" autocomplete="off" th:value="${usuario.provincia}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 center mrt-30">
+                    <a class="btn btn-secondary mr-30" th:href="@{/recepcion/homeRecepcion}"><img class="w25"
+                            th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
+                    <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
+                            alt="guardar"> Guardar Cambios</button>
+                </div>
+            </form>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/scripts/formulario.js}"></script>
+</body>
+
+</html>
