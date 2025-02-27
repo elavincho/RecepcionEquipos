@@ -276,4 +276,20 @@ public class RecepcionControlador {
 
         return "redirect:/recepcion/homeRecepcion";
     }
+
+    // Mostrar todos los clientes registrados
+    @GetMapping("/clientes")
+    public String usuarios(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Mandamos todos los datos de los clientes registrados
+        model.addAttribute("clientes", clienteServicio.findAll());
+        
+        return "clientes/mostrar";
+    }
 }

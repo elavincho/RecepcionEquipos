@@ -24,10 +24,6 @@
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
 
-        <div class="contenedor-img-iniciarSesion">
-            <img class="img-iniciarSesion" th:src="@{/iconos/agregar-cliente-blanco.png}" alt="alta-cliente">
-        </div>
-
         <h1 class="center mrt-30">Alta Cliente</h1>
 
         <div class="contenedor-formulario">
@@ -110,14 +106,14 @@
                     </div>
 
                     <!-- Grupo: Calle -->
-                    <div class="formulario-grupo" id="grupo-direcccion">
-                        <label for="direcccion" class="formulario-label">Calle</label>
+                    <div class="formulario-grupo" id="grupo-direccion">
+                        <label for="direccion" class="formulario-label">Calle</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="direcccion" id="direcccion"
+                            <input type="text" class="formulario-input" name="direccion" id="direccion"
                                 placeholder="Direcccion" required>
                             <i class="formulario-validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="formulario-input-error">El Direcccion tiene que ser de 4 a 16 dígitos.</p>
+                        <p class="formulario-input-error">El Direccion tiene que ser de 4 a 16 dígitos.</p>
                     </div>
 
                     <!-- Grupo: Nro -->
