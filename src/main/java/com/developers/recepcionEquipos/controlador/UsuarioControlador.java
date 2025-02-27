@@ -124,6 +124,12 @@ public class UsuarioControlador {
     // Metodo editar con token
     @GetMapping("/editar")
     public String editar(Model model, HttpSession session) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Obtener el ID del usuario desde la sesión
         Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
@@ -210,6 +216,12 @@ public class UsuarioControlador {
     // Cambiar contraseña con token
     @GetMapping("/cambiarContrasena")
     public String cambiarContrasena(Model model, HttpSession session) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Obtener el ID del usuario desde la sesión
         Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
