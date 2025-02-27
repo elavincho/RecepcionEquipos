@@ -281,6 +281,9 @@ public class AdministradorControlador {
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        //Mandamos todos los datos de los usuarios registrados
+        model.addAttribute("usuarios", usuarioServicio.findAll());
+
         return "administrador/usuarios";
     }
 
