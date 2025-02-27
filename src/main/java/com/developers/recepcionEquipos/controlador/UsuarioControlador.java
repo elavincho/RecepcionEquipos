@@ -45,10 +45,11 @@ public class UsuarioControlador {
         logger.info("Usuario Registro: {}", usuario);
 
         // Verificación de un usuario existente
-        if (usuario.getEmail().equalsIgnoreCase(email)) {
+        Optional<Usuario> usuarioExistente = usuarioServicio.findByEmail(email);
+        logger.info("Usuario Exsistente: {}", usuarioExistente);
+        if (usuarioExistente.isPresent()) {
             // Alerta para un usuario existente
             redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
-            
         } else {
             usuario.setRol("USER");
 

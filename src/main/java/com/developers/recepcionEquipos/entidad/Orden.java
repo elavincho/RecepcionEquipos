@@ -26,7 +26,8 @@ public class Orden {
     private String medioAviso;
     
     @ManyToOne
-    private Usuario usuario;
+    //private Usuario usuario;
+    private Cliente cliente;
     
     @OneToMany(mappedBy = "orden")
     private List<DetalleOrden> detalle;
@@ -34,14 +35,14 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, Usuario usuario, List<DetalleOrden> detalle) {
+    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, Cliente cliente, List<DetalleOrden> detalle) {
         this.IdOrden = IdOrden;
         this.fallaCliente = fallaCliente;
         this.fallaTecnico = fallaTecnico;
         this.prioridad = prioridad;
         this.avisoCliente = avisoCliente;
         this.medioAviso = medioAviso;
-        this.usuario = usuario;
+        this.cliente = cliente;
         this.detalle = detalle;
     }
 
@@ -93,12 +94,12 @@ public class Orden {
         this.medioAviso = medioAviso;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public List<DetalleOrden> getDetalle() {
@@ -111,6 +112,6 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", usuario=" + usuario + ", detalle=" + detalle + '}';
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", cliente=" + cliente + ", detalle=" + detalle + '}';
     }
 }

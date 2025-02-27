@@ -28,12 +28,13 @@ public class Equipo {
     private String imagenEquipo;
     
     @ManyToOne
-    private Usuario usuario;
+    //private Usuario usuario;
+    private Cliente cliente;
 
     public Equipo() {
     }
 
-    public Equipo(Integer IdEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, Usuario usuario) {
+    public Equipo(Integer IdEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, Cliente cliente) {
         this.IdEquipo = IdEquipo;
         this.marca = marca;
         this.modelo = modelo;
@@ -44,7 +45,7 @@ public class Equipo {
         this.origen = origen;
         this.observaciones = observaciones;
         this.imagenEquipo = imagenEquipo;
-        this.usuario = usuario;
+        this.cliente = cliente;
     }
 
     public Integer getIdEquipo() {
@@ -127,16 +128,16 @@ public class Equipo {
         this.imagenEquipo = imagenEquipo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override
     public String toString() {
-        return "Equipo{" + "IdEquipo=" + IdEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", usuario=" + usuario + '}';
+        return "Equipo{" + "IdEquipo=" + IdEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", cliente=" + cliente + '}';
     }
 }
