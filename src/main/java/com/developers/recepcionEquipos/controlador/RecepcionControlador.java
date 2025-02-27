@@ -1,6 +1,7 @@
 package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Usuario;
+import com.developers.recepcionEquipos.servicio.ClienteServicio;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
@@ -29,6 +32,9 @@ public class RecepcionControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private ClienteServicio clienteServicio;
 
     @Autowired
     private UploadFileService upload;
@@ -225,6 +231,48 @@ public class RecepcionControlador {
 
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
+
+        return "redirect:/recepcion/homeRecepcion";
+    }
+
+    @GetMapping("/altaCliente")
+    public String altaCliente(Usuario usuario, Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        return "clientes/alta";
+    }
+
+    @PostMapping("/guardarCliente")
+    public String guardarCliente(Cliente cliente, @RequestParam("img") MultipartFile file, @RequestParam String email,
+            RedirectAttributes redirectAttributes)
+            throws IOException {
+        logger.info("Usuario Registro: {}", cliente);
+
+        // Verificación de un cliente existente
+        Optional<Cliente> clienteExistente = clienteServicio.findByEmail(email);
+        logger.info("Cliente Exsistente: {}", clienteExistente);
+
+        if (clienteExistente.isPresent()) {
+            // Alerta para un cliente existente
+            redirectAttributes.addFlashAttribute("error", "¡El cliente ya se encuentra registrado!");
+        } else {
+
+            // Imagen cuando se crea un usuario
+            if (cliente.getIdCliente() == null) {
+                String nombreFoto = upload.saveImage(file);
+                cliente.setFoto(nombreFoto);
+            }
+
+            clienteServicio.save(cliente);
+
+            // Alerta para un cambio correcto
+            redirectAttributes.addFlashAttribute("exito", "¡Cliente agregado correctamente!");
+        }
 
         return "redirect:/recepcion/homeRecepcion";
     }
