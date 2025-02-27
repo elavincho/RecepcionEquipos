@@ -107,6 +107,12 @@ public class UsuarioControlador {
             } else if (user.get().getRol().equals("USER")) {
                 return "redirect:/";
 
+            } else if (user.get().getRol().equals("TECNICO")) {
+                return "redirect:/tecnico/homeTecnico";
+
+            } else if (user.get().getRol().equals("RECEPCIONISTA")) {
+                return "redirect:/recepcion/homeRecepcionista";
+
             } else if (user.get().getRol().equals("BLOQUEADO")) {
                 return "redirect:/usuario/bloqueado";
             }
