@@ -59,11 +59,10 @@ public class AdministradorControlador {
         logger.info("Usuario Registro: {}", usuario);
 
         // Verificación de Autorización
-        
-        
+
         if (autorizacion.equals("admin")) {
 
-            //Verificación de un usuario existente
+            // Verificación de un usuario existente
             Optional<Usuario> usuarioExistente = usuarioServicio.findByEmail(email);
             logger.info("Usuario Exsistente: {}", usuarioExistente);
             if (usuarioExistente.isPresent()) {
@@ -96,6 +95,13 @@ public class AdministradorControlador {
     // Metodo editarAdmin con token
     @GetMapping("/editarAdmin")
     public String editar(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Obtener el ID del usuario desde la sesión
         Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
@@ -170,6 +176,13 @@ public class AdministradorControlador {
     // Cambiar contraseña con token
     @GetMapping("/cambiarContrasena")
     public String cambiarContrasena(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Obtener el ID del usuario desde la sesión
         Integer idUsuario = (Integer) session.getAttribute("idusuario");
 
@@ -257,4 +270,18 @@ public class AdministradorControlador {
 
         return "redirect:/administrador/homeAdmin";
     }
+
+    // Mostrar todos los usuarios registrados
+    @GetMapping("/usuarios")
+    public String usuarios(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        return "administrador/usuarios";
+    }
+
 }

@@ -166,7 +166,7 @@
                         alt="compras">
                     Pedidos
                 </a>
-                <a th:href="@{/usuario/Perfil}"><img class="icono-header" th:src="@{/iconos/perfil.png}" alt="perfil">
+                <a th:href="@{/administrador/usuarios}"><img class="icono-header" th:src="@{/iconos/perfil.png}" alt="perfil">
                     Usuarios
                 </a>
                 <!-- Usuario con dropdown -->
@@ -222,6 +222,20 @@
                                             </div>
                                             <div class="w-150 mrt-10">
                                                 <p>Cambiar Contraseña</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="center">
+                                <div class="card border mrt-5 w90 center">
+                                    <a th:href="@{/administrador/usuarios}">
+                                        <div class="dos-columnas">
+                                            <div>
+                                                <img class="w20" th:src="@{/iconos/mis-compras.png}" alt="compras">
+                                            </div>
+                                            <div class="w-150 mrt-10">
+                                                <p>Mis Compras</p>
                                             </div>
                                         </div>
                                     </a>
