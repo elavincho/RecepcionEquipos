@@ -22,41 +22,42 @@
         <h1 class="center">Usuarios Registrados</h1>
 
         <!-- Usuario con Enlace Estirado -->
-
-        <div class="cont-enlace-estirado mrt-30 mrb-30">
-            <div class="card border enlace-estirado" th:each="usuario:${usuarios}" id="buscar">
-                <div class="card-foto center">
-                    <img th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto-usuario">
-                    <h6 class="mrt-30" th:text="${usuario.rol}"></h6>
-                </div>
-                <div class="card-contenido">
-                    <h5 class="titulo" th:text="${usuario.nombre} +' '+ ${usuario.apellido}"></h5>
-                    <p class="interlineado" th:text="${usuario.email}"></p>
-                    <div class="dos-columnas">
-                        <h6 class="" th:text="'Documento: ' + ${usuario.documento}">
-                        </h6>
-                        <h6 class="" th:text="'Teléfono: ' + ${usuario.telefono}"></h6>
+        <div class="center">
+            <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <div class="card border enlace-estirado" th:each="usuario:${usuarios}" id="buscar">
+                    <div class="card-foto center">
+                        <img th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto-usuario">
+                        <h6 class="mrt-30" th:text="${usuario.rol}"></h6>
                     </div>
-                    <div class="dos-columnas">
-                        <h6 class=""
-                            th:text="'Dirección: ' + ${usuario.direccion} + ' ' + ${usuario.altura} + ' ' + ${usuario.piso} + ' ' + ${usuario.depto} + ' Localidad: ' + ${usuario.localidad}">
-                        </h6>
-                        <h6 class="" th:text="'Provincia: ' + ${usuario.provincia}"></h6>
-                    </div>
-
-                    <div class="dos-columnas center">
-                        <div class="w-150">
-                            <a class="btn btn-danger" style="color: white;"
-                                th:href="@{/administrador/bloquearUsuario/{id} (id=${usuario.IdUsuario}) }">
-                                <img class="w25" th:src="@{/iconos/bloquear.png}" alt="bloquear"> Bloquear
-
-                            </a>
+                    <div class="card-contenido mrt-10">
+                        <h5 class="titulo" th:text="${usuario.nombre} +' '+ ${usuario.apellido}"></h5>
+                        <p class="interlineado" th:text="${usuario.email}"></p>
+                        <div class="dos-columnas">
+                            <h6 class="" th:text="'Documento: ' + ${usuario.documento}">
+                            </h6>
+                            <h6 class="" th:text="'Teléfono: ' + ${usuario.telefono}"></h6>
                         </div>
-                        <div class="w-150">
-                            <a class="btn btn-dark" style="color: white;"
-                                th:href="@{/administrador/bloquearUsuario/{id} (id=${usuario.IdUsuario}) }">
-                                <img class="w25" th:src="@{/iconos/actualizar.png}" alt="bloquear"> Cambiar Rol
-                            </a>
+                        <div class="dos-columnas">
+                            <h6 class=""
+                                th:text="'Dirección: ' + ${usuario.direccion} + ' ' + ${usuario.altura} + ' ' + ${usuario.piso} + ' ' + ${usuario.depto} + ' Localidad: ' + ${usuario.localidad}">
+                            </h6>
+                            <h6 class="" th:text="'Provincia: ' + ${usuario.provincia}"></h6>
+                        </div>
+
+                        <div class="dos-columnas center">
+                            <div class="w-150">
+                                <a class="btn btn-danger" style="color: white;"
+                                    th:href="@{/administrador/bloquearUsuario/{id} (id=${usuario.IdUsuario}) }">
+                                    <img class="w25" th:src="@{/iconos/bloquear.png}" alt="bloquear"> Bloquear
+
+                                </a>
+                            </div>
+                            <div class="w-150">
+                                <a class="btn btn-dark" style="color: white;"
+                                    th:href="@{/administrador/editarRol/{id} (id=${usuario.IdUsuario}) }">
+                                    <img class="w25" th:src="@{/iconos/actualizar.png}" alt="actualizar"> Cambiar Rol
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

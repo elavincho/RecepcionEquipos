@@ -628,7 +628,7 @@ a {
 .cont-enlace-estirado {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 90vw;
     justify-content: center;
     align-items: center;
 }
@@ -636,12 +636,14 @@ a {
 .enlace-estirado {
     display: grid;
     grid-template-columns: 25% 75%;
-    width: 90vw;
+    width: 80vw;
     height: 200px;
     border-radius: 10px;
     overflow: hidden;
     gap: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .card-foto {
@@ -669,3 +671,10 @@ a {
 .interlineado {
     line-height: 0.2;
 }
+
+.card-contenido {
+    display: inline-block;
+    justify-content: left;
+    align-items: left;
+}
+
