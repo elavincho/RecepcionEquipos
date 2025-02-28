@@ -289,7 +289,99 @@ public class RecepcionControlador {
 
         // Mandamos todos los datos de los clientes registrados
         model.addAttribute("clientes", clienteServicio.findAll());
-        
+
         return "clientes/mostrar";
     }
+
+    @PostMapping("/editarCliente")
+    public String editarCliente(@RequestParam Integer id, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        // Verificar que el ID del cliente es válido
+        Optional<Cliente> optionalCliente = clienteServicio.get(id);
+        if (!optionalCliente.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Cliente no encontrado.");
+            return "redirect:/recepcion/clientes";
+        }
+
+        // Almacenar el ID del cliente en la sesión
+        session.setAttribute("clienteId", id);
+
+        // Redirigir a la página de edición
+        return "redirect:/recepcion/editarCliente";
+    }
+
+    @GetMapping("/editarCliente")
+    public String mostrarEditarCliente(Model model, HttpSession session) {
+        // Obtener el ID del cliente desde la sesión
+        Integer id = (Integer) session.getAttribute("clienteId");
+        if (id == null) {
+            return "redirect:/recepcion/clientes"; // Redirigir si no hay un cliente seleccionado
+        }
+
+        // Buscar el cliente por su ID
+        Optional<Cliente> optionalCliente = clienteServicio.get(id);
+        if (!optionalCliente.isPresent()) {
+            return "redirect:/recepcion/clientes"; // Redirigir si el cliente no existe
+        }
+        Cliente cliente = optionalCliente.get();
+
+        // Generar un token UUID
+        String token = UUID.randomUUID().toString();
+        session.setAttribute("editToken", token);
+
+        // Pasar los datos del cliente y el token a la vista
+        model.addAttribute("clientes", cliente);
+        model.addAttribute("editToken", token);
+
+        return "clientes/editar";
+    }
+
+    @PostMapping("/actualizarCliente")
+    public String actualizarCliente(Model model, Cliente cliente, @RequestParam("img") MultipartFile file,
+            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
+            throws IOException {
+
+        // Verificar el token y el ID del cliente
+
+        // Verificar el token
+        String sessionToken = (String) session.getAttribute("editToken");
+        if (sessionToken == null || !sessionToken.equals(editToken)) {
+            redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
+            return "redirect:/recepcion/clientes";
+        }
+
+        /* cuando editamos el cliente pero no cambiamos la imagen */
+        Cliente c = new Cliente();
+        c = clienteServicio.get(cliente.getIdCliente()).get();
+
+        /* cuando editamos el cliente pero no cambiamos la imagen */
+        if (file.isEmpty()) {
+        cliente.setFoto(c.getFoto());
+        } else {
+
+        /* eliminar cuando no sea la imagen por defecto */
+        if (!c.getFoto().equals("default.jpg")) {
+        upload.deleteImage(c.getFoto());
+        }
+        String nombreImagen = upload.saveImage(file);
+        cliente.setFoto(nombreImagen);
+        }
+
+        // Guardamos nuevamente estos datos para que no se borren
+        cliente.setEmail(c.getEmail());
+
+        // Actualizar el cliente
+        clienteServicio.update(cliente);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Cliente actualizado correctamente!");
+
+        // Limpiar la sesión
+        // session.removeAttribute("clienteId");
+        session.removeAttribute("editToken");
+
+        return "redirect:/recepcion/clientes";
+    }
+
 }

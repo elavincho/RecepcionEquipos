@@ -19,5 +19,7 @@ public interface ClienteServicio {
     public void Delete(Integer IdCliente);
     
     public Optional<Cliente> get(Integer IdCliente);
+
+    public void update(Cliente cliente);
     
 }

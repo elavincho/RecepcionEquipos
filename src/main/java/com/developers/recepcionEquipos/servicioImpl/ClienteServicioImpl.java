@@ -44,5 +44,10 @@ public class ClienteServicioImpl implements ClienteServicio {
     public Optional<Cliente> get(Integer IdCliente) {
         return clienteRepositorio.findById(IdCliente);
     }
+
+    @Override
+    public void update(Cliente cliente) {
+        clienteRepositorio.save(cliente);
+    }
     
 }

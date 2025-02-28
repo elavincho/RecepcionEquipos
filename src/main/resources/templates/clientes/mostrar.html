@@ -32,11 +32,10 @@
                 <div class="card border enlace-estirado" th:each="cliente:${clientes}" id="buscar">
                     <div class="card-foto center">
                         <img th:src="@{/images/{img} (img=${cliente.foto})}" alt="foto-cliente">
-                        <h5 class="titulo" th:text="${cliente.nombre} +' '+ ${cliente.apellido}"></h5>
-                        <p class="interlineado" th:text="${cliente.email}"></p>
                     </div>
                     <div class="card-contenido mrt-10">
-                        
+                        <h5 class="titulo" th:text="${cliente.nombre} +' '+ ${cliente.apellido}"></h5>
+                        <p class="interlineado" th:text="${cliente.email}"></p>
                         <div class="dos-columnas">
                             <h6 class="" th:text="'Documento: ' + ${cliente.documento}">
                             </h6>
@@ -44,9 +43,20 @@
                         </div>
                         <div class="dos-columnas">
                             <h6 class=""
-                                th:text="'Dirección: ' + ${cliente.direccion} + ' ' + ${cliente.altura} + ' ' + ${usuario.piso} + ' ' + ${usuario.depto} + ' Localidad: ' + ${usuario.localidad}">
+                                th:text="'Dirección: ' + ${cliente.direccion} + ' ' + ${cliente.altura} + ' ' + ${cliente.piso} + ' ' + ${cliente.depto} + ' Localidad: ' + ${cliente.localidad}">
                             </h6>
                             <h6 class="" th:text="'Provincia: ' + ${cliente.provincia}"></h6>
+                        </div>
+
+                        <div class="">
+                            <!-- Formulario para editar cliente -->
+                            <form th:action="@{/recepcion/editarCliente}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
+                                <button type="submit" class="btn btn-dark" style="color: white;">
+                                    <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
+                                </button>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
