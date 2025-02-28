@@ -24,34 +24,43 @@
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
 
-        <h1 class="center mrt-30">Clientes Registrados</h1>
+        <h1 class="center mrt-30">Equipos</h1>
 
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
-                <div class="card border enlace-estirado" th:each="cliente:${clientes}" id="buscar">
+                <div class="card border enlace-estirado" th:each="equipo:${equipos}" id="buscar">
                     <div class="card-foto center">
-                        <img th:src="@{/images/{img} (img=${cliente.foto})}" alt="foto-cliente">
+                        <img th:src="@{/images/{img} (img=${equipo.imagenEquipo})}" alt="foto">
                     </div>
                     <div class="card-contenido mrt-10">
-                        <h5 class="titulo" th:text="${cliente.nombre} +' '+ ${cliente.apellido}"></h5>
-                        <p class="interlineado" th:text="${cliente.email}"></p>
+                        <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
+                        </h5>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Documento: ' + ${cliente.documento}">
+                            <h6 class="" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
+                            <h6 class="" th:text="'Accesorios: ' + ${equipo.accesorio}">
                             </h6>
-                            <h6 class="" th:text="'Teléfono: ' + ${cliente.telefono}"></h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class=""
-                                th:text="'Dirección: ' + ${cliente.direccion} + ' ' + ${cliente.altura} + ' ' + ${cliente.piso} + ' ' + ${cliente.depto} + ' Localidad: ' + ${cliente.localidad}">
+                            <h6 class="" th:text="'N° de Serie: ' + ${equipo.nroSerie}">
                             </h6>
-                            <h6 class="" th:text="'Provincia: ' + ${cliente.provincia}"></h6>
+                            <h6 class="" th:text="'N° Producto: ' + ${equipo.nroProducto}"></h6>
+                        </div>
+                        <div class="dos-columnas">
+                            <h6 class="" th:text="'Color: ' + ${equipo.color}"></h6>
+                            <h6 class="" th:text="'Origen: ' + ${equipo.origen}">
+                            </h6>
+                        </div>
+                        <div class="dos-columnas">
+                            <h6 class="" th:text="'Origen: ' + ${equipo.origen}">
+                            </h6>
+                            <h6 class="" th:text="'Observaciones: ' + ${equipo.observaciones}"></h6>
                         </div>
 
                         <div class="">
-                            <!-- Formulario para editar cliente -->
-                            <form th:action="@{/recepcion/editarCliente}" method="post" style="display: inline;">
-                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
+                            <!-- Formulario para editar el equipo -->
+                            <form th:action="@{/recepcion/editarEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>

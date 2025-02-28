@@ -17,6 +17,7 @@ public class Equipo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdEquipo;
+    private String tipoEquipo;
     private String marca;
     private String modelo;
     private String nroSerie;
@@ -26,6 +27,8 @@ public class Equipo {
     private String origen;
     private String observaciones;
     private String imagenEquipo;
+    private String clave;
+    
     
     @ManyToOne
     //private Usuario usuario;
@@ -34,8 +37,9 @@ public class Equipo {
     public Equipo() {
     }
 
-    public Equipo(Integer IdEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, Cliente cliente) {
+    public Equipo(Integer IdEquipo, String tipoEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, String clave, Cliente cliente) {
         this.IdEquipo = IdEquipo;
+        this.tipoEquipo = tipoEquipo;
         this.marca = marca;
         this.modelo = modelo;
         this.nroSerie = nroSerie;
@@ -45,6 +49,7 @@ public class Equipo {
         this.origen = origen;
         this.observaciones = observaciones;
         this.imagenEquipo = imagenEquipo;
+        this.clave = clave;
         this.cliente = cliente;
     }
 
@@ -54,6 +59,14 @@ public class Equipo {
 
     public void setIdEquipo(Integer IdEquipo) {
         this.IdEquipo = IdEquipo;
+    }
+
+    public String getTipoEquipo() {
+        return tipoEquipo;
+    }
+
+    public void setTipoEquipo(String tipoEquipo) {
+        this.tipoEquipo = tipoEquipo;
     }
 
     public String getMarca() {
@@ -128,6 +141,14 @@ public class Equipo {
         this.imagenEquipo = imagenEquipo;
     }
 
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -138,6 +159,6 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" + "IdEquipo=" + IdEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", cliente=" + cliente + '}';
+        return "Equipo{" + "IdEquipo=" + IdEquipo + ", tipoEquipo=" + tipoEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", clave=" + clave + ", cliente=" + cliente + '}';
     }
 }

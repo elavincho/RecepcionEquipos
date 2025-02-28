@@ -313,6 +313,12 @@ public class RecepcionControlador {
 
     @GetMapping("/editarCliente")
     public String mostrarEditarCliente(Model model, HttpSession session) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
         // Obtener el ID del cliente desde la sesión
         Integer id = (Integer) session.getAttribute("clienteId");
         if (id == null) {
@@ -342,8 +348,6 @@ public class RecepcionControlador {
             HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
             throws IOException {
 
-        // Verificar el token y el ID del cliente
-
         // Verificar el token
         String sessionToken = (String) session.getAttribute("editToken");
         if (sessionToken == null || !sessionToken.equals(editToken)) {
@@ -357,15 +361,15 @@ public class RecepcionControlador {
 
         /* cuando editamos el cliente pero no cambiamos la imagen */
         if (file.isEmpty()) {
-        cliente.setFoto(c.getFoto());
+            cliente.setFoto(c.getFoto());
         } else {
 
-        /* eliminar cuando no sea la imagen por defecto */
-        if (!c.getFoto().equals("default.jpg")) {
-        upload.deleteImage(c.getFoto());
-        }
-        String nombreImagen = upload.saveImage(file);
-        cliente.setFoto(nombreImagen);
+            /* eliminar cuando no sea la imagen por defecto */
+            if (!c.getFoto().equals("default.jpg")) {
+                upload.deleteImage(c.getFoto());
+            }
+            String nombreImagen = upload.saveImage(file);
+            cliente.setFoto(nombreImagen);
         }
 
         // Guardamos nuevamente estos datos para que no se borren
@@ -377,8 +381,7 @@ public class RecepcionControlador {
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Cliente actualizado correctamente!");
 
-        // Limpiar la sesión
-        // session.removeAttribute("clienteId");
+        // Eliminamos el token
         session.removeAttribute("editToken");
 
         return "redirect:/recepcion/clientes";
