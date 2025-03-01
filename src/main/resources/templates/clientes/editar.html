@@ -31,7 +31,7 @@
             <form id="formulario" th:action="@{/recepcion/actualizarCliente}" method="post"
                 enctype="multipart/form-data" th:each="cliente:${clientes}">
                 <!-- Obtenemos los datos del Cliente -->
-                <!-- <input type="hidden" name="IdCliente" th:value="${cliente.IdCliente}"> -->
+                <input type="hidden" name="IdCliente" th:value="${cliente.IdCliente}">
                 <!-- Obtenemos el token -->
                 <input type="hidden" name="editToken" th:value="${editToken}" />
                 <!-- Grupo: Perfil -->

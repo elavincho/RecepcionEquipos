@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recepción Equipos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+
+
+    <!-- Main -->
+    <main>
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
+        </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
+        </div>
+
+        <h1 class="center mrt-30">Editar Equipo</h1>
+
+        <div class="contenedor-formulario">
+
+            <form id="formulario" th:action="@{/equipo/actualizarEquipo}" method="post" enctype="multipart/form-data"
+                th:each="equipo:${equipos}">
+                <!-- Obtenemos los datos del equipo -->
+                <input type="hidden" name="IdEquipo" th:value="${equipo.IdEquipo}">
+                <!-- Obtenemos el token -->
+                <input type="hidden" name="editToken" th:value="${editToken}" />
+
+                <!-- Grupo: Perfil -->
+                <div class="card border mrt-10 center">
+                    <div class="card w90 mrt-30 mrb-30">
+                        <div class="contenedor-user-name white">
+                            <h4 class="center" th:text="${equipo.tipoEquipo}">
+                            </h4>
+                        </div>
+
+                        <div class="center mrt-30 w100 center">
+                            <div class="contenedor-img">
+                                <img class="circle" th:src="@{/images/{img} (img=${equipo.imagenEquipo})}" alt="foto">
+                            </div>
+                        </div>
+
+                        <div class="w100 center mrt-10">
+                            <label for="img" class="btn btn-dark"><img class="w25" th:src="@{/iconos/camara.png}"
+                                    alt="camara">
+                                Cambiar foto</label>
+                        </div>
+
+                        <div class="oculto">
+                            <input type="file" class="form-control-file btn" id="img" name="img">
+                        </div>
+
+                        <h2 class="center mrt-10" th:text="${equipo.marca +' '+ equipo.modelo}">
+                        </h2>
+
+                    </div>
+                </div>
+
+                <div class="formulario mrt-10">
+
+                    <!-- Grupo: Equipo -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="tipoEquipo" class="formulario-label">Equipo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="tipoEquipo" name="tipoEquipo"
+                                required placeholder="Ingrese su Nombre" autocomplete="off"
+                                th:value="${equipo.tipoEquipo}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Marca -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="marca" class="formulario-label">Marca</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="marca" name="marca" required
+                                placeholder="Marca" autocomplete="off" th:value="${equipo.marca}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Modelo -->
+                    <div class="formulario-grupo" id="grupo-modelo">
+                        <label for="modelo" class="formulario-label">Modelo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="modelo" name="modelo"
+                                placeholder="Modelo" autocomplete="off" th:value="${equipo.modelo}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Clave Equipo -->
+                    <div class="formulario-grupo" id="grupo-clave">
+                        <label for="clave" class="formulario-label">Clave del Equipo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="clave" name="clave"
+                                placeholder="Ingrese Número de Teléfono" autocomplete="off" th:value="${equipo.clave}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: N° de Serie -->
+                    <div class="formulario-grupo" id="grupo-nroSerie">
+                        <label for="nroSerie" class="formulario-label">N° de Serie</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="nroSerie" name="nroSerie"
+                                placeholder="N° de Serie" autocomplete="off" th:value="${equipo.nroSerie}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Nro de Producto -->
+                    <div class="formulario-grupo" id="grupo-altura">
+                        <label for="altura" class="formulario-label">N° de Producto</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="nroProducto" name="nroProducto"
+                                placeholder="N° de Producto" autocomplete="off" th:value="${equipo.nroProducto}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Accesorio -->
+                    <div class="formulario-grupo" id="grupo-piso">
+                        <label for="accesorio" class="formulario-label">Accesorios</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="accesorio" name="accesorio"
+                                placeholder="Accesorios" autocomplete="off" th:value="${equipo.accesorio}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Color -->
+                    <div class="formulario-grupo" id="grupo-color">
+                        <label for="color" class="formulario-label">Color</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="color" name="color"
+                                placeholder="Color" autocomplete="off" th:value="${equipo.color}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Origen -->
+                    <div class="formulario-grupo" id="grupo-localidad">
+                        <label for="origen" class="formulario-label">Origen</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="origen" name="origen"
+                                placeholder="Origen" autocomplete="off" th:value="${equipo.origen}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Observaciones -->
+                    <div class="formulario-grupo" id="grupo-provincia">
+                        <label for="provincia" class="formulario-label">Observaciones</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="observaciones" name="observaciones"
+                                placeholder="Observaciones" autocomplete="off" th:value="${equipo.observaciones}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 center mrt-30">
+                    <a class="btn btn-secondary mr-30" th:href="@{/equipo/equipos}"><img class="w25"
+                            th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
+                    <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
+                            alt="guardar"> Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

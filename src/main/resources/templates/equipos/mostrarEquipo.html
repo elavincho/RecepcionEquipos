@@ -23,6 +23,9 @@
         <div class="contenedor-exito">
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
+        </div>
 
         <h1 class="center mrt-30">Equipos</h1>
 
@@ -59,7 +62,7 @@
 
                         <div class="">
                             <!-- Formulario para editar el equipo -->
-                            <form th:action="@{/recepcion/editarEquipo}" method="post" style="display: inline;">
+                            <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
                                 <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
@@ -73,7 +76,7 @@
                                     <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
                                 </button>
                             </form> -->
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/recepcion/altaEquipo}"><img
+                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
                                     class="w25" th:src="@{/iconos/alta.png}" alt="alta">
                                 Alta Equipo
                             </a> -->

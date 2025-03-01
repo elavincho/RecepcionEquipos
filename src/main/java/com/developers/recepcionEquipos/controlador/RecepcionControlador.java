@@ -312,7 +312,7 @@ public class RecepcionControlador {
     }
 
     @GetMapping("/editarCliente")
-    public String mostrarEditarCliente(Model model, HttpSession session) {
+    public String editarCliente(Model model, HttpSession session) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 

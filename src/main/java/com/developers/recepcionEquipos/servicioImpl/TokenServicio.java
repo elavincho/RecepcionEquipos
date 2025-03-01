@@ -24,6 +24,18 @@ public class TokenServicio {
         return tokenMap.getOrDefault(token, null);
     }
 
+    // Generar un token único y asociarlo al ID del Equipo
+    public String generarTokenEquipo(Integer IdEquipo) {
+        String tokenEquipo = UUID.randomUUID().toString();
+        tokenMap.put(tokenEquipo, IdEquipo);
+        return tokenEquipo;
+    }
+
+    // Validar el token y obtener el ID del equipo
+    public Integer validarTokenEquipo(String tokenEquipo) {
+        return tokenMap.getOrDefault(tokenEquipo, null);
+    }
+
     // Eliminar el token después de su uso
     public void eliminarToken(String token) {
         tokenMap.remove(token);
