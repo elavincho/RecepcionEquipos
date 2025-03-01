@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Equipo;
+import com.developers.recepcionEquipos.entidad.Usuario;
+import com.developers.recepcionEquipos.servicio.ClienteServicio;
 import com.developers.recepcionEquipos.servicio.EquipoServicio;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
@@ -34,6 +37,9 @@ public class EquipoControlador {
     @Autowired
     private UploadFileService upload;
 
+    @Autowired
+    private ClienteServicio clienteServicio;
+
     @GetMapping("/altaEquipo")
     public String altaEquipo(Model model, HttpSession session) {
 
@@ -43,14 +49,52 @@ public class EquipoControlador {
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        // Obtener el ID del cliente desde la sesión
+        Integer clienteId = (Integer) session.getAttribute("clienteId");
+        System.out.println("ID RECIBIDO GET ALTA EQUIPO: " + clienteId);
+
+        // Pasar los datos del cliente a la vista
+        model.addAttribute("clienteId", clienteId);
+
         return "equipos/altaEquipo";
+    }
+
+    @PostMapping("/altaEquipo")
+    public String altaEquipo(Model model, HttpSession session,
+            @RequestParam Integer clienteId, RedirectAttributes redirectAttributes) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Verificar que el ID del cliente es válido
+        Optional<Cliente> optionalCliente = clienteServicio.get(clienteId);
+        if (!optionalCliente.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Cliente no encontrado.");
+            return "redirect:/recepcion/clientes";
+        }
+
+        // Almacenar el ID del cliente en la sesión
+        session.setAttribute("clienteId", clienteId);
+
+        // Redirigir a la página de edición
+        return "redirect:/equipo/altaEquipo";
     }
 
     @PostMapping("/guardarEquipo")
     public String guardarEquipo(Equipo equipo, @RequestParam("img") MultipartFile file,
-            RedirectAttributes redirectAttributes)
+            @RequestParam Integer id, RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", equipo);
+
+        System.out.println("ID del Cliente recibido en GUARDAR EQUIPO POST: " + id);
+
+        // Asignar el ID del cliente al equipo
+        Cliente c = clienteServicio.findByIdCliente(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        equipo.setCliente(c);
 
         // Imagen cuando se crea un equipo
         if (equipo.getIdEquipo() == null) {
@@ -59,7 +103,6 @@ public class EquipoControlador {
         }
 
         equipoServicio.save(equipo);
-
         // Alerta para un guardado correcto
         redirectAttributes.addFlashAttribute("exito", "¡Equipo agregado correctamente!");
 
@@ -115,11 +158,19 @@ public class EquipoControlador {
 
         System.out.println("token enviado: " + tokenEquipo); // Verifica que se almacena correctamente
 
+        // Obtener el ID del cliente desde la sesión
+        Integer clienteId = (Integer) session.getAttribute("clienteId");
+        System.out.println("ID RECIBIDO GET ALTA EQUIPO: " + clienteId);
+
+        // Pasar los datos del cliente a la vista
+        model.addAttribute("clienteId", clienteId);
+
         return "equipos/editarEquipo";
     }
 
     @PostMapping("/editarEquipo")
-    public String editarEquipo(Model model, @RequestParam Integer id, HttpSession session,
+    public String editarEquipo(Model model, @RequestParam Integer id, @RequestParam Integer clienteId,
+            HttpSession session,
             RedirectAttributes redirectAttributes) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
@@ -142,6 +193,16 @@ public class EquipoControlador {
         System.out.println("ID almacenado en sesión: " + session.getAttribute("equipoId")); // Verifica que se almacena
                                                                                             // correctamente
 
+        // Verificar que el ID del cliente es válido
+        Optional<Cliente> optionalCliente = clienteServicio.get(clienteId);
+        if (!optionalCliente.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Cliente no encontrado.");
+            return "redirect:/recepcion/clientes";
+        }
+
+        // Almacenar el ID del cliente en la sesión
+        session.setAttribute("clienteId", clienteId);
+
         // Redirigir a la página de edición
         return "redirect:/equipo/editarEquipo";
 
@@ -149,8 +210,8 @@ public class EquipoControlador {
 
     @PostMapping("/actualizarEquipo")
     public String actualizarEquipo(Model model, Equipo equipo, @RequestParam("img") MultipartFile file,
-            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
-            throws IOException {
+            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken,
+            @RequestParam Integer clienteId) throws IOException {
 
         System.out.println("Token recibido: " + editToken); // Verifica que se almacena correctamente
         // Verificar el token
@@ -176,6 +237,12 @@ public class EquipoControlador {
             String nombreImagen = upload.saveImage(file);
             equipo.setImagenEquipo(nombreImagen);
         }
+
+        // Asignar el ID del cliente al equipo
+        Cliente c = clienteServicio.findByIdCliente(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        equipo.setCliente(c);
 
         // Guardamos nuevamente estos datos para que no se borren
         equipo.setIdEquipo(e.getIdEquipo());

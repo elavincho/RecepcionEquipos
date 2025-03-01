@@ -21,5 +21,5 @@ public interface ClienteServicio {
     public Optional<Cliente> get(Integer IdCliente);
 
     public void update(Cliente cliente);
-    
+
 }

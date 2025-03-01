@@ -29,7 +29,9 @@
         <div class="contenedor-formulario">
 
             <form id="formulario" th:action="@{/equipo/guardarEquipo}" method="post" enctype="multipart/form-data">
-
+                <!-- Obtenemos el ID del cliente -->
+                <input   type="hidden" name="clienteId" th:value="${clienteId}">
+                
                 <!-- Grupo: Imagen Equipo -->
                 <div class="formulario-grupo" id="grupo-foto">
                     <label class="formulario-label" for="img">Foto: (opcional)</label>

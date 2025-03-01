@@ -39,31 +39,33 @@
                     <div class="card-contenido mrt-10">
                         <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
                         </h5>
+                        <p th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></p>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
-                            <h6 class="" th:text="'Accesorios: ' + ${equipo.accesorio}">
+                            <h6 class="interlineado" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
+                            <h6 class="interlineado" th:text="'Accesorios: ' + ${equipo.accesorio}">
                             </h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'N° de Serie: ' + ${equipo.nroSerie}">
+                            <h6 class="interlineado" th:text="'N° de Serie: ' + ${equipo.nroSerie}">
                             </h6>
-                            <h6 class="" th:text="'N° Producto: ' + ${equipo.nroProducto}"></h6>
+                            <h6 class="interlineado" th:text="'N° Producto: ' + ${equipo.nroProducto}"></h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Color: ' + ${equipo.color}"></h6>
-                            <h6 class="" th:text="'Origen: ' + ${equipo.origen}">
+                            <h6 class="interlineado" th:text="'Color: ' + ${equipo.color}"></h6>
+                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
                             </h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Origen: ' + ${equipo.origen}">
+                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
                             </h6>
-                            <h6 class="" th:text="'Observaciones: ' + ${equipo.observaciones}"></h6>
+                            <h6 class="interlineado" th:text="'Observaciones: ' + ${equipo.observaciones}"></h6>
                         </div>
 
                         <div class="">
                             <!-- Formulario para editar el equipo -->
                             <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
                                 <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
+                                <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>

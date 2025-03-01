@@ -35,6 +35,7 @@
                 th:each="equipo:${equipos}">
                 <!-- Obtenemos los datos del equipo -->
                 <input type="hidden" name="IdEquipo" th:value="${equipo.IdEquipo}">
+                <input   type="hidden" name="clienteId" th:value="${clienteId}">
                 <!-- Obtenemos el token -->
                 <input type="hidden" name="editToken" th:value="${editToken}" />
 
