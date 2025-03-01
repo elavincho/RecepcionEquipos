@@ -43,5 +43,10 @@ public class EquipoServicioImpl implements EquipoServicio{
     public void update(Equipo equipo) {
         equipoRepositorio.save(equipo);
     }
+
+    @Override
+    public Optional<Equipo> findByIdEquipo(Integer IdEquipo) {
+        return equipoRepositorio.findById(IdEquipo);
+    }
     
 }

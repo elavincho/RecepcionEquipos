@@ -47,31 +47,21 @@ public class EquipoControlador {
     }
 
     @PostMapping("/guardarEquipo")
-    public String guardarEquipo(Equipo equipo, @RequestParam("img") MultipartFile file, @RequestParam String nroSerie,
+    public String guardarEquipo(Equipo equipo, @RequestParam("img") MultipartFile file,
             RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", equipo);
 
-        // Verificación de un cliente existente
-        Optional<Equipo> equipoExistente = equipoServicio.findByNroSerie(nroSerie);
-        logger.info("Equipo Exsistente: {}", equipoExistente);
-
-        if (equipoExistente.isPresent()) {
-            // Alerta para un equipo existente
-            redirectAttributes.addFlashAttribute("error", "¡El equipo ya se encuentra registrado!");
-        } else {
-
-            // Imagen cuando se crea un usuario
-            if (equipo.getIdEquipo() == null) {
-                String nombreFoto = upload.saveImage(file);
-                equipo.setImagenEquipo(nombreFoto);
-            }
-
-            equipoServicio.save(equipo);
-
-            // Alerta para un guardado correcto
-            redirectAttributes.addFlashAttribute("exito", "¡Equipo agregado correctamente!");
+        // Imagen cuando se crea un equipo
+        if (equipo.getIdEquipo() == null) {
+            String nombreFoto = upload.saveImage(file);
+            equipo.setImagenEquipo(nombreFoto);
         }
+
+        equipoServicio.save(equipo);
+
+        // Alerta para un guardado correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Equipo agregado correctamente!");
 
         return "redirect:/recepcion/homeRecepcion";
     }
@@ -119,7 +109,7 @@ public class EquipoControlador {
         session.setAttribute("editToken", tokenEquipo);
 
         // Pasar los datos del equipo y el token a la vista
-        
+
         model.addAttribute("equipos", equipo);
         model.addAttribute("editToken", tokenEquipo);
 
@@ -136,7 +126,7 @@ public class EquipoControlador {
 
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
-        
+
         System.out.println("ID recibido: " + id);
         System.out.println("Sesión ID: " + session.getId()); // Verifica el ID de la sesión
 
@@ -149,7 +139,8 @@ public class EquipoControlador {
 
         // Almacenar el ID del equipo en la sesión
         session.setAttribute("equipoId", id);
-        System.out.println("ID almacenado en sesión: " + session.getAttribute("equipoId")); // Verifica que se almacena correctamente
+        System.out.println("ID almacenado en sesión: " + session.getAttribute("equipoId")); // Verifica que se almacena
+                                                                                            // correctamente
 
         // Redirigir a la página de edición
         return "redirect:/equipo/editarEquipo";
@@ -161,7 +152,7 @@ public class EquipoControlador {
             HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
             throws IOException {
 
-                System.out.println("Token recibido: " + editToken); // Verifica que se almacena correctamente
+        System.out.println("Token recibido: " + editToken); // Verifica que se almacena correctamente
         // Verificar el token
         String sessionToken = (String) session.getAttribute("editToken");
         if (sessionToken == null || !sessionToken.equals(editToken)) {

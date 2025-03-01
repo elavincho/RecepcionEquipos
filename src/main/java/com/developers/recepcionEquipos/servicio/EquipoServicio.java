@@ -19,4 +19,5 @@ public interface EquipoServicio {
 
     public void update(Equipo equipo);
     
+    Optional<Equipo> findByIdEquipo(Integer IdEquipo);
 }
