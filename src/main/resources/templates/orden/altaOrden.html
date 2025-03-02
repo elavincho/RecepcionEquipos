@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recepción Equipos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+
+
+    <!-- Main -->
+    <main>
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
+        </div>
+
+        <h1 class="center mrt-30">Alta Orden de Reparación</h1>
+
+        <div class="contenedor-formulario">
+
+            <form id="formulario" th:action="@{/equipo/guardarEquipo}" method="post" enctype="multipart/form-data">
+                <!-- Obtenemos el ID del cliente -->
+                <input   type="hidden" name="clienteId" th:value="${clienteId}">
+                
+                <!-- Grupo: Imagen Equipo -->
+                <div class="formulario-grupo" id="grupo-foto">
+                    <label class="formulario-label" for="img">Foto: (opcional)</label>
+                    <div class="formulario-grupo-input">
+                        <div class="w100 center mrt-10">
+                            <label for="img" class="btn btn-dark"><img class="w25 mr-10"
+                                    th:src="@{/iconos/felicidad.png}" alt="felicidad">
+                                Subí una foto</label>
+                        </div>
+                        <div class="oculto">
+                            <input type="file" class="form-control-file btn" id="img" name="img">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formulario mrt-10">
+                    <!-- Grupo: Equipo -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="tipoEquipo" class="formulario-label">Equipo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="tipoEquipo" id="tipoEquipo"
+                                placeholder="Equipo" required>
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Marca -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="marca" class="formulario-label">Marca</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="marca" id="marca" placeholder="Marca"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Modelo -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="modelo" class="formulario-label">Modelo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="modelo" id="modelo" placeholder="Modelo">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Clave Equipo -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="clave" class="formulario-label">Clave del Equipo</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="clave" id="clave"
+                                placeholder="Clave del Equipo si corresponde">
+                        </div>
+                    </div>
+
+
+                    <!-- Grupo: Nro de Serie -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="nroSerie" class="formulario-label">N° de Serie</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="nroSerie" id="nroSerie"
+                                placeholder="N° de Serie">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Nro de Producto -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="nroProducto" class="formulario-label">N° de Producto</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="nroProducto" id="nroProducto"
+                                placeholder="N° de Producto">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Accesorio -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="accesorio" class="formulario-label">Accesorios</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="accesorio" id="accesorio"
+                                placeholder="Accesorios">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Color -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="color" class="formulario-label">Color</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="color" id="color" placeholder="Color">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Origen -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="origen" class="formulario-label">Origen</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="origen" id="origen" placeholder="Origen">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Observaciones -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="observaciones" class="formulario-label">Observaciones</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input" name="observaciones" id="observaciones"
+                                placeholder="Observaciones">
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12 center mrt-30">
+                        <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
+                                th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
+                        <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
+                                alt="guardar"> Guardar Cambios</button>
+                    </div>
+            </form>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- Footer -->
+    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
