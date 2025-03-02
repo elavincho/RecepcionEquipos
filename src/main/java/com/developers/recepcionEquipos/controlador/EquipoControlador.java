@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Equipo;
-import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.ClienteServicio;
 import com.developers.recepcionEquipos.servicio.EquipoServicio;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
@@ -84,14 +83,14 @@ public class EquipoControlador {
 
     @PostMapping("/guardarEquipo")
     public String guardarEquipo(Equipo equipo, @RequestParam("img") MultipartFile file,
-            @RequestParam Integer id, RedirectAttributes redirectAttributes)
+            @RequestParam Integer clienteId, RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", equipo);
 
-        System.out.println("ID del Cliente recibido en GUARDAR EQUIPO POST: " + id);
+        System.out.println("ID del Cliente recibido en GUARDAR EQUIPO POST: " + clienteId);
 
         // Asignar el ID del cliente al equipo
-        Cliente c = clienteServicio.findByIdCliente(id)
+        Cliente c = clienteServicio.findByIdCliente(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
         equipo.setCliente(c);
@@ -221,7 +220,7 @@ public class EquipoControlador {
             return "redirect:/equipo/equipos";
         }
 
-        /* cuando editamos el cliente pero no cambiamos la imagen */
+        
         Equipo e = new Equipo();
         e = equipoServicio.get(equipo.getIdEquipo()).get();
 

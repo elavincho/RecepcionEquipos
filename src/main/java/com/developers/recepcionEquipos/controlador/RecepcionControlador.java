@@ -294,18 +294,22 @@ public class RecepcionControlador {
     }
 
     @PostMapping("/editarCliente")
-    public String editarCliente(@RequestParam Integer id, HttpSession session,
+    public String editarCliente(@RequestParam Integer clienteId, HttpSession session,
             RedirectAttributes redirectAttributes) {
 
+        System.out.println("ID recibido: " + clienteId);
+        System.out.println("Sesión ID: " + session.getId()); // Verifica el ID de la sesión
+
         // Verificar que el ID del cliente es válido
-        Optional<Cliente> optionalCliente = clienteServicio.get(id);
+        Optional<Cliente> optionalCliente = clienteServicio.get(clienteId);
         if (!optionalCliente.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Cliente no encontrado.");
             return "redirect:/recepcion/clientes";
         }
 
+        System.out.println("CLIENTE ID POST EDITAR CLIENTE: " + clienteId);
         // Almacenar el ID del cliente en la sesión
-        session.setAttribute("clienteId", id);
+        session.setAttribute("clienteId", clienteId);
 
         // Redirigir a la página de edición
         return "redirect:/recepcion/editarCliente";
@@ -319,11 +323,15 @@ public class RecepcionControlador {
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        System.out.println("CLIENTE session ID GET EDITAR CLIENTE: " + session.getAttribute("clienteId"));
+
         // Obtener el ID del cliente desde la sesión
         Integer id = (Integer) session.getAttribute("clienteId");
         if (id == null) {
             return "redirect:/recepcion/clientes"; // Redirigir si no hay un cliente seleccionado
         }
+
+        System.out.println("ID en sesión: (GET)" + id);
 
         // Buscar el cliente por su ID
         Optional<Cliente> optionalCliente = clienteServicio.get(id);
@@ -333,20 +341,32 @@ public class RecepcionControlador {
         Cliente cliente = optionalCliente.get();
 
         // Generar un token UUID
-        String token = UUID.randomUUID().toString();
-        session.setAttribute("editToken", token);
+        String tokenCliente = UUID.randomUUID().toString();
+        session.setAttribute("editToken", tokenCliente);
 
         // Pasar los datos del cliente y el token a la vista
         model.addAttribute("clientes", cliente);
-        model.addAttribute("editToken", token);
+        model.addAttribute("editToken", tokenCliente);
+
+        System.out.println("token GET editarCliente: " + tokenCliente);
+
+        // Obtener el ID del cliente desde la sesión
+        Integer clienteId = (Integer) session.getAttribute("clienteId");
+        System.out.println("ID RECIBIDO GET EDITAR CLIENTE: " + clienteId);
+
+        // Pasar los datos del cliente a la vista
+        //model.addAttribute("clienteId", clienteId); // es necesario, se obtiene directamente
 
         return "clientes/editar";
     }
 
     @PostMapping("/actualizarCliente")
     public String actualizarCliente(Model model, Cliente cliente, @RequestParam("img") MultipartFile file,
-            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken)
+            HttpSession session, RedirectAttributes redirectAttributes, @RequestParam String editToken,
+            @RequestParam Integer clienteId)
             throws IOException {
+
+        System.out.println("TOKEN RECIBIDO EN actualizar cliente POST " + editToken);
 
         // Verificar el token
         String sessionToken = (String) session.getAttribute("editToken");
@@ -355,10 +375,11 @@ public class RecepcionControlador {
             return "redirect:/recepcion/clientes";
         }
 
-        /* cuando editamos el cliente pero no cambiamos la imagen */
         Cliente c = new Cliente();
-        c = clienteServicio.get(cliente.getIdCliente()).get();
+        
+        c = clienteServicio.get(clienteId).get();
 
+        
         /* cuando editamos el cliente pero no cambiamos la imagen */
         if (file.isEmpty()) {
             cliente.setFoto(c.getFoto());
@@ -372,8 +393,13 @@ public class RecepcionControlador {
             cliente.setFoto(nombreImagen);
         }
 
+        // Asignar el ID del cliente al equipo
+        // c = clienteServicio.findByIdCliente(clienteId)
+        // .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
         // Guardamos nuevamente estos datos para que no se borren
         cliente.setEmail(c.getEmail());
+        cliente.setIdCliente(c.getIdCliente());
 
         // Actualizar el cliente
         clienteServicio.update(cliente);

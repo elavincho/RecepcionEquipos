@@ -23,6 +23,9 @@
         <div class="contenedor-exito">
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
+        </div>
 
         <h1 class="center mrt-30">Clientes Registrados</h1>
 
@@ -51,7 +54,7 @@
                         <div class="">
                             <!-- Formulario para editar cliente -->
                             <form th:action="@{/recepcion/editarCliente}" method="post" style="display: inline;">
-                                <input type="hidden" name="clienteid" th:value="${cliente.IdCliente}">
+                                <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>
@@ -62,6 +65,14 @@
                                 <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
+                                </button>
+                            </form>
+
+                            <!-- Formulario para ver equipos del cliente -->
+                            <form th:action="@{/equipo/equipos}" method="post" style="display: inline;">
+                                <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
+                                <button type="submit" class="btn btn-dark" style="color: white;">
+                                    <img class="w25" th:src="@{/iconos/menu-blanco.png}" alt="menu-blanco"> Ver Equipos
                                 </button>
                             </form>
                             <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/recepcion/altaEquipo}"><img
