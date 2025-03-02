@@ -1,6 +1,7 @@
 package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -110,7 +111,7 @@ public class EquipoControlador {
 
     // Mostrar todos los equipos
     @GetMapping("/equipos")
-    public String usuarios(Model model, HttpSession session) {
+    public String equipos(Model model, HttpSession session) {
 
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
@@ -220,7 +221,6 @@ public class EquipoControlador {
             return "redirect:/equipo/equipos";
         }
 
-        
         Equipo e = new Equipo();
         e = equipoServicio.get(equipo.getIdEquipo()).get();
 
@@ -256,4 +256,43 @@ public class EquipoControlador {
 
         return "redirect:/equipo/equipos";
     }
+
+    // Mostramos todos los equipos de un cliente
+    @PostMapping("/equiposCliente")
+    public String equiposCliente(Model model, HttpSession session, @RequestParam Integer clienteId,
+            RedirectAttributes redirectAttributes) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Pasamos el clienteId a la vista
+        redirectAttributes.addAttribute("clienteId", clienteId);
+
+        // Redirigir a la página de edición
+        return "redirect:/equipo/equiposCliente";
+    }
+
+    // Mostramos todos los equipos de un cliente
+    @GetMapping("/equiposCliente")
+    public String equiposCliente(Model model, HttpSession session, @RequestParam Integer clienteId) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Obtenemos los equipos del cliente por su Id
+        Cliente c = clienteServicio.findByIdCliente(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        if (clienteId != null) {
+            List<Equipo> equipos = equipoServicio.findByCliente(c);
+            // Pasamos la lista de equipos del cliente a la vista
+            model.addAttribute("equipos", equipos);
+        }
+        return "equipos/equiposCliente";
+    }
+
 }

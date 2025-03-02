@@ -1,5 +1,6 @@
 package com.developers.recepcionEquipos.servicio;
 
+import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Equipo;
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface EquipoServicio {
     public void update(Equipo equipo);
     
     Optional<Equipo> findByIdEquipo(Integer IdEquipo);
+
+    List<Equipo> findByCliente(Cliente cliente);
 }

@@ -27,55 +27,61 @@
             <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
         </div>
 
-        <h1 class="center mrt-30">Clientes Registrados</h1>
+        <h1 class="center mrt-30">Equipos x Cliente</h1>
+
+        <!-- Obtenemos los datos del equipo -->
+        <input   type="hidden" name="clienteId" th:value="${clienteId}">
 
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
-                <div class="card border enlace-estirado" th:each="cliente:${clientes}" id="buscar">
+                <div class="card border enlace-estirado" th:each="equipo:${equipos}" id="buscar">
                     <div class="card-foto center">
-                        <img th:src="@{/images/{img} (img=${cliente.foto})}" alt="foto-cliente">
+                        <img th:src="@{/images/{img} (img=${equipo.imagenEquipo})}" alt="foto">
                     </div>
                     <div class="card-contenido mrt-10">
-                        <h5 class="titulo" th:text="${cliente.nombre} +' '+ ${cliente.apellido}"></h5>
-                        <p class="interlineado" th:text="${cliente.email}"></p>
+                        <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
+                        </h5>
+                        <p th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></p>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Documento: ' + ${cliente.documento}">
+                            <h6 class="interlineado" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
+                            <h6 class="interlineado" th:text="'Accesorios: ' + ${equipo.accesorio}">
                             </h6>
-                            <h6 class="" th:text="'Teléfono: ' + ${cliente.telefono}"></h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class=""
-                                th:text="'Dirección: ' + ${cliente.direccion} + ' ' + ${cliente.altura} + ' ' + ${cliente.piso} + ' ' + ${cliente.depto} + ' Localidad: ' + ${cliente.localidad}">
+                            <h6 class="interlineado" th:text="'N° de Serie: ' + ${equipo.nroSerie}">
                             </h6>
-                            <h6 class="" th:text="'Provincia: ' + ${cliente.provincia}"></h6>
+                            <h6 class="interlineado" th:text="'N° Producto: ' + ${equipo.nroProducto}"></h6>
+                        </div>
+                        <div class="dos-columnas">
+                            <h6 class="interlineado" th:text="'Color: ' + ${equipo.color}"></h6>
+                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
+                            </h6>
+                        </div>
+                        <div class="dos-columnas">
+                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
+                            </h6>
+                            <h6 class="interlineado" th:text="'Observaciones: ' + ${equipo.observaciones}"></h6>
                         </div>
 
                         <div class="">
-                            <!-- Formulario para editar cliente -->
-                            <form th:action="@{/recepcion/editarCliente}" method="post" style="display: inline;">
-                                <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
+                            <!-- Formulario para editar el equipo -->
+                            <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
+                                <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>
                             </form>
 
                             <!-- Formulario para alta equipo -->
-                            <form th:action="@{/equipo/altaEquipo}" method="post" style="display: inline;">
-                                <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
+                            <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
                                 </button>
-                            </form>
-
-                            <!-- Formulario para ver equipos del cliente -->
-                            <form th:action="@{/equipo/equiposCliente}" method="post" style="display: inline;">
-                                <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
-                                <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/menu-blanco.png}" alt="menu-blanco"> Ver Equipos
-                                </button>
-                            </form>
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/recepcion/altaEquipo}"><img
+                            </form> -->
+                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
                                     class="w25" th:src="@{/iconos/alta.png}" alt="alta">
                                 Alta Equipo
                             </a> -->

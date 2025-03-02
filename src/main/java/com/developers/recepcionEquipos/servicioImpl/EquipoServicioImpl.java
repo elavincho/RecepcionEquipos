@@ -1,5 +1,6 @@
 package com.developers.recepcionEquipos.servicioImpl;
 
+import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Equipo;
 import com.developers.recepcionEquipos.repositorio.EquipoRepositorio;
 import com.developers.recepcionEquipos.servicio.EquipoServicio;
@@ -48,5 +49,9 @@ public class EquipoServicioImpl implements EquipoServicio{
     public Optional<Equipo> findByIdEquipo(Integer IdEquipo) {
         return equipoRepositorio.findById(IdEquipo);
     }
-    
+
+    @Override
+    public List<Equipo> findByCliente(Cliente cliente) {
+        return equipoRepositorio.findByCliente(cliente);
+    }
 }
