@@ -2,8 +2,10 @@ package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,9 @@ public class EquipoControlador {
 
     @Autowired
     private ClienteServicio clienteServicio;
+
+    // Mapa temporal para almacenar tokens y clienteId (puedes usar una base de datos o caché en producción)
+    private Map<String, Integer> tokenMap = new ConcurrentHashMap<>();
 
     @GetMapping("/altaEquipo")
     public String altaEquipo(Model model, HttpSession session) {
@@ -267,8 +272,14 @@ public class EquipoControlador {
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
-        // Pasamos el clienteId a la vista
-        redirectAttributes.addAttribute("clienteId", clienteId);
+        // Generar un token
+        String token = UUID.randomUUID().toString();
+
+        // Almacenar el token y el clienteId en el mapa temporal
+        tokenMap.put(token, clienteId);
+
+        // Redirigir al método GET usando el token
+        redirectAttributes.addAttribute("token", token);
 
         // Redirigir a la página de edición
         return "redirect:/equipo/equiposCliente";
@@ -276,12 +287,21 @@ public class EquipoControlador {
 
     // Mostramos todos los equipos de un cliente
     @GetMapping("/equiposCliente")
-    public String equiposCliente(Model model, HttpSession session, @RequestParam Integer clienteId) {
+    public String equiposCliente(Model model, HttpSession session, @RequestParam String token) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Verificar si el token existe en el mapa temporal
+        Integer clienteId = tokenMap.get(token);
+        if (clienteId == null) {
+            throw new RuntimeException("Token inválido o expirado");
+        }
+
+        // Limpiar el token después de usarlo (opcional, para evitar reutilización)
+        tokenMap.remove(token);
 
         // Obtenemos los equipos del cliente por su Id
         Cliente c = clienteServicio.findByIdCliente(clienteId)

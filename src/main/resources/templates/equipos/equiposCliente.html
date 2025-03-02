@@ -30,8 +30,9 @@
         <h1 class="center mrt-30">Equipos x Cliente</h1>
 
         <!-- Obtenemos los datos del equipo -->
-        <input   type="hidden" name="clienteId" th:value="${clienteId}">
-
+        <input type="hidden" name="clienteId" th:value="${clienteId}">
+        <!-- Obtenemos el token -->
+        <input type="hidden" name="token" th:value="${token}" />
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
@@ -74,13 +75,14 @@
                                 </button>
                             </form>
 
-                            <!-- Formulario para alta equipo -->
-                            <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
-                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
+                            <!-- Formulario para una Orden de Reparación -->
+                            <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
+                                    <img class="w25" th:src="@{/iconos/reparacion.png}" alt="reparacion"> Orden
+                                    Reparación
                                 </button>
-                            </form> -->
+                            </form>
                             <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
                                     class="w25" th:src="@{/iconos/alta.png}" alt="alta">
                                 Alta Equipo
