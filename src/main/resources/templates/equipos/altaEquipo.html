@@ -30,8 +30,8 @@
 
             <form id="formulario" th:action="@{/equipo/guardarEquipo}" method="post" enctype="multipart/form-data">
                 <!-- Obtenemos el ID del cliente -->
-                <input   type="hidden" name="clienteId" th:value="${clienteId}">
-                
+                <input type="hidden" name="clienteId" th:value="${clienteId}">
+
                 <!-- Grupo: Imagen Equipo -->
                 <div class="formulario-grupo" id="grupo-foto">
                     <label class="formulario-label" for="img">Foto: (opcional)</label>
@@ -135,14 +135,14 @@
                                 placeholder="Observaciones">
                         </div>
                     </div>
+                </div>
 
-
-                    <div class="col-sm-12 center mrt-30">
-                        <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
-                                th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
-                        <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
-                                alt="guardar"> Guardar Cambios</button>
-                    </div>
+                <div class="col-sm-12 center mrt-30">
+                    <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
+                            th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
+                    <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
+                            alt="guardar"> Guardar Cambios</button>
+                </div>
             </form>
 
         </div>

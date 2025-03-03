@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Cliente;
@@ -246,6 +245,59 @@ public class OrdenControlador {
         session.removeAttribute("editTokenOrden");
 
         return "redirect:/orden/ordenes";
+    }
+
+    // Mostramos todos las ordenes de un cliente
+    @PostMapping("/ordenCliente")
+    public String ordenCliente(Model model, HttpSession session, @RequestParam Integer clienteId,
+            RedirectAttributes redirectAttributes) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Generar un token
+        String token = UUID.randomUUID().toString();
+
+        // Almacenar el token y el clienteId en el mapa temporal
+        tokenMap.put(token, clienteId);
+
+        // Redirigir al método GET usando el token
+        redirectAttributes.addAttribute("token", token);
+
+        // Redirigir a la página de edición
+        return "redirect:/orden/ordenCliente";
+    }
+
+    // Mostramos todos las ordenes de un cliente
+    @GetMapping("/ordenCliente")
+    public String ordenCliente(Model model, HttpSession session, @RequestParam String token) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Verificar si el token existe en el mapa temporal
+        Integer clienteId = tokenMap.get(token);
+        if (clienteId == null) {
+            throw new RuntimeException("Token inválido o expirado");
+        }
+
+        // Limpiar el token después de usarlo (opcional, para evitar reutilización)
+        tokenMap.remove(token);
+
+        // Obtenemos los equipos del cliente por su Id
+        Cliente c = clienteServicio.findByIdCliente(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        if (clienteId != null) {
+            List<Orden> ordenes = ordenServicio.findByCliente(c);
+            // Pasamos la lista de equipos del cliente a la vista
+            model.addAttribute("ordenes", ordenes);
+        }
+        return "orden/ordenCliente";
     }
 
 }

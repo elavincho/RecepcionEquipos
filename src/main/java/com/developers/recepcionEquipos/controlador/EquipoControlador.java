@@ -195,8 +195,7 @@ public class EquipoControlador {
 
         // Almacenar el ID del equipo en la sesión
         session.setAttribute("equipoId", id);
-        System.out.println("ID almacenado en sesión: " + session.getAttribute("equipoId")); // Verifica que se almacena
-                                                                                            // correctamente
+        System.out.println("ID almacenado en sesión: " + session.getAttribute("equipoId"));
 
         // Verificar que el ID del cliente es válido
         Optional<Cliente> optionalCliente = clienteServicio.get(clienteId);

@@ -33,7 +33,7 @@
                 <input type="hidden" name="clienteId" th:value="${clienteId}">
                 <input type="hidden" name="equipoId" th:value="${equipoId}">
                 <!-- Obtenemos el token -->
-                <input type="hidden" name="token" th:value="${token}"/>
+                <input type="hidden" name="token" th:value="${token}" />
 
                 <div class="formulario mrt-10">
                     <!-- Grupo: Falla Cliente-->
@@ -88,13 +88,14 @@
                                 placeholder="Falla Encontrada">
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-sm-12 center mrt-30">
-                        <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
-                                th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
-                        <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
-                                alt="guardar"> Guardar Cambios</button>
-                    </div>
+                <div class="col-sm-12 center mrt-30">
+                    <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
+                            th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
+                    <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
+                            alt="guardar"> Guardar Cambios</button>
+                </div>
             </form>
 
         </div>

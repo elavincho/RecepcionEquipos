@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Orden;
 import com.developers.recepcionEquipos.repositorio.OrdenRepositorio;
 import com.developers.recepcionEquipos.servicio.OrdenServicio;
@@ -41,6 +42,8 @@ public class OrdenServicioImpl implements OrdenServicio {
         ordenRepositorio.save(orden);
     }
 
-   
-
+    @Override
+    public List<Orden> findByCliente(Cliente cliente) {
+        return ordenRepositorio.findByCliente(cliente);
+    }
 }
