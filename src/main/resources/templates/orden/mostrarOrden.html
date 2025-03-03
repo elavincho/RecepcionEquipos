@@ -65,8 +65,9 @@
                         
 
                         <div class="mrt-10">
-                            <!-- Formulario para editar el equipo -->
-                            <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
+                            <!-- Formulario para editar la orden -->
+                            <form th:action="@{/orden/editarOrden}" method="post" style="display: inline;">
+                                <input type="hidden" name="ordenId" th:value="${orden.IdOrden}">
                                 <input type="hidden" name="equipoId" th:value="${orden.equipo.IdEquipo}">
                                 <input type="hidden" name="clienteId" th:value="${orden.cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">

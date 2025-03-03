@@ -3,6 +3,7 @@ package com.developers.recepcionEquipos.controlador;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Cliente;
@@ -143,6 +145,107 @@ public class OrdenControlador {
         model.addAttribute("ordenes", ordenServicio.findAll());
 
         return "orden/mostrarOrden";
+    }
+
+    @PostMapping("/editarOrden")
+    public String editarOrden(@RequestParam Integer ordenId, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        System.out.println("Sesión ID: " + session.getId()); // Verifica el ID de la sesión
+
+        // Verificar que el ID de la orden es válido
+        Optional<Orden> optionalOrden = ordenServicio.get(ordenId);
+        if (!optionalOrden.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Orden no encontrada.");
+            return "redirect:/orden/ordenes";
+        }
+
+        System.out.println("ORDEN ID POST EDITAR ORDEN: " + ordenId);
+        // Almacenar el ID de la orden en la sesión
+        session.setAttribute("ordenId", ordenId);
+
+        // Redirigir a la página de edición
+        return "redirect:/orden/editarOrden";
+    }
+
+    @GetMapping("/editarOrden")
+    public String editarOrden(Model model, HttpSession session) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        System.out.println("ORDEN session ID GET EDITAR ORDEN: " + session.getAttribute("ordenId"));
+
+        // Obtener el ID de la orden desde la sesión
+        Integer idOrden = (Integer) session.getAttribute("ordenId");
+        if (idOrden == null) {
+            return "redirect:/orden/ordenes";
+        }
+
+        System.out.println("ID en sesión: (GET)" + idOrden);
+
+        // Buscar la orden por su ID
+        Optional<Orden> optionalOrden = ordenServicio.get(idOrden);
+        if (!optionalOrden.isPresent()) {
+            return "redirect:/orden/ordenes";
+        }
+        Orden orden = optionalOrden.get();
+
+        // Generar un token UUID
+        String tokenOrden = UUID.randomUUID().toString();
+        session.setAttribute("editTokenOrden", tokenOrden);
+
+        // Pasar los datos del cliente y el token a la vista
+        model.addAttribute("ordenes", orden);
+        model.addAttribute("editTokenOrden", tokenOrden);
+
+        System.out.println("token GET editarOrden: " + tokenOrden);
+
+        // Obtener el ID del equipo desde la sesión
+        Integer ordenId = (Integer) session.getAttribute("ordenId");
+        System.out.println("ID ORDEN RECIBIDO GET EDITAR CLIENTE: " + ordenId);
+
+        // Pasar los datos del cliente a la vista
+        model.addAttribute("ordenId", ordenId);
+
+        return "orden/editarOrden";
+    }
+
+    @PostMapping("/actualizarOrden")
+    public String actualizarOrden(Model model, Orden orden, HttpSession session, RedirectAttributes redirectAttributes,
+            @RequestParam String editTokenOrden,
+            @RequestParam Integer ordenId)
+            throws IOException {
+
+        System.out.println("TOKEN RECIBIDO EN actualizar ORDEN POST " + editTokenOrden);
+
+        // Verificar el token
+        String sessionToken = (String) session.getAttribute("editTokenOrden");
+        if (sessionToken == null || !sessionToken.equals(editTokenOrden)) {
+            redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
+            return "redirect:/orden/ordenes";
+        }
+
+        Orden o = new Orden();
+        o = ordenServicio.get(ordenId).get();
+
+        // Guardamos nuevamente estos datos para que no se borren
+        orden.setIdOrden(o.getIdOrden());
+        orden.setCliente(o.getCliente());
+        orden.setEquipo(o.getEquipo());
+
+        // Actualizar la orden
+        ordenServicio.update(orden);
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Orden actualizada correctamente!");
+
+        // Eliminamos el token
+        session.removeAttribute("editTokenOrden");
+
+        return "redirect:/orden/ordenes";
     }
 
 }

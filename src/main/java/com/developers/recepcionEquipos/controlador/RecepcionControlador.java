@@ -378,7 +378,6 @@ public class RecepcionControlador {
         Cliente c = new Cliente();
         
         c = clienteServicio.get(clienteId).get();
-
         
         /* cuando editamos el cliente pero no cambiamos la imagen */
         if (file.isEmpty()) {
@@ -392,10 +391,6 @@ public class RecepcionControlador {
             String nombreImagen = upload.saveImage(file);
             cliente.setFoto(nombreImagen);
         }
-
-        // Asignar el ID del cliente al equipo
-        // c = clienteServicio.findByIdCliente(clienteId)
-        // .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
         // Guardamos nuevamente estos datos para que no se borren
         cliente.setEmail(c.getEmail());
