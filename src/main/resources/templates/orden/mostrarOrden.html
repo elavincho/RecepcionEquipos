@@ -32,6 +32,7 @@
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
                 <div class="card border enlace-estirado" th:each="orden:${ordenes}" id="buscar">
                     <div class="card-foto center">
                         <img th:src="@{/images/{img} (img=${orden.equipo.imagenEquipo})}" alt="foto">
@@ -41,8 +42,12 @@
                     <div class="card-contenido mrt-10">
                         <h5 class="titulo" th:text="${orden.equipo.tipoEquipo} +' '+ ${orden.equipo.marca} +' '+ ${orden.equipo.modelo}">
                         </h5>
-                        <p th:text="'Cliente: '+ ${orden.cliente.nombre} +' '+ ${orden.cliente.apellido}"></p>
                         <div class="dos-columnas">
+                            <h6 class="interlineado" th:text="'Clave Equipo: ' + ${orden.equipo.clave}"></h6>
+                            <h6 class="interlineado" th:text="'Cliente: '+ ${orden.cliente.nombre} +' '+ ${orden.cliente.apellido}"></h6>
+                        </div>
+                        
+                        <div class="dos-columnas mrt-10">
                             <h6 class="interlineado" th:text="'Falla: ' + ${orden.fallaCliente}"></h6>
                             <h6 class="interlineado" th:text="'Prioridad: ' + ${orden.prioridad}">
                             </h6>
@@ -50,7 +55,7 @@
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Aviso: ' + ${orden.avisoCliente}">
                             </h6>
-                            <h6 class="interlineado" th:text="'Medio Aviso: ' + ${orden.avisoCliente}"></h6>
+                            <h6 class="interlineado" th:text="'Medio Aviso: ' + ${orden.medioAviso}"></h6>
                         </div>
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Falla Encontrada: ' + ${orden.fallaTecnico}"></h6>
@@ -59,15 +64,15 @@
                         </div>
                         
 
-                        <div class="">
+                        <div class="mrt-10">
                             <!-- Formulario para editar el equipo -->
-                            <!-- <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
-                                <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
-                                <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
+                            <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="equipoId" th:value="${orden.equipo.IdEquipo}">
+                                <input type="hidden" name="clienteId" th:value="${orden.cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
+                                    <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar Orden
                                 </button>
-                            </form> -->
+                            </form>
 
                             <!-- Formulario para alta equipo -->
                             <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
@@ -83,6 +88,7 @@
                         </div>
                     </div>
                 </div>
+                <br><br>
             </div>
         </div>
         <!-- Fin Usuario con Enlace Estirado -->

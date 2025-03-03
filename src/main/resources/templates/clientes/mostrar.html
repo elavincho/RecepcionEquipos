@@ -32,6 +32,7 @@
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
                 <div class="card border enlace-estirado" th:each="cliente:${clientes}" id="buscar">
                     <div class="card-foto center">
                         <img th:src="@{/images/{img} (img=${cliente.foto})}" alt="foto-cliente">
@@ -82,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+                <br><br>
             </div>
         </div>
         <!-- Fin Usuario con Enlace Estirado -->
