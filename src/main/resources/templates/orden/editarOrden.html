@@ -9,6 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+
     <link th:href="@{/css/estilos.css}" rel="stylesheet">
 </head>
 
@@ -62,7 +67,8 @@
                         <label for="fallaCliente" class="formulario-label">Falla Cliente</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="fallaCliente" name="fallaCliente"
-                                required placeholder="Falla" autocomplete="off" th:value="${orden.fallaCliente}">
+                                required placeholder="Falla descripta por el Cliente" autocomplete="off"
+                                th:value="${orden.fallaCliente}">
                         </div>
                     </div>
 
@@ -80,7 +86,7 @@
                     </div>
 
                     <!-- Grupo: Aviso Cliente -->
-                    <div class="formulario-grupo" id="grupo-modelo">
+                    <div class="formulario-grupo" id="grupo-nombre">
                         <label for="modelo" class="formulario-label">Aviso Cliente</label>
                         <div class="formulario-grupo-input">
                             <select name="avisoCliente" id="avisoCliente">
@@ -92,7 +98,7 @@
                     </div>
 
                     <!-- Grupo: Medio de Aviso -->
-                    <div class="formulario-grupo" id="grupo-clave">
+                    <div class="formulario-grupo" id="grupo-nombre">
                         <label for="clave" class="formulario-label">Medio de Aviso</label>
                         <div class="formulario-grupo-input">
                             <select name="medioAviso" id="medioAviso">
@@ -105,15 +111,74 @@
                     </div>
 
                     <!-- Grupo: Falla Técnico -->
-                    <div class="formulario-grupo" id="grupo-fallaTecnico">
+                    <div class="formulario-grupo" id="grupo-nombre">
                         <label for="fallaTecnico" class="formulario-label">Falla Encontrada</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="fallaTecnico" name="fallaTecnico"
                                 placeholder="Falla Encontrada" autocomplete="off" th:value="${orden.fallaTecnico}">
                         </div>
                     </div>
-                </div>
 
+                    <!-- Grupo: Fecha Inicio -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="fechaInicio" class="formulario-label">Fecha Inicio Reparación</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="form-control" id="fecha" name="fechaInicio"
+                                th:value="${orden.fechaInicio}" placeholder="Haz clic para seleccionar">
+                            <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Trabajo Realizado -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="trabajoRealizado" class="formulario-label">Trabajo Realizado</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="trabajoRealizado"
+                                name="trabajoRealizado" placeholder="Falla Encontrada" autocomplete="off"
+                                th:value="${orden.trabajoRealizado}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Fecha Finalización -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="fechaFinalizacion" class="formulario-label">Fecha Finalización</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="fecha" name="fechaFinalizacion"
+                                th:value="${orden.fechaFinalizacion}" placeholder="Haz clic para seleccionar">
+                            <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Repuesto Utilizado -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="repuestoUtilizado" class="formulario-label">Repuesto Utilizado</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="repuestoUtilizado"
+                                name="trabajoRealizado" placeholder="Falla Encontrada" autocomplete="off"
+                                th:value="${orden.repuestoUtilizado}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Precio Mano de Obra -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="precioManoObra" class="formulario-label">Precio Mano de Obra</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="precioManoObra" name="precioManoObra"
+                                placeholder="Precio Mano de Obra" autocomplete="off" th:value="${orden.precioManoObra}">
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Precio Repuesto -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="precioRepuesto" class="formulario-label">Precio Repuesto</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="precioRepuesto" name="precioRepuesto"
+                                placeholder="Precio Repuesto" autocomplete="off" th:value="${orden.precioRepuesto}">
+                        </div>
+                    </div>
+                   
+                </div>
+                <!-- Fin formulario -->
                 <div class="col-sm-12 center mrt-30">
                     <a class="btn btn-secondary mr-30" th:href="@{/orden/ordenes}"><img class="w25"
                             th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
@@ -133,6 +198,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <!-- jQuery (opcional, solo si necesitas compatibilidad con otros plugins) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Flatpickr Spanish Language (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+
+
+
+
+
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

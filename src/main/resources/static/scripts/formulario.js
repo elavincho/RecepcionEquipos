@@ -197,3 +197,21 @@ inputs.forEach((input) => {
   input.addEventListener("keyup", validarFormulario);
   input.addEventListener("blur", validarFormulario);
 });
+
+
+
+// Fecha
+
+document.addEventListener("DOMContentLoaded", function() {
+  flatpickr("#fecha", {
+    dateFormat: "d/m/Y",       // Formato de la fecha
+    locale: "es",             // Idioma español
+    defaultDate: "",     // Fecha por defecto "today"(hoy)
+    allowInput: true,         // Permitir edición manual
+    clickOpens: true,         // Abrir calendario al hacer clic
+    monthSelectorType: "dropdown", // Seleccionar mes con un dropdown
+    yearSelectorType: "dropdown",  // Seleccionar año con un dropdown
+  });
+});
+
+// Fin fecha

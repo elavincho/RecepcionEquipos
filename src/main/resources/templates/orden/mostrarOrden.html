@@ -75,13 +75,13 @@
                                 </button>
                             </form>
 
-                            <!-- Formulario para alta equipo -->
-                            <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
-                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
+                            <!-- Formulario para el detalle de la orden -->
+                            <form th:action="@{/detalle/detalleOrden}" method="post" style="display: inline;">
+                                <input type="hidden" name="ordenId" th:value="${orden.IdOrden}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
+                                    <img class="w25" th:src="@{/iconos/registro.png}" alt="registro"> Detalle Orden
                                 </button>
-                            </form> -->
+                            </form>
                             <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
                                     class="w25" th:src="@{/iconos/alta.png}" alt="alta">
                                 Alta Equipo

@@ -76,6 +76,14 @@
                                 </button>
                             </form>
 
+                            <!-- Formulario para el detalle de la orden -->
+                            <form th:action="@{/detalle/detalleOrden}" method="post" style="display: inline;">
+                                <input type="hidden" name="ordenId" th:value="${orden.IdOrden}">
+                                <button type="submit" class="btn btn-dark" style="color: white;">
+                                    <img class="w25" th:src="@{/iconos/registro.png}" alt="registro"> Detalle Orden
+                                </button>
+                            </form>
+
                             <!-- Formulario para una Orden de Reparación -->
                             <!-- <form th:action="@{/orden/altaOrden}" method="post" style="display: inline;">
                                 <input type="hidden" name="equipoId" th:value="${equipo.IdEquipo}">
