@@ -27,63 +27,55 @@
             <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
         </div>
 
-        <h1 class="center mrt-30">Equipos x Cliente</h1>
+        <h1 class="center mrt-30">Todas las Ordenes de Reparación</h1>
 
-        <!-- Obtenemos los datos del equipo -->
-        <input type="hidden" name="clienteId" th:value="${clienteId}">
-        <!-- Obtenemos el token -->
-        <input type="hidden" name="token" th:value="${token}" />
         <!-- Usuario con Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
-                <div class="card border enlace-estirado" th:each="equipo:${equipos}" id="buscar">
+                <div class="card border enlace-estirado" th:each="orden:${ordenes}" id="buscar">
                     <div class="card-foto center">
-                        <img th:src="@{/images/{img} (img=${equipo.imagenEquipo})}" alt="foto">
+                        <img th:src="@{/images/{img} (img=${orden.equipo.imagenEquipo})}" alt="foto">
+                        <h5 class="titulo mrt-10" th:text="'Orden N° ' + ${orden.IdOrden}">
+                        </h5>
                     </div>
                     <div class="card-contenido mrt-10">
-                        <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
+                        <h5 class="titulo" th:text="${orden.equipo.tipoEquipo} +' '+ ${orden.equipo.marca} +' '+ ${orden.equipo.modelo}">
                         </h5>
-                        <p th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></p>
+                        <p th:text="'Cliente: '+ ${orden.cliente.nombre} +' '+ ${orden.cliente.apellido}"></p>
                         <div class="dos-columnas">
-                            <h6 class="interlineado" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
-                            <h6 class="interlineado" th:text="'Accesorios: ' + ${equipo.accesorio}">
+                            <h6 class="interlineado" th:text="'Falla: ' + ${orden.fallaCliente}"></h6>
+                            <h6 class="interlineado" th:text="'Prioridad: ' + ${orden.prioridad}">
                             </h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class="interlineado" th:text="'N° de Serie: ' + ${equipo.nroSerie}">
+                            <h6 class="interlineado" th:text="'Aviso: ' + ${orden.avisoCliente}">
                             </h6>
-                            <h6 class="interlineado" th:text="'N° Producto: ' + ${equipo.nroProducto}"></h6>
+                            <h6 class="interlineado" th:text="'Medio Aviso: ' + ${orden.avisoCliente}"></h6>
                         </div>
                         <div class="dos-columnas">
-                            <h6 class="interlineado" th:text="'Color: ' + ${equipo.color}"></h6>
-                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
+                            <h6 class="interlineado" th:text="'Falla Encontrada: ' + ${orden.fallaTecnico}"></h6>
+                            <h6 class="interlineado" th:text="'Falla Encontrada: ' + ${orden.fallaTecnico}">
                             </h6>
                         </div>
-                        <div class="dos-columnas">
-                            <h6 class="interlineado" th:text="'Origen: ' + ${equipo.origen}">
-                            </h6>
-                            <h6 class="interlineado" th:text="'Observaciones: ' + ${equipo.observaciones}"></h6>
-                        </div>
+                        
 
                         <div class="">
                             <!-- Formulario para editar el equipo -->
-                            <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
+                            <!-- <form th:action="@{/equipo/editarEquipo}" method="post" style="display: inline;">
                                 <input type="hidden" name="id" th:value="${equipo.IdEquipo}">
                                 <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>
-                            </form>
+                            </form> -->
 
-                            <!-- Formulario para una Orden de Reparación -->
-                            <form th:action="@{/orden/altaOrden}" method="post" style="display: inline;">
-                                <input type="hidden" name="equipoId" th:value="${equipo.IdEquipo}">
-                                <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
+                            <!-- Formulario para alta equipo -->
+                            <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
+                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/reparacion.png}" alt="reparacion"> Orden
-                                    Reparación
+                                    <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
                                 </button>
-                            </form>
+                            </form> -->
                             <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
                                     class="w25" th:src="@{/iconos/alta.png}" alt="alta">
                                 Alta Equipo

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /*En esta clase vamos a ingresar SOLAMENTE los equipos recibidos 
@@ -34,10 +35,13 @@ public class Equipo {
     //private Usuario usuario;
     private Cliente cliente;
 
+    @OneToOne
+    private Orden orden;//Creo que no tiene sentido - borrar
+
     public Equipo() {
     }
 
-    public Equipo(Integer IdEquipo, String tipoEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, String clave, Cliente cliente) {
+    public Equipo(Integer IdEquipo, String tipoEquipo, String marca, String modelo, String nroSerie, String nroProducto, String accesorio, String color, String origen, String observaciones, String imagenEquipo, String clave, Cliente cliente, Orden orden) {
         this.IdEquipo = IdEquipo;
         this.tipoEquipo = tipoEquipo;
         this.marca = marca;
@@ -51,6 +55,7 @@ public class Equipo {
         this.imagenEquipo = imagenEquipo;
         this.clave = clave;
         this.cliente = cliente;
+        this.orden = orden;
     }
 
     public Integer getIdEquipo() {
@@ -157,8 +162,16 @@ public class Equipo {
         this.cliente = cliente;
     }
 
+    public Orden getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
+
     @Override
     public String toString() {
-        return "Equipo{" + "IdEquipo=" + IdEquipo + ", tipoEquipo=" + tipoEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", clave=" + clave + ", cliente=" + cliente + '}';
+        return "Equipo{" + "IdEquipo=" + IdEquipo + ", tipoEquipo=" + tipoEquipo + ", marca=" + marca + ", modelo=" + modelo + ", nroSerie=" + nroSerie + ", nroProducto=" + nroProducto + ", accesorio=" + accesorio + ", color=" + color + ", origen=" + origen + ", observaciones=" + observaciones + ", imagenEquipo=" + imagenEquipo + ", clave=" + clave + ", cliente=" + cliente + ", orden=" + orden + '}';
     }
 }

@@ -28,114 +28,66 @@
 
         <div class="contenedor-formulario">
 
-            <form id="formulario" th:action="@{/equipo/guardarEquipo}" method="post" enctype="multipart/form-data">
+            <form id="formulario" th:action="@{/orden/guardarOrden}" method="post" enctype="multipart/form-data">
                 <!-- Obtenemos el ID del cliente -->
-                <input   type="hidden" name="clienteId" th:value="${clienteId}">
-                
-                <!-- Grupo: Imagen Equipo -->
-                <div class="formulario-grupo" id="grupo-foto">
-                    <label class="formulario-label" for="img">Foto: (opcional)</label>
-                    <div class="formulario-grupo-input">
-                        <div class="w100 center mrt-10">
-                            <label for="img" class="btn btn-dark"><img class="w25 mr-10"
-                                    th:src="@{/iconos/felicidad.png}" alt="felicidad">
-                                Subí una foto</label>
-                        </div>
-                        <div class="oculto">
-                            <input type="file" class="form-control-file btn" id="img" name="img">
-                        </div>
-                    </div>
-                </div>
+                <input type="hidden" name="clienteId" th:value="${clienteId}">
+                <input type="hidden" name="equipoId" th:value="${equipoId}">
+                <!-- Obtenemos el token -->
+                <input type="hidden" name="token" th:value="${token}"/>
 
                 <div class="formulario mrt-10">
-                    <!-- Grupo: Equipo -->
+                    <!-- Grupo: Falla Cliente-->
                     <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="tipoEquipo" class="formulario-label">Equipo</label>
+                        <label for="fallaCliente" class="formulario-label">Falla</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="tipoEquipo" id="tipoEquipo"
-                                placeholder="Equipo" required>
+                            <input type="text" class="formulario-input" name="fallaCliente" id="fallaCliente"
+                                placeholder="Falla" required>
                         </div>
                     </div>
 
-                    <!-- Grupo: Marca -->
+                    <!-- Grupo: Prioridad -->
                     <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="marca" class="formulario-label">Marca</label>
+                        <label for="prioridad" class="formulario-label">Prioridad</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="marca" id="marca" placeholder="Marca"
-                                required>
+                            <select name="prioridad" id="prioridad">
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ALTA">ALTA</option>
+                                <option value="BAJA">BAJA</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Grupo: Modelo -->
+                    <!-- Grupo: Aviso Cliente -->
                     <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="modelo" class="formulario-label">Modelo</label>
+                        <label for="avisoCliente" class="formulario-label">Aviso Cliente</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="modelo" id="modelo" placeholder="Modelo">
+                            <select name="avisoCliente" id="avisoCliente">
+                                <option value="NO">NO</option>
+                                <option value="SI">SI</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Grupo: Clave Equipo -->
+                    <!-- Grupo: Medio de Aviso -->
                     <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="clave" class="formulario-label">Clave del Equipo</label>
+                        <label for="medioAviso" class="formulario-label">Medio de Aviso</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="clave" id="clave"
-                                placeholder="Clave del Equipo si corresponde">
+                            <select name="medioAviso" id="medioAviso">
+                                <option value="TELEFONO">TELEFONO</option>
+                                <option value="E-MAIL">E-MAIL</option>
+                                <option value="WHATSAPP">WHATSAPP</option>
+                            </select>
                         </div>
                     </div>
 
-
-                    <!-- Grupo: Nro de Serie -->
+                    <!-- Grupo: Falla Técnico -->
                     <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="nroSerie" class="formulario-label">N° de Serie</label>
+                        <label for="fallaTecnico" class="formulario-label">Falla Encontrada</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="nroSerie" id="nroSerie"
-                                placeholder="N° de Serie">
+                            <input type="text" class="formulario-input" name="fallaTecnico" id="fallaTecnico"
+                                placeholder="Falla Encontrada">
                         </div>
                     </div>
-
-                    <!-- Grupo: Nro de Producto -->
-                    <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="nroProducto" class="formulario-label">N° de Producto</label>
-                        <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="nroProducto" id="nroProducto"
-                                placeholder="N° de Producto">
-                        </div>
-                    </div>
-
-                    <!-- Grupo: Accesorio -->
-                    <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="accesorio" class="formulario-label">Accesorios</label>
-                        <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="accesorio" id="accesorio"
-                                placeholder="Accesorios">
-                        </div>
-                    </div>
-
-                    <!-- Grupo: Color -->
-                    <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="color" class="formulario-label">Color</label>
-                        <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="color" id="color" placeholder="Color">
-                        </div>
-                    </div>
-
-                    <!-- Grupo: Origen -->
-                    <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="origen" class="formulario-label">Origen</label>
-                        <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="origen" id="origen" placeholder="Origen">
-                        </div>
-                    </div>
-
-                    <!-- Grupo: Observaciones -->
-                    <div class="formulario-grupo" id="grupo-nombre">
-                        <label for="observaciones" class="formulario-label">Observaciones</label>
-                        <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input" name="observaciones" id="observaciones"
-                                placeholder="Observaciones">
-                        </div>
-                    </div>
-
 
                     <div class="col-sm-12 center mrt-30">
                         <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
@@ -146,10 +98,7 @@
             </form>
 
         </div>
-
-
     </main>
-
 
     <!-- Footer -->
     <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>

@@ -6,16 +6,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.List;
 
 /* En esta clase vamos a ingresar los pedidos de reparación relacionandolos
 con los equipos */
-
 @Entity
 @Table(name = "ordenes")
 public class Orden {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdOrden;
@@ -24,18 +24,21 @@ public class Orden {
     private String prioridad;
     private String avisoCliente;
     private String medioAviso;
-    
+
     @ManyToOne
     //private Usuario usuario;
     private Cliente cliente;
-    
+
+    @OneToOne
+    private Equipo equipo;
+
     @OneToMany(mappedBy = "orden")
     private List<DetalleOrden> detalle;
 
     public Orden() {
     }
 
-    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, Cliente cliente, List<DetalleOrden> detalle) {
+    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
         this.IdOrden = IdOrden;
         this.fallaCliente = fallaCliente;
         this.fallaTecnico = fallaTecnico;
@@ -43,6 +46,7 @@ public class Orden {
         this.avisoCliente = avisoCliente;
         this.medioAviso = medioAviso;
         this.cliente = cliente;
+        this.equipo = equipo;
         this.detalle = detalle;
     }
 
@@ -102,6 +106,14 @@ public class Orden {
         this.cliente = cliente;
     }
 
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
+
     public List<DetalleOrden> getDetalle() {
         return detalle;
     }
@@ -112,6 +124,6 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", cliente=" + cliente + ", detalle=" + detalle + '}';
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
     }
 }

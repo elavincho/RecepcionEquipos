@@ -279,7 +279,7 @@ public class RecepcionControlador {
 
     // Mostrar todos los clientes registrados
     @GetMapping("/clientes")
-    public String usuarios(Model model, HttpSession session) {
+    public String clientes(Model model, HttpSession session) {
 
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
