@@ -35,7 +35,8 @@
 
         <div class="contenedor-formulario">
 
-            <form id="formulario" th:action="@{/orden/actualizarOrden}" method="post" th:each="orden:${ordenes}">
+            <form id="formulario" th:action="@{/orden/actualizarOrden}" method="post" th:each="orden:${ordenes}"
+                onsubmit="return validarNumero()">
                 <!-- Obtenemos los datos del equipo -->
                 <input type="hidden" name="ordenId" th:value="${ordenId}">
                 <!-- Obtenemos el token -->
@@ -123,8 +124,8 @@
                     <div class="formulario-grupo" id="grupo-nombre">
                         <label for="fechaInicio" class="formulario-label">Fecha Inicio Reparación</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="form-control" id="fecha" name="fechaInicio"
-                                th:value="${orden.fechaInicio}" placeholder="Haz clic para seleccionar">
+                            <input type="text" class="formulario-input border" id="fecha" name="fechaInicio"
+                            th:value="${#temporals.format(orden.fechaInicio, 'dd/MM/yyyy')}" placeholder="Haz clic para seleccionar">
                             <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
                         </div>
                     </div>
@@ -144,7 +145,7 @@
                         <label for="fechaFinalizacion" class="formulario-label">Fecha Finalización</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="fecha" name="fechaFinalizacion"
-                                th:value="${orden.fechaFinalizacion}" placeholder="Haz clic para seleccionar">
+                            th:value="${#temporals.format(orden.fechaFinalizacion, 'dd/MM/yyyy')}" placeholder="Haz clic para seleccionar">
                             <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
                         </div>
                     </div>
@@ -154,7 +155,7 @@
                         <label for="repuestoUtilizado" class="formulario-label">Repuesto Utilizado</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="repuestoUtilizado"
-                                name="trabajoRealizado" placeholder="Falla Encontrada" autocomplete="off"
+                                name="repuestoUtilizado" placeholder="Falla Encontrada" autocomplete="off"
                                 th:value="${orden.repuestoUtilizado}">
                         </div>
                     </div>
@@ -163,8 +164,10 @@
                     <div class="formulario-grupo" id="grupo-nombre">
                         <label for="precioManoObra" class="formulario-label">Precio Mano de Obra</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input border" id="precioManoObra" name="precioManoObra"
+                            <input type="text" class="formulario-input border" id="numero" name="precioManoObra"
                                 placeholder="Precio Mano de Obra" autocomplete="off" th:value="${orden.precioManoObra}">
+                            <small id="numeroError" class="text-danger" style="display: none;">El precio debe ser un
+                                número válido.</small>
                         </div>
                     </div>
 
@@ -172,11 +175,13 @@
                     <div class="formulario-grupo" id="grupo-nombre">
                         <label for="precioRepuesto" class="formulario-label">Precio Repuesto</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input border" id="precioRepuesto" name="precioRepuesto"
+                            <input type="text" class="formulario-input border" id="numero" name="precioRepuesto"
                                 placeholder="Precio Repuesto" autocomplete="off" th:value="${orden.precioRepuesto}">
+                            <small id="numeroError" class="text-danger" style="display: none;">El precio debe ser un
+                                número válido.</small>
                         </div>
                     </div>
-                   
+
                 </div>
                 <!-- Fin formulario -->
                 <div class="col-sm-12 center mrt-30">

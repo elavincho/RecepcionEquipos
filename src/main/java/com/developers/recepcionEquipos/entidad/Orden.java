@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /* En esta clase vamos a ingresar los pedidos de reparación relacionandolos
@@ -27,10 +27,10 @@ public class Orden {
     private String medioAviso;
     // Atributos de detalleOrden
     private String trabajoRealizado;
-    private Date fechaInicio;
-    private String fechaInicioFormateado;
-    private Date fechaFinalizacion;
-    private String fechaFinalizacionFormateado;
+    private LocalDate fechaInicio;
+    //private String fechaInicioFormateado;
+    private LocalDate fechaFinalizacion;
+    //private String fechaFinalizacionFormateado;
     private String repuestoUtilizado;
     private double precioManoObra;
     private String precioManoObraFormateado;
@@ -54,7 +54,7 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String trabajoRealizado, Date fechaInicio, String fechaInicioFormateado, Date fechaFinalizacion, String fechaFinalizacionFormateado, String repuestoUtilizado, double precioManoObra, String precioManoObraFormateado, double precioRepuesto, String precioRepuestoFormateado, double iva, String ivaFormateado, double total, String totalFormateado, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
+    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String trabajoRealizado, LocalDate fechaInicio, LocalDate fechaFinalizacion, String repuestoUtilizado, double precioManoObra, String precioManoObraFormateado, double precioRepuesto, String precioRepuestoFormateado, double iva, String ivaFormateado, double total, String totalFormateado, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
         this.IdOrden = IdOrden;
         this.fallaCliente = fallaCliente;
         this.fallaTecnico = fallaTecnico;
@@ -63,9 +63,7 @@ public class Orden {
         this.medioAviso = medioAviso;
         this.trabajoRealizado = trabajoRealizado;
         this.fechaInicio = fechaInicio;
-        this.fechaInicioFormateado = fechaInicioFormateado;
         this.fechaFinalizacion = fechaFinalizacion;
-        this.fechaFinalizacionFormateado = fechaFinalizacionFormateado;
         this.repuestoUtilizado = repuestoUtilizado;
         this.precioManoObra = precioManoObra;
         this.precioManoObraFormateado = precioManoObraFormateado;
@@ -136,36 +134,20 @@ public class Orden {
         this.trabajoRealizado = trabajoRealizado;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaInicioFormateado() {
-        return fechaInicioFormateado;
-    }
-
-    public void setFechaInicioFormateado(String fechaInicioFormateado) {
-        this.fechaInicioFormateado = fechaInicioFormateado;
-    }
-
-    public Date getFechaFinalizacion() {
+    public LocalDate getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
+    public void setFechaFinalizacion(LocalDate fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
-    }
-
-    public String getFechaFinalizacionFormateado() {
-        return fechaFinalizacionFormateado;
-    }
-
-    public void setFechaFinalizacionFormateado(String fechaFinalizacionFormateado) {
-        this.fechaFinalizacionFormateado = fechaFinalizacionFormateado;
     }
 
     public String getRepuestoUtilizado() {
@@ -266,6 +248,6 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaInicioFormateado=" + fechaInicioFormateado + ", fechaFinalizacion=" + fechaFinalizacion + ", fechaFinalizacionFormateado=" + fechaFinalizacionFormateado + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
     }
 }

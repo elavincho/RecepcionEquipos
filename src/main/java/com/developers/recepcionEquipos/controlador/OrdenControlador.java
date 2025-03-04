@@ -1,6 +1,9 @@
 package com.developers.recepcionEquipos.controlador;
 
+import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,7 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +47,26 @@ public class OrdenControlador {
 
     @Autowired
     private OrdenServicio ordenServicio;
+
+    // Este método le dice a Spring cómo convertir los valores de tipo String a
+    // LocalDate.
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (text == null || text.trim().isEmpty()) {
+                    // Si el valor es vacío, establecer como nulo
+                    setValue(null);
+                } else {
+                    // Convertir el texto (en formato dd/MM/yyyy) a LocalDate
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate fecha = LocalDate.parse(text, formatter);
+                    setValue(fecha);
+                }
+            }
+        });
+    }
 
     // Mapa temporal para almacenar tokens y clienteId (puedes usar una base de
     // datos o caché en producción)
@@ -214,8 +240,8 @@ public class OrdenControlador {
 
     @PostMapping("/actualizarOrden")
     public String actualizarOrden(Model model, Orden orden, HttpSession session, RedirectAttributes redirectAttributes,
-            @RequestParam String editTokenOrden,
-            @RequestParam Integer ordenId)
+            @RequestParam String editTokenOrden, @RequestParam("fechaInicio") String fechaInicioStr,
+            @RequestParam Integer ordenId, BindingResult result)
             throws IOException {
 
         System.out.println("TOKEN RECIBIDO EN actualizar ORDEN POST " + editTokenOrden);
@@ -224,6 +250,12 @@ public class OrdenControlador {
         String sessionToken = (String) session.getAttribute("editTokenOrden");
         if (sessionToken == null || !sessionToken.equals(editTokenOrden)) {
             redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
+            return "redirect:/orden/ordenes";
+        }
+
+        // Validar errores
+        if (result.hasErrors()) {
+            // Si hay errores, regresar al formulario con los mensajes de error
             return "redirect:/orden/ordenes";
         }
 

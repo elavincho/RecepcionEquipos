@@ -200,7 +200,7 @@ inputs.forEach((input) => {
 
 
 
-// Fecha
+// Fecha con Calendario
 
 document.addEventListener("DOMContentLoaded", function() {
   flatpickr("#fecha", {
@@ -214,4 +214,23 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-// Fin fecha
+// Fin Fecha con Calendario
+
+// Validar Numeros
+function validarNumero() {
+  const numeroInput = document.getElementById('numero');
+  const numeroError = document.getElementById('numeroError');
+  const numero = numeroInput.value.trim();
+
+  // Expresión regular para validar números con punto decimal
+  const regex = /^\d+(\.\d{1,2})?$/;
+
+  if (!regex.test(numero)) {
+    numeroError.style.display = 'block'; // Mostrar mensaje de error
+    return false; // Evitar que el formulario se envíe
+  } else {
+    numeroError.style.display = 'none'; // Ocultar mensaje de error
+    return true; // Permitir el envío del formulario
+  }
+}
+//Fin Validar Precio
