@@ -36,7 +36,7 @@
         <div class="contenedor-formulario">
 
             <form id="formulario" th:action="@{/orden/actualizarOrden}" method="post" th:each="orden:${ordenes}"
-                onsubmit="return validarNumero()">
+                onsubmit="return validarNumero(), validarFecha()">
                 <!-- Obtenemos los datos del equipo -->
                 <input type="hidden" name="ordenId" th:value="${ordenId}">
                 <!-- Obtenemos el token -->
@@ -125,7 +125,8 @@
                         <label for="fechaInicio" class="formulario-label">Fecha Inicio Reparación</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="fecha" name="fechaInicio"
-                            th:value="${#temporals.format(orden.fechaInicio, 'dd/MM/yyyy')}" placeholder="Haz clic para seleccionar">
+                                th:value="${#temporals.format(orden.fechaInicio, 'dd/MM/yyyy')}"
+                                placeholder="Haz clic para seleccionar">
                             <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
                         </div>
                     </div>
@@ -145,7 +146,8 @@
                         <label for="fechaFinalizacion" class="formulario-label">Fecha Finalización</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="fecha" name="fechaFinalizacion"
-                            th:value="${#temporals.format(orden.fechaFinalizacion, 'dd/MM/yyyy')}" placeholder="Haz clic para seleccionar">
+                                th:value="${#temporals.format(orden.fechaFinalizacion, 'dd/MM/yyyy')}"
+                                placeholder="Haz clic para seleccionar">
                             <!-- OBS: el id del input tiene que ser fecha para que tome el calendario -->
                         </div>
                     </div>
@@ -166,8 +168,9 @@
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="numero" name="precioManoObra"
                                 placeholder="Precio Mano de Obra" autocomplete="off" th:value="${orden.precioManoObra}">
-                            <small id="numeroError" class="text-danger" style="display: none;">El precio debe ser un
-                                número válido.</small>
+                            <div id="numeroError" class="alerta-error mrt-5" style="display: none;">El precio debe ser un
+                                número válido.</div>
+                            
                         </div>
                     </div>
 
@@ -175,10 +178,11 @@
                     <div class="formulario-grupo" id="grupo-nombre">
                         <label for="precioRepuesto" class="formulario-label">Precio Repuesto</label>
                         <div class="formulario-grupo-input">
-                            <input type="text" class="formulario-input border" id="numero" name="precioRepuesto"
+                            <input type="text" class="formulario-input border" id="numero2" name="precioRepuesto"
                                 placeholder="Precio Repuesto" autocomplete="off" th:value="${orden.precioRepuesto}">
-                            <small id="numeroError" class="text-danger" style="display: none;">El precio debe ser un
-                                número válido.</small>
+                            <div id="numeroError2" class="alerta-error mrt-5" style="display: none;">El precio debe ser un
+                                número válido.</div>
+                            
                         </div>
                     </div>
 
@@ -212,12 +216,6 @@
 
     <!-- Flatpickr Spanish Language (opcional) -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-
-
-
-
-
-
 
     <script th:src="@{/scripts/formulario.js}"></script>
 </body>

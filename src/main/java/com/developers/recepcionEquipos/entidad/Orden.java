@@ -45,7 +45,7 @@ public class Orden {
     //private Usuario usuario;
     private Cliente cliente;
 
-    @OneToOne
+    @ManyToOne
     private Equipo equipo;
 
     @OneToMany(mappedBy = "orden")

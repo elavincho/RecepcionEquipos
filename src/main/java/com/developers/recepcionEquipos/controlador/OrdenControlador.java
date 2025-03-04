@@ -114,7 +114,7 @@ public class OrdenControlador {
         }
 
         // Limpiar el token después de usarlo (opcional, para evitar reutilización)
-        tokenMap.remove(token);
+        // tokenMap.remove(token);
 
         // Obtenemos los equipos del cliente por su Id
         Cliente c = clienteServicio.findByIdCliente(clienteId)
@@ -149,6 +149,9 @@ public class OrdenControlador {
         orden.setEquipo(e);
 
         ordenServicio.save(orden);
+
+        // Limpiar el token después de usarlo (opcional, para evitar reutilización)
+        tokenMap.remove(token);
 
         // Alerta para un guardado correcto
         redirectAttributes.addFlashAttribute("exito", "¡Orden agregada correctamente!");

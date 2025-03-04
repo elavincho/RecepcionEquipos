@@ -204,6 +204,7 @@ body {
     align-items: center;
     text-align: center;
     border-radius: 5px;
+    animation: desaparecer 10s forwards;
 }
 
 .contenedor-exito {

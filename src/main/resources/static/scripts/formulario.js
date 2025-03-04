@@ -198,19 +198,17 @@ inputs.forEach((input) => {
   input.addEventListener("blur", validarFormulario);
 });
 
-
-
 // Fecha con Calendario
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   flatpickr("#fecha", {
-    dateFormat: "d/m/Y",       // Formato de la fecha
-    locale: "es",             // Idioma español
-    defaultDate: "",     // Fecha por defecto "today"(hoy)
-    allowInput: true,         // Permitir edición manual
-    clickOpens: true,         // Abrir calendario al hacer clic
+    dateFormat: "d/m/Y", // Formato de la fecha
+    locale: "es", // Idioma español
+    defaultDate: "", // Fecha por defecto "today"(hoy)
+    allowInput: true, // Permitir edición manual
+    clickOpens: true, // Abrir calendario al hacer clic
     monthSelectorType: "dropdown", // Seleccionar mes con un dropdown
-    yearSelectorType: "dropdown",  // Seleccionar año con un dropdown
+    yearSelectorType: "dropdown", // Seleccionar año con un dropdown
   });
 });
 
@@ -218,19 +216,48 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Validar Numeros
 function validarNumero() {
-  const numeroInput = document.getElementById('numero');
-  const numeroError = document.getElementById('numeroError');
+  const numeroInput = document.getElementById("numero");
+  const numeroInput2 = document.getElementById("numero2");
+  const numeroError = document.getElementById("numeroError");
+  const numeroError2 = document.getElementById("numeroError2");
   const numero = numeroInput.value.trim();
+  const numero2 = numeroInput2.value.trim();
 
   // Expresión regular para validar números con punto decimal
   const regex = /^\d+(\.\d{1,2})?$/;
 
   if (!regex.test(numero)) {
-    numeroError.style.display = 'block'; // Mostrar mensaje de error
+    numeroError.style.display = "block"; // Mostrar mensaje de error
+    return false; // Evitar que el formulario se envíe
+  } else if (!regex.test(numero2)) {
+    numeroError2.style.display = "block"; // Mostrar mensaje de error
     return false; // Evitar que el formulario se envíe
   } else {
-    numeroError.style.display = 'none'; // Ocultar mensaje de error
+    numeroError.style.display = "none"; // Ocultar mensaje de error
     return true; // Permitir el envío del formulario
   }
 }
-//Fin Validar Precio
+//Fin Validar Numeros
+
+// Validar Fechas
+function validarFecha() {
+  const fechaInput = document.getElementById('fecha');
+  const fecha = fechaInput.value.trim();
+
+  // Si el campo está vacío, permitir el envío del formulario
+  if (fecha === "") {
+    return true;
+  }
+
+  // Expresión regular para validar el formato dd/MM/yyyy
+  const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+  if (!regex.test(fecha)) {
+    alert('La fecha debe estar en formato dd/MM/yyyy o estar vacía.');
+    return false; // Evitar que el formulario se envíe
+  }
+
+  return true; // Permitir el envío del formulario
+}
+
+// Fin Validar Fecha
