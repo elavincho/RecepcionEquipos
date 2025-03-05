@@ -6,9 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /* En esta clase vamos a ingresar los pedidos de reparación relacionandolos
@@ -25,24 +25,26 @@ public class Orden {
     private String prioridad;
     private String avisoCliente;
     private String medioAviso;
+    private String numero;
+    private Date fechaCreacion;
+    private String fechaCreacionFormateada;
     // Atributos de detalleOrden
     private String trabajoRealizado;
     private LocalDate fechaInicio;
-    //private String fechaInicioFormateado;
     private LocalDate fechaFinalizacion;
-    //private String fechaFinalizacionFormateado;
     private String repuestoUtilizado;
-    private double precioManoObra;
+    private Double precioManoObra;
     private String precioManoObraFormateado;
-    private double precioRepuesto;
+    private Double precioRepuesto;
     private String precioRepuestoFormateado;
-    private double iva;
+    private Double iva;
     private String ivaFormateado;
-    private double total;
+    private Double total;
     private String totalFormateado;
+    private Double subTotal;
+    private String subTotalFormateado;
 
     @ManyToOne
-    //private Usuario usuario;
     private Cliente cliente;
 
     @ManyToOne
@@ -54,13 +56,16 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String trabajoRealizado, LocalDate fechaInicio, LocalDate fechaFinalizacion, String repuestoUtilizado, double precioManoObra, String precioManoObraFormateado, double precioRepuesto, String precioRepuestoFormateado, double iva, String ivaFormateado, double total, String totalFormateado, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
+    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String numero, Date fechaCreacion, String fechaCreacionFormateada, String trabajoRealizado, LocalDate fechaInicio, LocalDate fechaFinalizacion, String repuestoUtilizado, Double precioManoObra, String precioManoObraFormateado, Double precioRepuesto, String precioRepuestoFormateado, Double iva, String ivaFormateado, Double total, String totalFormateado, Double subTotal, String subTotalFormateado, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
         this.IdOrden = IdOrden;
         this.fallaCliente = fallaCliente;
         this.fallaTecnico = fallaTecnico;
         this.prioridad = prioridad;
         this.avisoCliente = avisoCliente;
         this.medioAviso = medioAviso;
+        this.numero = numero;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacionFormateada = fechaCreacionFormateada;
         this.trabajoRealizado = trabajoRealizado;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
@@ -73,6 +78,8 @@ public class Orden {
         this.ivaFormateado = ivaFormateado;
         this.total = total;
         this.totalFormateado = totalFormateado;
+        this.subTotal = subTotal;
+        this.subTotalFormateado = subTotalFormateado;
         this.cliente = cliente;
         this.equipo = equipo;
         this.detalle = detalle;
@@ -126,6 +133,30 @@ public class Orden {
         this.medioAviso = medioAviso;
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getFechaCreacionFormateada() {
+        return fechaCreacionFormateada;
+    }
+
+    public void setFechaCreacionFormateada(String fechaCreacionFormateada) {
+        this.fechaCreacionFormateada = fechaCreacionFormateada;
+    }
+
     public String getTrabajoRealizado() {
         return trabajoRealizado;
     }
@@ -158,11 +189,11 @@ public class Orden {
         this.repuestoUtilizado = repuestoUtilizado;
     }
 
-    public double getPrecioManoObra() {
+    public Double getPrecioManoObra() {
         return precioManoObra;
     }
 
-    public void setPrecioManoObra(double precioManoObra) {
+    public void setPrecioManoObra(Double precioManoObra) {
         this.precioManoObra = precioManoObra;
     }
 
@@ -174,11 +205,11 @@ public class Orden {
         this.precioManoObraFormateado = precioManoObraFormateado;
     }
 
-    public double getPrecioRepuesto() {
+    public Double getPrecioRepuesto() {
         return precioRepuesto;
     }
 
-    public void setPrecioRepuesto(double precioRepuesto) {
+    public void setPrecioRepuesto(Double precioRepuesto) {
         this.precioRepuesto = precioRepuesto;
     }
 
@@ -190,11 +221,11 @@ public class Orden {
         this.precioRepuestoFormateado = precioRepuestoFormateado;
     }
 
-    public double getIva() {
+    public Double getIva() {
         return iva;
     }
 
-    public void setIva(double iva) {
+    public void setIva(Double iva) {
         this.iva = iva;
     }
 
@@ -206,11 +237,11 @@ public class Orden {
         this.ivaFormateado = ivaFormateado;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -220,6 +251,22 @@ public class Orden {
 
     public void setTotalFormateado(String totalFormateado) {
         this.totalFormateado = totalFormateado;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public String getSubTotalFormateado() {
+        return subTotalFormateado;
+    }
+
+    public void setSubTotalFormateado(String subTotalFormateado) {
+        this.subTotalFormateado = subTotalFormateado;
     }
 
     public Cliente getCliente() {
@@ -248,6 +295,6 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaCreacionFormateada=" + fechaCreacionFormateada + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", subTotal=" + subTotal + ", subTotalFormateado=" + subTotalFormateado + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
     }
 }

@@ -32,6 +32,8 @@ import com.developers.recepcionEquipos.servicio.EquipoServicio;
 import com.developers.recepcionEquipos.servicio.OrdenServicio;
 
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/orden")
@@ -113,9 +115,6 @@ public class OrdenControlador {
             throw new RuntimeException("Token inválido o expirado");
         }
 
-        // Limpiar el token después de usarlo (opcional, para evitar reutilización)
-        // tokenMap.remove(token);
-
         // Obtenemos los equipos del cliente por su Id
         Cliente c = clienteServicio.findByIdCliente(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
@@ -124,15 +123,17 @@ public class OrdenControlador {
         model.addAttribute("equipos", equipos);
 
         model.addAttribute("equipoId", equipoId);
-        model.addAttribute("clienteId", clienteId); // Asegúrate de pasar el clienteId
-        model.addAttribute("token", token); // Asegúrate de pasar el token
+        model.addAttribute("clienteId", clienteId);
+        model.addAttribute("token", token);
 
         return "orden/altaOrden";
     }
 
     @PostMapping("/guardarOrden")
     public String guardarOrden(Orden orden, @RequestParam Integer clienteId, @RequestParam Integer equipoId,
-            @RequestParam String token, RedirectAttributes redirectAttributes)
+            @RequestParam String token, RedirectAttributes redirectAttributes,
+            @RequestParam(required = false) Double precioManoObra,
+            @RequestParam(required = false) Double precioRepuesto)
             throws IOException {
         logger.info("Usuario Registro: {}", orden);
 
@@ -147,6 +148,31 @@ public class OrdenControlador {
         Equipo e = equipoServicio.findByIdEquipo(equipoId)
                 .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
         orden.setEquipo(e);
+
+        Date fechaCreacion = new Date();
+        // Le damos formato a la fecha
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
+        String formattedDate = sdf.format(fechaCreacion);
+        orden.setFechaCreacionFormateada(formattedDate);
+
+        // Guardamos la fecha con formato original y generamos el nro de orden
+        orden.setFechaCreacion(fechaCreacion);
+        orden.setNumero(ordenServicio.generarNumeroOrden());
+
+        System.out.println("precio repuesto recibido: " + precioRepuesto);
+        System.out.println("precio mano de obra recibido: " + precioManoObra);
+        // Si los valores son nulos, asigna un valor predeterminado
+        if (precioManoObra == null) {
+            precioManoObra = 0.0;
+        }
+        if (precioRepuesto == null) {
+            precioRepuesto = 0.0;
+        }
+
+        // Calculamos el subTotal, iva, total y los guardamos
+        orden.setSubTotal(precioManoObra + precioRepuesto);
+        orden.setIva((precioManoObra + precioRepuesto) * 0.21);
+        orden.setTotal((precioManoObra + precioRepuesto) + ((precioManoObra + precioRepuesto) * 0.21));
 
         ordenServicio.save(orden);
 
@@ -244,7 +270,8 @@ public class OrdenControlador {
     @PostMapping("/actualizarOrden")
     public String actualizarOrden(Model model, Orden orden, HttpSession session, RedirectAttributes redirectAttributes,
             @RequestParam String editTokenOrden, @RequestParam("fechaInicio") String fechaInicioStr,
-            @RequestParam Integer ordenId, BindingResult result)
+            @RequestParam Integer ordenId, @RequestParam(required = false) Double precioManoObra,
+            @RequestParam(required = false) Double precioRepuesto, BindingResult result)
             throws IOException {
 
         System.out.println("TOKEN RECIBIDO EN actualizar ORDEN POST " + editTokenOrden);
@@ -252,7 +279,7 @@ public class OrdenControlador {
         // Verificar el token
         String sessionToken = (String) session.getAttribute("editTokenOrden");
         if (sessionToken == null || !sessionToken.equals(editTokenOrden)) {
-            redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
+            //redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
             return "redirect:/orden/ordenes";
         }
 
@@ -265,10 +292,32 @@ public class OrdenControlador {
         Orden o = new Orden();
         o = ordenServicio.get(ordenId).get();
 
+        // Calculamos el subTotal, iva, total y los guardamos
+        // Calculamos el subTotal, iva, total y los guardamos
+        orden.setSubTotal(precioManoObra + precioRepuesto);
+        orden.setIva((precioManoObra + precioRepuesto) * 0.21);
+        orden.setTotal((precioManoObra + precioRepuesto) + ((precioManoObra + precioRepuesto) * 0.21));
+
         // Guardamos nuevamente estos datos para que no se borren
         orden.setIdOrden(o.getIdOrden());
         orden.setCliente(o.getCliente());
         orden.setEquipo(o.getEquipo());
+        orden.setFechaCreacion(o.getFechaCreacion());
+        orden.setFechaCreacionFormateada(o.getFechaCreacionFormateada());
+        orden.setNumero(o.getNumero());
+        // orden.setAvisoCliente(o.getAvisoCliente());
+        orden.setFallaCliente(o.getFallaCliente());
+        // orden.setFallaTecnico(o.getFallaTecnico());
+        // orden.setFechaFinalizacion(o.getFechaFinalizacion());
+        // orden.setFechaInicio(o.getFechaInicio());
+        // orden.setIvaFormateado(o.getIvaFormateado());
+        orden.setMedioAviso(o.getMedioAviso());
+        // orden.setPrecioManoObraFormateado(o.getPrecioManoObraFormateado());
+        // orden.setPrecioRepuestoFormateado(o.getPrecioRepuestoFormateado());
+        orden.setPrioridad(o.getPrioridad());
+        // orden.setRepuestoUtilizado(o.getRepuestoUtilizado());
+        // orden.setSubTotalFormateado(o.getSubTotalFormateado());
+        // orden.setTrabajoRealizado(o.getTrabajoRealizado());
 
         // Actualizar la orden
         ordenServicio.update(orden);
@@ -307,7 +356,8 @@ public class OrdenControlador {
 
     // Mostramos todos las ordenes de un cliente
     @GetMapping("/ordenCliente")
-    public String ordenCliente(Model model, HttpSession session, @RequestParam String token) {
+    public String ordenCliente(Model model, HttpSession session, @RequestParam String token,
+            RedirectAttributes redirectAttributes) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -317,7 +367,9 @@ public class OrdenControlador {
         // Verificar si el token existe en el mapa temporal
         Integer clienteId = tokenMap.get(token);
         if (clienteId == null) {
-            throw new RuntimeException("Token inválido o expirado");
+            // throw new RuntimeException("Token inválido o expirado");
+            //redirectAttributes.addFlashAttribute("error", "Token inválido o expirado.");
+            return "redirect:/orden/ordenes";
         }
 
         // Limpiar el token después de usarlo (opcional, para evitar reutilización)
@@ -333,6 +385,72 @@ public class OrdenControlador {
             model.addAttribute("ordenes", ordenes);
         }
         return "orden/ordenCliente";
+    }
+
+    @PostMapping("/detalleOrden")
+    public String detalleOrden(@RequestParam Integer ordenId, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        System.out.println("Sesión ID: " + session.getId()); // Verifica el ID de la sesión
+
+        // Verificar que el ID de la orden es válido
+        Optional<Orden> optionalOrden = ordenServicio.get(ordenId);
+        if (!optionalOrden.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Orden no encontrada.");
+            return "redirect:/orden/ordenes";
+        }
+
+        System.out.println("ORDEN ID POST EDITAR ORDEN: " + ordenId);
+        // Almacenar el ID de la orden en la sesión
+        session.setAttribute("ordenId", ordenId);
+
+        // Redirigir a la página de edición
+        return "redirect:/orden/detalleOrden";
+    }
+
+    @GetMapping("/detalleOrden")
+    public String detalleOrden(Model model, HttpSession session) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        System.out.println("ORDEN session ID GET EDITAR ORDEN: " + session.getAttribute("ordenId"));
+
+        // Obtener el ID de la orden desde la sesión
+        Integer idOrden = (Integer) session.getAttribute("ordenId");
+        if (idOrden == null) {
+            return "redirect:/orden/ordenes";
+        }
+
+        System.out.println("ID en sesión: (GET)" + idOrden);
+
+        // Buscar la orden por su ID
+        Optional<Orden> optionalOrden = ordenServicio.get(idOrden);
+        if (!optionalOrden.isPresent()) {
+            return "redirect:/orden/ordenes";
+        }
+        Orden orden = optionalOrden.get();
+
+        // Generar un token UUID
+        String tokenOrden = UUID.randomUUID().toString();
+        session.setAttribute("editTokenOrden", tokenOrden);
+
+        // Pasar los datos del cliente y el token a la vista
+        model.addAttribute("ordenes", orden);
+        model.addAttribute("editTokenOrden", tokenOrden);
+
+        System.out.println("token GET editarOrden: " + tokenOrden);
+
+        // Obtener el ID del equipo desde la sesión
+        Integer ordenId = (Integer) session.getAttribute("ordenId");
+        System.out.println("ID ORDEN RECIBIDO GET EDITAR CLIENTE: " + ordenId);
+
+        // Pasar los datos del cliente a la vista
+        model.addAttribute("ordenId", ordenId);
+
+        return "orden/detalleOrden";
     }
 
 }

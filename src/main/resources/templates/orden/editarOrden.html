@@ -36,7 +36,7 @@
         <div class="contenedor-formulario">
 
             <form id="formulario" th:action="@{/orden/actualizarOrden}" method="post" th:each="orden:${ordenes}"
-                onsubmit="return validarNumero(), validarFecha()">
+                onsubmit="return validacionFormulario()">
                 <!-- Obtenemos los datos del equipo -->
                 <input type="hidden" name="ordenId" th:value="${ordenId}">
                 <!-- Obtenemos el token -->
@@ -136,7 +136,7 @@
                         <label for="trabajoRealizado" class="formulario-label">Trabajo Realizado</label>
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="trabajoRealizado"
-                                name="trabajoRealizado" placeholder="Falla Encontrada" autocomplete="off"
+                                name="trabajoRealizado" placeholder="Trabajo realizado" autocomplete="off"
                                 th:value="${orden.trabajoRealizado}">
                         </div>
                     </div>

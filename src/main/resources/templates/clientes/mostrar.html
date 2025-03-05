@@ -29,7 +29,24 @@
 
         <h1 class="center mrt-30">Clientes Registrados</h1>
 
-        <!-- Usuario con Enlace Estirado -->
+        <!-- Buscador -->
+        <div class="center">
+            <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
+                <div class="card border enlace-estirado-buscador">
+                    <h2 class="mrl15">Buscador</h2>
+                    <form class="d-flex" role="search">
+                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar clientes" id="buscador"
+                            name="buscador" aria-label="Search">
+                    </form>
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Fin Buscador -->
+
+        <!-- Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
                 <br>
@@ -41,18 +58,17 @@
                         <h5 class="titulo" th:text="${cliente.nombre} +' '+ ${cliente.apellido}"></h5>
                         <p class="interlineado" th:text="${cliente.email}"></p>
                         <div class="dos-columnas">
-                            <h6 class="" th:text="'Documento: ' + ${cliente.documento}">
-                            </h6>
-                            <h6 class="" th:text="'Teléfono: ' + ${cliente.telefono}"></h6>
-                        </div>
-                        <div class="dos-columnas">
-                            <h6 class=""
+                            <h6
                                 th:text="'Dirección: ' + ${cliente.direccion} + ' ' + ${cliente.altura} + ' ' + ${cliente.piso} + ' ' + ${cliente.depto} + ' Localidad: ' + ${cliente.localidad}">
                             </h6>
-                            <h6 class="" th:text="'Provincia: ' + ${cliente.provincia}"></h6>
+                            <h6 th:text="'Provincia: ' + ${cliente.provincia}"></h6>
+                        </div>
+                        <div class="dos-columnas">
+                            <h6 th:text="'Teléfono: ' + ${cliente.telefono}"></h6>
+                            <h6 th:text="'Documento: ' + ${cliente.documento}"></h6>
                         </div>
 
-                        <div class="">
+                        <div class="mrt-10">
                             <!-- Formulario para editar cliente -->
                             <form th:action="@{/recepcion/editarCliente}" method="post" style="display: inline;">
                                 <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
@@ -81,24 +97,23 @@
                             <form th:action="@{/orden/ordenCliente}" method="post" style="display: inline;">
                                 <input type="hidden" name="clienteId" th:value="${cliente.IdCliente}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/reparando-blanco.png}" alt="reparando-blanco"> Ver Ordenes
+                                    <img class="w25" th:src="@{/iconos/reparando-blanco.png}" alt="reparando-blanco">
+                                    Ver Ordenes
                                 </button>
                             </form>
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/recepcion/altaEquipo}"><img
-                                    class="w25" th:src="@{/iconos/alta.png}" alt="alta">
-                                Alta Equipo
-                            </a> -->
                         </div>
                     </div>
                 </div>
                 <br><br>
             </div>
         </div>
-        <!-- Fin Usuario con Enlace Estirado -->
+        <!-- Fin Enlace Estirado -->
 
-
+        <div class="col-sm-12 center mrt-30">
+            <a class="btn btn-secondary mr-30" th:href="@{/orden/ordenes}"><img class="w25"
+                    th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+        </div>
     </main>
-
 
     <!-- Footer -->
     <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
@@ -106,6 +121,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

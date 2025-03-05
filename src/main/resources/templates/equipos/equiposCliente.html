@@ -29,11 +29,29 @@
 
         <h1 class="center mrt-30">Equipos x Cliente</h1>
 
+        <!-- Buscador -->
+        <div class="center">
+            <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
+                <div class="card border enlace-estirado-buscador">
+                    <h2 class="mrl15">Buscador</h2>
+                    <form class="d-flex" role="search">
+                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar equipos" id="buscador"
+                            name="buscador" aria-label="Search">
+                    </form>
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Fin Buscador -->
+
         <!-- Obtenemos los datos del equipo -->
         <input type="hidden" name="clienteId" th:value="${clienteId}">
         <!-- Obtenemos el token -->
         <input type="hidden" name="token" th:value="${token}" />
-        <!-- Usuario con Enlace Estirado -->
+
+        <!-- Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
                 <br>
@@ -44,7 +62,11 @@
                     <div class="card-contenido mrt-10">
                         <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
                         </h5>
-                        <p th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></p>
+                        <div class="dos-columnas">
+                            <h6 th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></h6>
+                            <h6 th:text="'Teléfono: '+ ${equipo.cliente.telefono}"></h6>
+                        </div>
+
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
                             <h6 class="interlineado" th:text="'Accesorios: ' + ${equipo.accesorio}">
@@ -85,19 +107,17 @@
                                     Reparación
                                 </button>
                             </form>
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
-                                    class="w25" th:src="@{/iconos/alta.png}" alt="alta">
-                                Alta Equipo
-                            </a> -->
                         </div>
                     </div>
                 </div>
                 <br><br>
             </div>
         </div>
-        <!-- Fin Usuario con Enlace Estirado -->
-
-
+        <!-- Fin Enlace Estirado -->
+        <div class="col-sm-12 center mrt-30">
+            <a class="btn btn-secondary mr-30" th:href="@{/recepcion/clientes}"><img class="w25"
+                    th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+        </div>
     </main>
 
 
@@ -107,6 +127,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

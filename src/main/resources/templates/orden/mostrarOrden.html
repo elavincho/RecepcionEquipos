@@ -29,7 +29,24 @@
 
         <h1 class="center mrt-30">Todas las Ordenes de Reparación</h1>
 
-        <!-- Usuario con Enlace Estirado -->
+        <!-- Buscador -->
+        <div class="center">
+            <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
+                <div class="card border enlace-estirado-buscador">
+                    <h2 class="mrl15">Buscador</h2>
+                    <form class="d-flex" role="search">
+                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar ordenes" id="buscador"
+                            name="buscador" aria-label="Search">
+                    </form>
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Fin Buscador -->
+
+        <!-- Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
                 <br>
@@ -40,13 +57,15 @@
                         </h5>
                     </div>
                     <div class="card-contenido mrt-10">
-                        <h5 class="titulo" th:text="${orden.equipo.tipoEquipo} +' '+ ${orden.equipo.marca} +' '+ ${orden.equipo.modelo}">
+                        <h5 class="titulo"
+                            th:text="${orden.equipo.tipoEquipo} +' '+ ${orden.equipo.marca} +' '+ ${orden.equipo.modelo}">
                         </h5>
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Clave Equipo: ' + ${orden.equipo.clave}"></h6>
-                            <h6 class="interlineado" th:text="'Cliente: '+ ${orden.cliente.nombre} +' '+ ${orden.cliente.apellido}"></h6>
+                            <h6 class="interlineado"
+                                th:text="'Cliente: '+ ${orden.cliente.nombre} +' '+ ${orden.cliente.apellido}"></h6>
                         </div>
-                        
+
                         <div class="dos-columnas mrt-10">
                             <h6 class="interlineado" th:text="'Falla: ' + ${orden.fallaCliente}"></h6>
                             <h6 class="interlineado" th:text="'Prioridad: ' + ${orden.prioridad}">
@@ -59,10 +78,10 @@
                         </div>
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Falla Encontrada: ' + ${orden.fallaTecnico}"></h6>
-                            <h6 class="interlineado" th:text="'Falla Encontrada: ' + ${orden.fallaTecnico}">
+                            <h6 class="interlineado" th:text="'Trabajo Realizado: ' + ${orden.trabajoRealizado}">
                             </h6>
                         </div>
-                        
+
 
                         <div class="mrt-10">
                             <!-- Formulario para editar la orden -->
@@ -76,25 +95,23 @@
                             </form>
 
                             <!-- Formulario para el detalle de la orden -->
-                            <form th:action="@{/detalle/detalleOrden}" method="post" style="display: inline;">
+                            <form th:action="@{/orden/detalleOrden}" method="post" style="display: inline;">
                                 <input type="hidden" name="ordenId" th:value="${orden.IdOrden}">
                                 <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/registro.png}" alt="registro"> Detalle Orden
+                                    <img class="w25" th:src="@{/iconos/registro.png}" alt="registro"> Ver Orden
                                 </button>
                             </form>
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
-                                    class="w25" th:src="@{/iconos/alta.png}" alt="alta">
-                                Alta Equipo
-                            </a> -->
                         </div>
                     </div>
                 </div>
                 <br><br>
             </div>
         </div>
-        <!-- Fin Usuario con Enlace Estirado -->
-
-
+        <!-- Fin Enlace Estirado -->
+        <div class="col-sm-12 center mrt-30">
+            <a class="btn btn-secondary mr-30" th:href="@{/recepcion/homeRecepcion}"><img class="w25"
+                    th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+        </div>
     </main>
 
 
@@ -104,6 +121,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

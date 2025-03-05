@@ -42,7 +42,8 @@ public class EquipoControlador {
     @Autowired
     private ClienteServicio clienteServicio;
 
-    // Mapa temporal para almacenar tokens y clienteId (puedes usar una base de datos o caché en producción)
+    // Mapa temporal para almacenar tokens y clienteId (puedes usar una base de
+    // datos o caché en producción)
     private Map<String, Integer> tokenMap = new ConcurrentHashMap<>();
 
     @GetMapping("/altaEquipo")
@@ -286,7 +287,7 @@ public class EquipoControlador {
 
     // Mostramos todos los equipos de un cliente
     @GetMapping("/equiposCliente")
-    public String equiposCliente(Model model, HttpSession session, @RequestParam String token) {
+    public String equiposCliente(Model model, HttpSession session, @RequestParam String token, RedirectAttributes redirectAttributes) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
@@ -296,7 +297,10 @@ public class EquipoControlador {
         // Verificar si el token existe en el mapa temporal
         Integer clienteId = tokenMap.get(token);
         if (clienteId == null) {
-            throw new RuntimeException("Token inválido o expirado");
+            // throw new RuntimeException("Token inválido o expirado");
+            // Alerta para un cambio incorrecto
+            //redirectAttributes.addFlashAttribute("error", "¡Token expirado!");
+            return "redirect:/recepcion/clientes";
         }
 
         // Limpiar el token después de usarlo (opcional, para evitar reutilización)
@@ -311,6 +315,8 @@ public class EquipoControlador {
             // Pasamos la lista de equipos del cliente a la vista
             model.addAttribute("equipos", equipos);
         }
+
+        model.addAttribute("cliente", c);
         return "equipos/equiposCliente";
     }
 

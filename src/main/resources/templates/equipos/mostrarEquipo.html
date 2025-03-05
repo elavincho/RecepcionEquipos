@@ -17,7 +17,6 @@
     <!-- Header -->
     <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
 
-
     <!-- Main -->
     <main>
         <div class="contenedor-exito">
@@ -27,9 +26,26 @@
             <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
         </div>
 
-        <h1 class="center mrt-30">Equipos</h1>
+        <h1 class="center mrt-30">Todos los Equipos</h1>
 
-        <!-- Usuario con Enlace Estirado -->
+        <!-- Buscador -->
+        <div class="center">
+            <div class="card cont-enlace-estirado mrt-30 mrb-30">
+                <br>
+                <div class="card border enlace-estirado-buscador">
+                    <h2 class="mrl15">Buscador</h2>
+                    <form class="d-flex" role="search">
+                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar equipos" id="buscador"
+                            name="buscador" aria-label="Search">
+                    </form>
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Fin Buscador -->
+
+        <!-- Enlace Estirado -->
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
                 <br>
@@ -40,7 +56,11 @@
                     <div class="card-contenido mrt-10">
                         <h5 class="titulo" th:text="${equipo.tipoEquipo} +' '+ ${equipo.marca} +' '+ ${equipo.modelo}">
                         </h5>
-                        <p th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></p>
+                        <div class="dos-columnas">
+                            <h5 th:text="'Cliente: '+ ${equipo.cliente.nombre} +' '+ ${equipo.cliente.apellido}"></h5>
+                            <h5 th:text="'Teléfono: '+ ${equipo.cliente.telefono}"></h5>
+                            </h6>
+                        </div>
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Clave del Equipo: ' + ${equipo.clave}"></h6>
                             <h6 class="interlineado" th:text="'Accesorios: ' + ${equipo.accesorio}">
@@ -71,29 +91,19 @@
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>
                             </form>
-
-                            <!-- Formulario para alta equipo -->
-                            <!-- <form th:action="@{/recepcion/altaEquipo}" method="post" style="display: inline;">
-                                <input type="hidden" name="id" th:value="${cliente.IdCliente}">
-                                <button type="submit" class="btn btn-dark" style="color: white;">
-                                    <img class="w25" th:src="@{/iconos/alta.png}" alt="alta"> Alta Equipo
-                                </button>
-                            </form> -->
-                            <!-- <a class="btn btn-dark" style="color: white;" th:href="@{/equipo/editarEquipo}"><img
-                                    class="w25" th:src="@{/iconos/alta.png}" alt="alta">
-                                Alta Equipo
-                            </a> -->
                         </div>
                     </div>
                 </div>
                 <br><br>
             </div>
         </div>
-        <!-- Fin Usuario con Enlace Estirado -->
+        <!-- Fin Enlace Estirado -->
 
-
+        <div class="col-sm-12 center mrt-30">
+            <a class="btn btn-secondary mr-30" th:href="@{/recepcion/homeRecepcion}"><img class="w25"
+                    th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+        </div>
     </main>
-
 
     <!-- Footer -->
     <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
@@ -101,6 +111,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

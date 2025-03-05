@@ -28,7 +28,8 @@
 
         <div class="contenedor-formulario">
 
-            <form id="formulario" th:action="@{/orden/guardarOrden}" method="post" enctype="multipart/form-data">
+            <form id="formulario" th:action="@{/orden/guardarOrden}" method="post" enctype="multipart/form-data"
+                onsubmit="return validarNumero()">
                 <!-- Obtenemos el ID del cliente -->
                 <input type="hidden" name="clienteId" th:value="${clienteId}">
                 <input type="hidden" name="equipoId" th:value="${equipoId}">
@@ -79,6 +80,30 @@
                             </select>
                         </div>
                     </div>
+
+                    <!-- Grupo: Precio Mano de Obra -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="precioManoObra" class="formulario-label">Precio Mano de Obra</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="numero" name="precioManoObra"
+                                placeholder="Precio Mano de Obra" autocomplete="off" value="0.0">
+                            <div id="numeroError" class="alerta-error mrt-5" style="display: none;">El precio debe ser
+                                un
+                                número válido.</div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Precio Repuesto -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="precioRepuesto" class="formulario-label">Precio Repuesto</label>
+                        <div class="formulario-grupo-input">
+                            <input type="text" class="formulario-input border" id="numero2" name="precioRepuesto"
+                                placeholder="Precio Repuesto" autocomplete="off"  value="0.0">
+                            <div id="numeroError2" class="alerta-error mrt-5" style="display: none;">El precio debe ser
+                                un
+                                número válido.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-sm-12 center mrt-30">
@@ -98,6 +123,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script th:src="@{/scripts/formulario.js}"></script>
 </body>
 
 </html>

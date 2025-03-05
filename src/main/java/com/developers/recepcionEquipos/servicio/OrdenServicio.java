@@ -19,4 +19,6 @@ public interface OrdenServicio {
     public void update(Orden orden);
 
     List<Orden>  findByCliente(Cliente cliente);
+
+    String generarNumeroOrden();
 }

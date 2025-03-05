@@ -214,6 +214,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Fin Fecha con Calendario
 
+// Verificación de Números y Fechas
+function validacionFormulario() {
+  // Llama a ambas funciones y verifica que ambas devuelvan true
+  if (validarNumero() && validarFecha()) {
+    return true; // Permite el envío del formulario
+  } else {
+    return false; // Evita el envío del formulario
+  }
+}
+
 // Validar Numeros
 function validarNumero() {
   const numeroInput = document.getElementById("numero");
@@ -241,7 +251,7 @@ function validarNumero() {
 
 // Validar Fechas
 function validarFecha() {
-  const fechaInput = document.getElementById('fecha');
+  const fechaInput = document.getElementById("fecha");
   const fecha = fechaInput.value.trim();
 
   // Si el campo está vacío, permitir el envío del formulario
@@ -253,7 +263,7 @@ function validarFecha() {
   const regex = /^\d{2}\/\d{2}\/\d{4}$/;
 
   if (!regex.test(fecha)) {
-    alert('La fecha debe estar en formato dd/MM/yyyy o estar vacía.');
+    alert("La fecha debe estar en formato dd/MM/yyyy o estar vacía.");
     return false; // Evitar que el formulario se envíe
   }
 
@@ -261,3 +271,25 @@ function validarFecha() {
 }
 
 // Fin Validar Fecha
+
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
+
+/* Buscador*/
+document.addEventListener("keyup", (e) => {
+  if (e.target.matches("#buscador")) {
+    /*Para vaciar el campo al presionar esc*/
+    if (e.key === "Escape") {
+      e.target.value = "";
+    }
+    document.querySelectorAll("#buscar").forEach((articulo) => {
+      articulo.textContent.toUpperCase().includes(e.target.value) ||
+      articulo.textContent.toLowerCase().includes(e.target.value) ||
+      articulo.textContent.includes(e.target.value)
+        ? articulo.classList.remove("filtro")
+        : articulo.classList.add("filtro");
+    });
+  }
+});
+/* Fin Buscador*/
+
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>

@@ -8,25 +8,16 @@
                 </a>
             </div>
             <div class="menu-header">
-                <a th:href="@{/recepcion/altaCliente}"><img class="icono-header"
-                        th:src="@{/iconos/agregar-usuario.png}" alt="agregar-usuario">
-                    Alta Cliente
+                <a th:href="@{/recepcion/altaCliente}"><img class="icono-header" th:src="@{/iconos/agregar-usuario.png}"
+                        alt="agregar-usuario">
                 </a>
                 <a th:href="@{/recepcion/clientes}"><img class="icono-header" th:src="@{/iconos/grupo5.png}"
                         alt="clientes-blanco">
-                    Clientes
                 </a>
-                <a th:href="@{/equipo/altaEquipo}"><img class="icono-header"
-                        th:src="@{/iconos/alta-equipo.png}" alt="alta-equipo">
-                    Alta Equipo
-                </a>
-                <a th:href="@{/equipo/equipos}"><img class="icono-header" th:src="@{/iconos/equipos.png}"
-                        alt="equipos">
-                    Equipos
+                <a th:href="@{/equipo/equipos}"><img class="icono-header" th:src="@{/iconos/equipos.png}" alt="equipos">
                 </a>
                 <a th:href="@{/orden/ordenes}"><img class="icono-header" th:src="@{/iconos/reparaciones.png}"
                         alt="reparacion">
-                    Ordenes
                 </a>
                 <!-- Usuario con dropdown -->
                 <div class="usersession">
@@ -57,12 +48,12 @@
                                 <div class="card border mrt-5 w90 center">
                                     <a class="black" th:href="@{/recepcion/editarRecepcion}">
                                         <div class="dos-columnas">
-                                            <div>
+                                            <div class="center">
                                                 <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}"
                                                     alt="usuario">
                                             </div>
                                             <div class="w-150 mrt-10">
-                                                <p>Editar Perfil</p>
+                                                <p class="tf-8">Editar Perfil</p>
                                             </div>
                                         </div>
                                     </a>
@@ -73,41 +64,26 @@
                                 <div class="card border mrt-5 w90 center">
                                     <a class="black" th:href="@{/recepcion/cambiarContrasena}">
                                         <div class="dos-columnas">
-                                            <div>
+                                            <div class="center">
                                                 <img class="w20" th:src="@{/iconos/contrasena.png}" alt="usuario">
                                             </div>
                                             <div class="w-150 mrt-10">
-                                                <p>Cambiar Contraseña</p>
+                                                <p class="tf-8">Cambiar Contraseña</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </li>
-                            <li class="center">
-                                <div class="card border mrt-5 w90 center">
-                                    <a th:href="@{/usuario/compras}">
-                                        <div class="dos-columnas">
-                                            <div>
-                                                <img class="w20" th:src="@{/iconos/mis-compras.png}" alt="compras">
-                                            </div>
-                                            <div class="w-150 mrt-10">
-                                                <p>Mis Compras</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
+                            
                             <li class="center">
                                 <div class="card border mrt-5 w90 center">
                                     <a class="black" th:href="@{/usuario/cerrar}">
-
                                         <div class="dos-columnas">
-                                            <div>
-                                                <img class="w20" style="width: 20px; height: 20px;"
-                                                    th:src="@{/iconos/btn_power.png}" alt="salir">
+                                            <div class="center">
+                                                <img class="w20" th:src="@{/iconos/btn_power.png}" alt="salir">
                                             </div>
                                             <div class="w-150 mrt-10">
-                                                <p>Cerrar Sesión</p>
+                                                <p class="tf-8">Cerrar Sesión</p>
                                             </div>
                                         </div>
                                     </a>
