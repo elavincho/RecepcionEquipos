@@ -43,23 +43,28 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 75%;
-    justify-content: right;
+    justify-content: end;
 }
 
-.menu-header a {
+.menu-header .link-a {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    width: 50px;
+    width: 75px;
+    height: 75px;
     color: #fff;
     text-decoration: none;
 }
 
-.icono-header {
-    width: 35px;
-    height: 35px;
-    /* margin: 10px; */
+.menu-header .link-a p {
+    display: inline-block;
+    text-align: center;
+}
+
+.menu-header .link-a .icono-header {
+    width: 40px;
+    height: 40px;
 }
 
 .tf-8 {
@@ -542,7 +547,7 @@ a {
 }
 
 .width-ico {
-    width: 45px;
+    width: 35px;
 }
 
 .center {
