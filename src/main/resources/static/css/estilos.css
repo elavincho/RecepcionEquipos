@@ -67,7 +67,7 @@ body {
     height: 40px;
 }
 
-.tf-8 {
+.tf-14 {
     font-size: 14px;
     font-family: "Krona One", serif;
 }
@@ -673,10 +673,10 @@ a {
     justify-content: center;
 }
 
-.dos-columnas {
+.dos-columnas-menu {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: 20% 80%;
+    width: 100%;
 }
 
 .black {
