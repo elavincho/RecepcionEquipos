@@ -68,7 +68,7 @@ body {
 }
 
 .tf-14 {
-    font-size: 14px;
+    font-size: 16px;
     font-family: "Krona One", serif;
 }
 
@@ -838,3 +838,10 @@ a {
 .mr15 {
     margin: 15px;
 }
+
+/* Estilos de todos los Botones */
+
+.btn {
+    width: 150px;
+}
+
