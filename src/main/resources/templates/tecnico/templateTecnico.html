@@ -1,0 +1,110 @@
+<!-- Header Usuario Técnico-->
+<div th:fragment="header-tecnico">
+    <header>
+        <div class="contenedor-header" th:each="usuario:${usuario}">
+            <div class="logo-header">
+                <a th:href="@{/tecnico/homeTecnico}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="menu-header">
+                <a class="link-a" th:href="@{/tecnico/clientes}"><img class="icono-header"
+                        th:src="@{/iconos/grupo5.png}" alt="clientes-blanco">
+                    <p>Clientes</p>
+                </a>
+                <a class="link-a" th:href="@{/tecnico/equipos}"><img class="icono-header" th:src="@{/iconos/equipos.png}"
+                        alt="equipos">
+                    <p>Equipos</p>
+                </a>
+                <a class="link-a" th:href="@{/tecnico/ordenes}"><img class="icono-header"
+                        th:src="@{/iconos/reparaciones.png}" alt="reparacion">
+                    <p>Ordenes</p>
+                </a>
+                <!-- Usuario con dropdown -->
+                <div class="usersession mrt-5">
+                    <div class="dropdown">
+
+                        <div class="width-ico" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            <div class="center w70">
+                                <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
+                            </div>
+                            <p class="user-name" th:text="${usuario.nombreUsuario}"></p>
+                        </div>
+
+                        <ul class="dropdown-menu w220">
+
+                            <li class="center">
+                                <div class="card mrt-10 mrb-10 w90 center">
+                                    <div class="contenedor-user-name w100">
+                                        <h5 class="white" th:text="${usuario.nombreUsuario}"></h5>
+                                    </div>
+                                    <img class="circle mrt-10" style="width: 70px; height: 70px;"
+                                        th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
+                                    <h4 th:text="${usuario.nombre + ' ' + usuario.apellido}"></h4>
+                                    <p th:text="${usuario.email}"></p>
+                                </div>
+                            </li>
+
+                            <li class="center">
+                                <div class="card border mrt-5 w90 center">
+                                    <a class="black dos-columnas-menu" th:href="@{/tecnico/editarTecnico}">
+                                        <div class="center">
+                                            <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}" alt="usuario">
+                                        </div>
+                                        <div class=" mrt-10">
+                                            <p class="tf-14">Editar Perfil</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="center">
+                                <div class="card border mrt-5 w90 center">
+                                    <a class="black dos-columnas-menu" th:href="@{/tecnico/cambiarTecnico}">
+                                        <div class="center">
+                                            <img class="w20" th:src="@{/iconos/contrasena.png}" alt="usuario">
+                                        </div>
+                                        <div class="mrt-10">
+                                            <p class="tf-14">Cambiar Contraseña</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="center">
+                                <div class="card border mrt-5 w90 center">
+                                    <a class="black dos-columnas-menu" th:href="@{/usuario/cerrar}">
+                                        <div class="center">
+                                            <img class="w20" th:src="@{/iconos/btn_power.png}" alt="salir">
+                                        </div>
+                                        <div class="mrt-10">
+                                            <p class="tf-14">Cerrar Sesión</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Fin Usuario con dropdown -->
+            </div>
+        </div>
+    </header>
+</div>
+
+
+<!-- Footer Técnico-->
+<div th:fragment="footer-tecnico">
+    <footer>
+        <div class="contenedor-footer">
+            <div class="logo-footer">
+                <a th:href="@{/tecnico/homeTecnico}">
+                    <img class="img-logo-header" th:src="@{/imagenes/logo.png}" alt="logo">
+                </a>
+            </div>
+            <div class="texto-footer">
+                <p>Developers 2026 - All Right Reserved</p>
+            </div>
+        </div>
+    </footer>
+</div>
