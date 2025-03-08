@@ -14,7 +14,7 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header-user}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::header-user-sin-rol}" th:unless="${sesion==null}"></div>
 
     <main>
         <h1 class="center mrt-30">Cambiar Contraseña</h1>
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="contenedor-boton formulario-grupo mrt-30">
-                    <a class="btn btn-secondary mr-30" th:href="@{/}"><img class="w25" th:src="@{/iconos/cancelar.png}"
+                    <a class="btn btn-secondary mr-30" th:href="@{/usuario/homeNuevoUsuario}"><img class="w25" th:src="@{/iconos/cancelar.png}"
                         alt="cancelar"> Cancelar</a>
                     <button type="submit" class="btn btn-dark"><img class="w25  mr-10" th:src="@{/iconos/felicidad.png}"
                             alt="felicidad">Cambiar</button>
@@ -98,7 +98,7 @@
     </main>
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{usuario/templateUsuario.html::footer-user}"></div>
+    <div class="mrt-30" th:insert="~{usuario/templateUsuario.html::footer-user-sin-rol}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

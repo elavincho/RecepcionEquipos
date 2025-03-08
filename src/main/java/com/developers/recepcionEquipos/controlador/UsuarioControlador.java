@@ -214,7 +214,7 @@ public class UsuarioControlador {
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Perfil editado correctamente!");
 
-        return "redirect:/";
+        return "redirect:/usuario/homeNuevoUsuario";
     }
 
     @GetMapping("/cerrar")
@@ -323,7 +323,7 @@ public class UsuarioControlador {
         // Alerta para un cambio correcto
         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
 
-        return "redirect:/";
+        return "redirect:/usuario/homeNuevoUsuario";
     }
 
 }
