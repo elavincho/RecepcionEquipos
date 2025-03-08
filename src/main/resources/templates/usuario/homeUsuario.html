@@ -15,9 +15,25 @@
 
     <!-- Main -->
     <main>
-        <div>
-            <h1>Contenido del Usuario Registrado</h1>
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
+
+        <div class="contenedor-seccion">
+            <div class="seccion-img">
+                <img src="imagenes/bienvenido.jpg" alt="">
+            </div>
+            <div class="seccion-texto">
+                <h1>Ya sos parte de Recepción de Equipos.</h1>
+                <br>
+                <h3>¡Por favor solicita al Administrador que te asigne tu Rol correspondiente!</h3>
+                <br>
+                <h3>Mientras podes actualizar tu perfil.</h3>
+            </div>
+        </div>
+
+        <br>
+
 
     </main>
 

@@ -105,7 +105,7 @@ public class UsuarioControlador {
                 return "redirect:/administrador/homeAdmin";
 
             } else if (user.get().getRol().equals("USER")) {
-                return "redirect:/";
+                return "redirect:/homeNuevoUsuario";
 
             } else if (user.get().getRol().equals("TECNICO")) {
                 return "redirect:/tecnico/homeTecnico";

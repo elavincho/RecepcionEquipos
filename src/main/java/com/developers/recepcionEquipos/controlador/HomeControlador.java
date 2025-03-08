@@ -31,4 +31,9 @@ public class HomeControlador {
         return "usuario/home";
     }
 
+    @GetMapping("/homeNuevoUsuario")
+    public String homeNuevoUsuario() {
+        return "usuario/homeUsuario";
+    }
+
 }
