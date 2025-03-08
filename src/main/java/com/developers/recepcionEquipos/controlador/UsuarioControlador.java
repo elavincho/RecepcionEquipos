@@ -105,7 +105,7 @@ public class UsuarioControlador {
                 return "redirect:/administrador/homeAdmin";
 
             } else if (user.get().getRol().equals("USER")) {
-                return "redirect:/homeNuevoUsuario";
+                return "redirect:/usuario/homeNuevoUsuario";
 
             } else if (user.get().getRol().equals("TECNICO")) {
                 return "redirect:/tecnico/homeTecnico";
@@ -125,6 +125,16 @@ public class UsuarioControlador {
         }
 
         return "redirect:/usuario/iniciarSesion";
+    }
+    // Metodo para usuario sin asignar Rol
+    @GetMapping("/homeNuevoUsuario")
+    public String homeNuevoUsuario(Usuario usuario, HttpSession session, Model model) {
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+        return "usuario/homeUsuario";
     }
 
     // Metodo editar con token
