@@ -15,7 +15,9 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
+
+    <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}" th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
 
 
     <!-- Main -->
