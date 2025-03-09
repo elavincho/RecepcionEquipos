@@ -182,7 +182,7 @@ public class OrdenControlador {
         // Alerta para un guardado correcto
         redirectAttributes.addFlashAttribute("exito", "¡Orden agregada correctamente!");
 
-        return "redirect:/recepcion/homeRecepcion";
+        return "redirect:/orden/ordenes";
     }
 
     // Mostrar todos las Ordenes de Reparación
@@ -305,19 +305,9 @@ public class OrdenControlador {
         orden.setFechaCreacion(o.getFechaCreacion());
         orden.setFechaCreacionFormateada(o.getFechaCreacionFormateada());
         orden.setNumero(o.getNumero());
-        // orden.setAvisoCliente(o.getAvisoCliente());
         orden.setFallaCliente(o.getFallaCliente());
-        // orden.setFallaTecnico(o.getFallaTecnico());
-        // orden.setFechaFinalizacion(o.getFechaFinalizacion());
-        // orden.setFechaInicio(o.getFechaInicio());
-        // orden.setIvaFormateado(o.getIvaFormateado());
         orden.setMedioAviso(o.getMedioAviso());
-        // orden.setPrecioManoObraFormateado(o.getPrecioManoObraFormateado());
-        // orden.setPrecioRepuestoFormateado(o.getPrecioRepuestoFormateado());
         orden.setPrioridad(o.getPrioridad());
-        // orden.setRepuestoUtilizado(o.getRepuestoUtilizado());
-        // orden.setSubTotalFormateado(o.getSubTotalFormateado());
-        // orden.setTrabajoRealizado(o.getTrabajoRealizado());
 
         // Actualizar la orden
         ordenServicio.update(orden);

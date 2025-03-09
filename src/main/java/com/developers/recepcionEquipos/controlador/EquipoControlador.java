@@ -112,7 +112,7 @@ public class EquipoControlador {
         // Alerta para un guardado correcto
         redirectAttributes.addFlashAttribute("exito", "¡Equipo agregado correctamente!");
 
-        return "redirect:/recepcion/homeRecepcion";
+        return "redirect:/equipo/equipos";
     }
 
     // Mostrar todos los equipos

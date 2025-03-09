@@ -345,4 +345,20 @@ public class AdministradorControlador {
         return "redirect:/administrador/usuarios";
     }
 
+    // Mostrar todos los usuarios registrados
+    @GetMapping("/tecnicos")
+    public String tecnicos(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Mandamos todos los datos de los usuarios registrados
+        model.addAttribute("usuarios", usuarioServicio.findAll());
+
+        return "administrador/tecnicos";
+    }
+
 }

@@ -12,20 +12,20 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header-inicial}" th:if="${sesion==null}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::header-bloqueado}" th:if="${sesion==null}"></div>
 
     <!-- Main -->
     <main>
-
-        <div class="bloqueado">
-            <h1>Usuario Bloqueado</h1>
+        <br><br><br><br>
+        <div class="contenedor-formulario">
+            <div class="bloqueado">
+                <h1>Usuario Bloqueado</h1>
+            </div>
         </div>
-        
+        <br><br><br><br>
     </main>
-
-
     <!-- Footer -->
-    <div th:insert="~{usuario/templateUsuario.html::footer-user}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::footer-bloqueado}"></div>
 </body>
 
 </html>

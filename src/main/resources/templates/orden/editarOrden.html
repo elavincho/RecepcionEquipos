@@ -22,10 +22,10 @@
     <!-- Header -->
     <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}"
         th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
-
     <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}"
         th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
-
+    <div th:insert="~{administrador/templateAdmin.html::header-admin}"
+        th:if="${sesion != null and usuario.rol == 'ADMIN'}"></div>
     <!-- Main -->
     <main>
         <div class="contenedor-exito">
@@ -210,10 +210,10 @@
     <!-- Footer -->
     <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"
         th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
-
     <div class="mrt-30" th:insert="~{tecnico/templateTecnico.html::footer-tecnico}"
         th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
-
+    <div class="mrt-30" th:insert="~{administrador/templateAdmin.html::footer-admin}"
+        th:if="${sesion != null and usuario.rol == 'ADMIN'}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

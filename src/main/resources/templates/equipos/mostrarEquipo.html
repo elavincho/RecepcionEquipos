@@ -20,6 +20,8 @@
 
     <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}"
         th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
+    <div th:insert="~{administrador/templateAdmin.html::header-admin}"
+        th:if="${sesion != null and usuario.rol == 'ADMIN'}"></div>
 
     <!-- Main -->
     <main>
@@ -95,6 +97,14 @@
                                     <img class="w25" th:src="@{/iconos/actualizar.png}" alt="editar"> Editar
                                 </button>
                             </form>
+                            <!-- Formulario para una Orden de Reparación -->
+                            <form th:action="@{/orden/altaOrden}" method="post" style="display: inline;">
+                                <input type="hidden" name="equipoId" th:value="${equipo.IdEquipo}">
+                                <input type="hidden" name="clienteId" th:value="${equipo.cliente.IdCliente}">
+                                <button type="submit" class="btn btn-dark" style="color: white;">
+                                    <img class="w25" th:src="@{/iconos/reparacion.png}" alt="reparacion"> Alta Orden
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -107,17 +117,20 @@
             <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'RECEPCIONISTA'}"
                 th:href="@{/recepcion/homeRecepcion}"><img class="w25" th:src="@{/iconos/atras.png}" alt="atras">
                 Volver</a>
-            <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'TECNICO'}" th:href="@{/tecnico/homeTecnico}"><img
-                    class="w25" th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+            <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'TECNICO'}"
+                th:href="@{/tecnico/homeTecnico}"><img class="w25" th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+            <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'ADMIN'}"
+                th:href="@{/administrador/homeAdmin}"><img class="w25" th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
         </div>
     </main>
 
     <!-- Footer -->
     <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"
         th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
-
     <div class="mrt-30" th:insert="~{tecnico/templateTecnico.html::footer-tecnico}"
         th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
+    <div class="mrt-30" th:insert="~{administrador/templateAdmin.html::footer-admin}"
+        th:if="${sesion != null and usuario.rol == 'ADMIN'}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

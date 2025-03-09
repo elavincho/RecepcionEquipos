@@ -19,7 +19,7 @@
     <!-- Main -->
     <main>
         <br>
-        <h1 class="center">Usuarios Registrados</h1>
+        <h1 class="center">Técnicos</h1>
 
         <!-- Buscador -->
         <div class="center">
@@ -28,7 +28,7 @@
                 <div class="card border enlace-estirado-buscador">
                     <h2 class="mrl15">Buscador</h2>
                     <form class="d-flex" role="search">
-                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar usuarios" id="buscador"
+                        <input class="mrl15 form-control me-2" type="search" placeholder="Buscar técnicos" id="buscador"
                             name="buscador" aria-label="Search">
                     </form>
                     <br>
@@ -42,7 +42,7 @@
         <div class="center">
             <div class="card cont-enlace-estirado mrt-30 mrb-30">
                 <br>
-                <div class="card border enlace-estirado" th:each="usuario:${usuarios}" id="buscar">
+                <div class="card border enlace-estirado" th:each="usuario:${usuarios}" th:if="${usuario.rol == 'TECNICO'}" id="buscar">
                     <div class="card-foto center">
                         <img th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto-usuario">
                         <h6 class="mrt-30" th:text="${usuario.rol}"></h6>

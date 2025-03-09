@@ -14,7 +14,7 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header-admin}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{administrador/templateAdmin.html::header-admin}" th:unless="${sesion==null}"></div>
 
     <main>
         <h1 class="center mrt-30">Cambiar Contraseña</h1>
@@ -98,7 +98,7 @@
     </main>
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{usuario/templateUsuario.html::footer-user}"></div>
+    <div class="mrt-30" th:insert="~{administrador/templateAdmin.html::footer-admin}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

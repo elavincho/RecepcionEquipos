@@ -14,7 +14,7 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{usuario/templateUsuario.html::header-inicial}" th:if="${sesion==null}"></div>
+    <div th:insert="~{administrador/templateAdmin.html::header-admin}" th:unless="${sesion==null}"></div>
 
     <main>
 
@@ -137,7 +137,7 @@
     </main>
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{usuario/templateUsuario.html::footer-user}"></div>
+    <div class="mrt-30" th:insert="~{administrador/templateAdmin.html::footer-admin}"></div>
 
     <script th:src="@{/scripts/formulario.js}"></script>
     <!-- <script src="https://kit.fontawesome.com/80ba51f8fa.js" crossorigin="anonymous"></script> -->

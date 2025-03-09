@@ -274,7 +274,7 @@ public class RecepcionControlador {
             redirectAttributes.addFlashAttribute("exito", "¡Cliente agregado correctamente!");
         }
 
-        return "redirect:/recepcion/homeRecepcion";
+        return "redirect:/recepcion/clientes";
     }
 
     // Mostrar todos los clientes registrados
