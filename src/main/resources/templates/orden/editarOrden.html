@@ -20,7 +20,11 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}"
+        th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
+
+    <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}"
+        th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
 
     <!-- Main -->
     <main>
@@ -168,9 +172,10 @@
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="numero" name="precioManoObra"
                                 placeholder="Precio Mano de Obra" autocomplete="off" th:value="${orden.precioManoObra}">
-                            <div id="numeroError" class="alerta-error mrt-5" style="display: none;">El precio debe ser un
+                            <div id="numeroError" class="alerta-error mrt-5" style="display: none;">El precio debe ser
+                                un
                                 número válido.</div>
-                            
+
                         </div>
                     </div>
 
@@ -180,9 +185,10 @@
                         <div class="formulario-grupo-input">
                             <input type="text" class="formulario-input border" id="numero2" name="precioRepuesto"
                                 placeholder="Precio Repuesto" autocomplete="off" th:value="${orden.precioRepuesto}">
-                            <div id="numeroError2" class="alerta-error mrt-5" style="display: none;">El precio debe ser un
+                            <div id="numeroError2" class="alerta-error mrt-5" style="display: none;">El precio debe ser
+                                un
                                 número válido.</div>
-                            
+
                         </div>
                     </div>
 
@@ -192,7 +198,7 @@
                     <a class="btn btn-secondary mr-30" th:href="@{/orden/ordenes}"><img class="w25"
                             th:src="@{/iconos/cancelar.png}" alt="cancelar"> Cancelar</a>
                     <button type="submit" class="btn btn-dark ml10"><img class="w25" th:src="@{/iconos/guardar.png}"
-                            alt="guardar"> Guardar Cambios</button>
+                            alt="guardar"> Guardar</button>
                 </div>
 
             </form>
@@ -202,7 +208,12 @@
 
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"
+        th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
+
+    <div class="mrt-30" th:insert="~{tecnico/templateTecnico.html::footer-tecnico}"
+        th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

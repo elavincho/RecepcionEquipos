@@ -15,9 +15,11 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}"
+        th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
 
-    <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}" th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
+    <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}"
+        th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
 
     <!-- Main -->
     <main>
@@ -102,13 +104,20 @@
         <!-- Fin Enlace Estirado -->
 
         <div class="col-sm-12 center mrt-30">
-            <a class="btn btn-secondary mr-30" th:href="@{/recepcion/homeRecepcion}"><img class="w25"
-                    th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+            <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'RECEPCIONISTA'}"
+                th:href="@{/recepcion/homeRecepcion}"><img class="w25" th:src="@{/iconos/atras.png}" alt="atras">
+                Volver</a>
+            <a class="btn btn-secondary mr-30" th:if="${usuario.rol == 'TECNICO'}" th:href="@{/tecnico/homeTecnico}"><img
+                    class="w25" th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
         </div>
     </main>
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+    <div class="mrt-30" th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"
+        th:if="${sesion != null and usuario.rol == 'RECEPCIONISTA'}"></div>
+
+    <div class="mrt-30" th:insert="~{tecnico/templateTecnico.html::footer-tecnico}"
+        th:if="${sesion != null and usuario.rol == 'TECNICO'}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
