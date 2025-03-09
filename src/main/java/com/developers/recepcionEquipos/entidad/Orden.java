@@ -43,6 +43,7 @@ public class Orden {
     private String totalFormateado;
     private Double subTotal;
     private String subTotalFormateado;
+    private String estadoOrden;
 
     @ManyToOne
     private Cliente cliente;
@@ -56,7 +57,7 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String numero, Date fechaCreacion, String fechaCreacionFormateada, String trabajoRealizado, LocalDate fechaInicio, LocalDate fechaFinalizacion, String repuestoUtilizado, Double precioManoObra, String precioManoObraFormateado, Double precioRepuesto, String precioRepuestoFormateado, Double iva, String ivaFormateado, Double total, String totalFormateado, Double subTotal, String subTotalFormateado, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
+    public Orden(Integer IdOrden, String fallaCliente, String fallaTecnico, String prioridad, String avisoCliente, String medioAviso, String numero, Date fechaCreacion, String fechaCreacionFormateada, String trabajoRealizado, LocalDate fechaInicio, LocalDate fechaFinalizacion, String repuestoUtilizado, Double precioManoObra, String precioManoObraFormateado, Double precioRepuesto, String precioRepuestoFormateado, Double iva, String ivaFormateado, Double total, String totalFormateado, Double subTotal, String subTotalFormateado, String estadoOrden, Cliente cliente, Equipo equipo, List<DetalleOrden> detalle) {
         this.IdOrden = IdOrden;
         this.fallaCliente = fallaCliente;
         this.fallaTecnico = fallaTecnico;
@@ -80,6 +81,7 @@ public class Orden {
         this.totalFormateado = totalFormateado;
         this.subTotal = subTotal;
         this.subTotalFormateado = subTotalFormateado;
+        this.estadoOrden = estadoOrden;
         this.cliente = cliente;
         this.equipo = equipo;
         this.detalle = detalle;
@@ -269,6 +271,14 @@ public class Orden {
         this.subTotalFormateado = subTotalFormateado;
     }
 
+    public String getEstadoOrden() {
+        return estadoOrden;
+    }
+
+    public void setEstadoOrden(String estadoOrden) {
+        this.estadoOrden = estadoOrden;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -295,6 +305,6 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaCreacionFormateada=" + fechaCreacionFormateada + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", subTotal=" + subTotal + ", subTotalFormateado=" + subTotalFormateado + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
+        return "Orden{" + "IdOrden=" + IdOrden + ", fallaCliente=" + fallaCliente + ", fallaTecnico=" + fallaTecnico + ", prioridad=" + prioridad + ", avisoCliente=" + avisoCliente + ", medioAviso=" + medioAviso + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaCreacionFormateada=" + fechaCreacionFormateada + ", trabajoRealizado=" + trabajoRealizado + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", repuestoUtilizado=" + repuestoUtilizado + ", precioManoObra=" + precioManoObra + ", precioManoObraFormateado=" + precioManoObraFormateado + ", precioRepuesto=" + precioRepuesto + ", precioRepuestoFormateado=" + precioRepuestoFormateado + ", iva=" + iva + ", ivaFormateado=" + ivaFormateado + ", total=" + total + ", totalFormateado=" + totalFormateado + ", subTotal=" + subTotal + ", subTotalFormateado=" + subTotalFormateado + ", estadoOrden=" + estadoOrden + ", cliente=" + cliente + ", equipo=" + equipo + ", detalle=" + detalle + '}';
     }
 }

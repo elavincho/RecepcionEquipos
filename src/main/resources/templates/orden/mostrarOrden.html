@@ -61,9 +61,15 @@
                         </h5>
                     </div>
                     <div class="card-contenido mrt-10">
-                        <h5 class="titulo"
+                        <div class="dos-columnas">
+                            <h5 class="titulo"
                             th:text="${orden.equipo.tipoEquipo} +' '+ ${orden.equipo.marca} +' '+ ${orden.equipo.modelo}">
                         </h5>
+                        <h5 class="titulo"
+                            th:text="'Estado: ' + ${orden.estadoOrden}">
+                        </h5>
+                        </div>
+                        
                         <div class="dos-columnas">
                             <h6 class="interlineado" th:text="'Clave Equipo: ' + ${orden.equipo.clave}"></h6>
                             <h6 class="interlineado"

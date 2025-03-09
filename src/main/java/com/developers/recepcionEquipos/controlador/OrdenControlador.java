@@ -173,7 +173,8 @@ public class OrdenControlador {
         orden.setSubTotal(precioManoObra + precioRepuesto);
         orden.setIva((precioManoObra + precioRepuesto) * 0.21);
         orden.setTotal((precioManoObra + precioRepuesto) + ((precioManoObra + precioRepuesto) * 0.21));
-
+        orden.setEstadoOrden("PENDIENTE");
+        
         ordenServicio.save(orden);
 
         // Limpiar el token después de usarlo (opcional, para evitar reutilización)

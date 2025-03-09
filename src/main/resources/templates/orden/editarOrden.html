@@ -192,6 +192,19 @@
                         </div>
                     </div>
 
+                    <!-- Grupo: Estado de la Orden -->
+                    <div class="formulario-grupo" id="grupo-nombre">
+                        <label for="estadoOrden" class="formulario-label">Estado de la Orden</label>
+                        <div class="formulario-grupo-input">
+                            <select name="estadoOrden" id="estadoOrden">
+                                <option th:value="${orden.estadoOrden}" th:text="${orden.estadoOrden}"></option>
+                                <option value="PENDIENTE">PENDIENTE</option>
+                                <option value="EN_CURSO">EN CURSO</option>
+                                <option value="TERMINADA">TERMINADA</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- Fin formulario -->
                 <div class="col-sm-12 center mrt-30">

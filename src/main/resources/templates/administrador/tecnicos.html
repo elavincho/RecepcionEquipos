@@ -48,6 +48,7 @@
                         <h6 class="mrt-30" th:text="${usuario.rol}"></h6>
                     </div>
                     <div class="card-contenido mrt-10">
+                        <br>
                         <h5 class="titulo" th:text="${usuario.nombre} +' '+ ${usuario.apellido}"></h5>
                         <p class="interlineado" th:text="${usuario.email}"></p>
                         <div class="dos-columnas">
@@ -61,15 +62,7 @@
                             </h6>
                             <h6 class="" th:text="'Provincia: ' + ${usuario.provincia}"></h6>
                         </div>
-
-                        <div class="dos-columnas center">
-                            <div class="w-150">
-                                <a class="btn btn-dark" style="color: white;"
-                                    th:href="@{/administrador/editarRol/{id} (id=${usuario.IdUsuario}) }">
-                                    <img class="w25" th:src="@{/iconos/actualizar.png}" alt="actualizar"> Cambiar Rol
-                                </a>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <br><br>
