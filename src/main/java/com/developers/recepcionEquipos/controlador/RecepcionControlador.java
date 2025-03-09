@@ -1,6 +1,7 @@
 package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -287,8 +288,14 @@ public class RecepcionControlador {
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        // Obtenemos la lista de clientes
+        List<Cliente> clientes = clienteServicio.findAll();
+
+        // Ordenar la lista de mayor a menor por IdCliente
+        clientes.sort((cliente1, cliente2) -> cliente2.getIdCliente().compareTo(cliente1.getIdCliente()));
+
         // Mandamos todos los datos de los clientes registrados
-        model.addAttribute("clientes", clienteServicio.findAll());
+        model.addAttribute("clientes", clientes);
 
         return "clientes/mostrar";
     }
@@ -355,7 +362,8 @@ public class RecepcionControlador {
         System.out.println("ID RECIBIDO GET EDITAR CLIENTE: " + clienteId);
 
         // Pasar los datos del cliente a la vista
-        //model.addAttribute("clienteId", clienteId); // es necesario, se obtiene directamente
+        // model.addAttribute("clienteId", clienteId); // es necesario, se obtiene
+        // directamente
 
         return "clientes/editar";
     }
@@ -376,9 +384,9 @@ public class RecepcionControlador {
         }
 
         Cliente c = new Cliente();
-        
+
         c = clienteServicio.get(clienteId).get();
-        
+
         /* cuando editamos el cliente pero no cambiamos la imagen */
         if (file.isEmpty()) {
             cliente.setFoto(c.getFoto());

@@ -195,8 +195,14 @@ public class OrdenControlador {
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        // Obtenemos la lista de ordenes
+        List<Orden> ordenes = ordenServicio.findAll();
+
+        // Ordenar la lista de mayor a menor por IdOrden
+        ordenes.sort((orden1, orden2) -> orden2.getIdOrden().compareTo(orden1.getIdOrden()));
+
         // Mandamos todos los datos de las ordenes
-        model.addAttribute("ordenes", ordenServicio.findAll());
+        model.addAttribute("ordenes", ordenes);
 
         return "orden/mostrarOrden";
     }

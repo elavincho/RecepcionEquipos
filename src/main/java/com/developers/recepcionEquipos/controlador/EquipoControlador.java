@@ -125,8 +125,14 @@ public class EquipoControlador {
         // Obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        // Obtenemos la lista de equipos
+        List<Equipo> equipos =equipoServicio.findAll();
+
+        // Ordenar la lista de mayor a menor por IdEquipo
+        equipos.sort((equipo1, equipo2) -> equipo2.getIdEquipo().compareTo(equipo1.getIdEquipo()));
+
         // Mandamos todos los datos de los equipos registrados
-        model.addAttribute("equipos", equipoServicio.findAll());
+        model.addAttribute("equipos", equipos);
 
         return "equipos/mostrarEquipo";
     }
