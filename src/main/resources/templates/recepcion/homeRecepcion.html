@@ -15,27 +15,23 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+    <!-- <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div> -->
 
     <!-- Main -->
     <main>
-        <div class="contenedor-exito">
-            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
-        </div>
-        <div class="contenedor-error">
-            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
-        </div>
 
-        <h1 class="centrado">Home Recepción</h1>
+        <br>
+        <!-- <h1 class="centrado">Home Recepción</h1> -->
 
         <div class="contenedor-dashboard">
-            <div class="izquierda" style="border: solid 1px;">
-                <h1>logo</h1>
+            <div class="izquierda">
+                <img class="" style="width: 100%; height: 100%; object-fit: cover;" th:src="@{/imagenes/logo.png}"
+                    alt="logo">
             </div>
-            <div class="centro" style="border: solid 1px;">
+            <div class="centro">
                 <h1>Recepción</h1>
-                <h3>Bienvenido, Homero Simpson</h3>
-                <h6>Buscador...</h6>
+                <h3 th:text="'Bienvenido, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
+                <!-- <h6>Buscador...</h6> -->
             </div>
             <div class="derecha" style="border: solid 1px;">
                 <h6 class="center">Lunes</h6>
@@ -44,10 +40,15 @@
                 <h3 class="center">2025</h3>
             </div>
         </div>
-        <br>
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
+        </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
+        </div>
         <div class="contenedor-dashboard">
-            <div class="izquierda center" style="border: solid 1px; width: 75px;">
-                <div class="menu-header">
+            <div class="izquierda">
+                <!-- <div class="menu-header">
                     <a class="link-a" th:href="@{/recepcion/altaCliente}"><img class="icono-header"
                             th:src="@{/iconos/agregar-usuario.png}" alt="agregar-usuario">
                         <p>Alta</p>
@@ -64,28 +65,108 @@
                             th:src="@{/iconos/reparaciones.png}" alt="reparacion">
                         <p>Ordenes</p>
                     </a>
-                </div>
+                    <a class="card border" th:href="@{/orden/ordenes}">
+                        <img class="icono-header" src="/iconos/reparaciones-negro.png" alt="reparaciones-negro">
+                        <h6 class="center black">Ordenes</h6>
+                    </a>
+                </div> -->
+
+                <ul class="dropdown-menu card border">
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/recepcion/altaCliente}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}" alt="usuario">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Alta</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/recepcion/clientes}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}" alt="usuario">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Clientes</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/equipo/equipos}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}" alt="usuario">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Equipos</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/orden/ordenes}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/sobre-nosotros-negro.png}" alt="usuario">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Ordenes</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="centro" style="border: solid 1px">
+            <div class="centro">
 
                 <div class="spac-around">
-                    <div style="width: 200px; height: 100px; border: solid 1px; border-radius: 5px; margin: 10px;">
-                        <h6>Clientes Registrados</h6>
-                        <h1 class="center">74</h1>
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Clientes Registrados</h3>
+                                <h1 class="center">74</h1>
+                            </div>
+                        </div>
                     </div>
-                    <div style="width: 200px; height: 100px; border: solid 1px; border-radius: 5px; margin: 10px;">
-                        <h6>Ordenes Pendientes</h6>
-                        <h1 class="center">8</h1>
+
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes Pendientes</h3>
+                                <h1 class="center">8</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="spac-around">
-                    <div style="width: 200px; height: 100px; border: solid 1px; border-radius: 5px; margin: 10px;">
-                        <h6>Ordenes para Avisar</h6>
-                        <h1 class="center">3</h1>
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes x Avisar</h3>
+                                <h1 class="center">3</h1>
+                            </div>
+                        </div>
                     </div>
-                    <div style="width: 200px; height: 100px; border: solid 1px; border-radius: 5px; margin: 10px;">
-                        <h6>Ordenes en Curso</h6>
-                        <h1 class="center">1</h1>
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes en Curso</h3>
+                                <h1 class="center">1</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

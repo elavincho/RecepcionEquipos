@@ -830,6 +830,11 @@ a {
     height: 250px;
 }
 
+.contenedor-tarjeta-estirada {
+    width: 350px;
+    height: 200px;
+}
+
 .black {
     color: #000;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
