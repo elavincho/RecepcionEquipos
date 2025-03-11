@@ -868,5 +868,4 @@ a {
     display: grid;
     grid-template-columns: 10% 70% 20%;
     width: 100%;
-    gap: 10px;
 }
