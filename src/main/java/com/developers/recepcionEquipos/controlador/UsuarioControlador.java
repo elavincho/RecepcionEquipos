@@ -2,6 +2,7 @@ package com.developers.recepcionEquipos.controlador;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -40,7 +41,7 @@ public class UsuarioControlador {
 
     @PostMapping("/save")
     public String save(Usuario usuario, @RequestParam("img") MultipartFile file, @RequestParam String email,
-            RedirectAttributes redirectAttributes)
+            @RequestParam String contrasena, RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", usuario);
 
@@ -51,6 +52,11 @@ public class UsuarioControlador {
             // Alerta para un usuario existente
             redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
         } else {
+            // Encripta la contraseña antes de almacenarla
+            String hashedPassword = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+            // Guardamos la contraseña encriptada
+            usuario.setContrasena(hashedPassword);
+
             usuario.setRol("USER");
 
             // imagen
@@ -73,11 +79,68 @@ public class UsuarioControlador {
         return "usuario/iniciarSesion";
     }
 
+    // @PostMapping("/acceder")
+    // public String acceder(Usuario usuario, HttpSession session,
+    // RedirectAttributes redirectAttributes) {
+
+    // logger.info("Accesos : {}", usuario);
+
+    // Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
+
+    // // Verificamos si el usuario existe en la base de datos
+    // if (!user.isPresent()) {
+    // logger.info("Usuario no existe");
+
+    // // Alerta para email no registrado
+    // redirectAttributes.addFlashAttribute("error", "¡El correo electrónico no está
+    // registrado!");
+    // return "redirect:/usuario/iniciarSesion";
+    // }
+
+    // logger.info("Usuario de la bd: {}", user.get());
+
+    // // Validación de la contraseña
+    // if (user.get().getContrasena().equals(usuario.getContrasena())) {
+
+    // // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
+    // session.setAttribute("idusuario", user.get().getIdUsuario());
+
+    // // Obtenemos todos los datos del usuario para usarlo en cualquier lugar de la
+    // // app
+    // session.setAttribute("usersession", user.get());
+
+    // if (user.get().getRol().equals("ADMIN")) {
+    // return "redirect:/administrador/homeAdmin";
+
+    // } else if (user.get().getRol().equals("USER")) {
+    // return "redirect:/usuario/homeNuevoUsuario";
+
+    // } else if (user.get().getRol().equals("TECNICO")) {
+    // return "redirect:/tecnico/homeTecnico";
+
+    // } else if (user.get().getRol().equals("RECEPCIONISTA")) {
+    // return "redirect:/recepcion/homeRecepcion";
+
+    // } else if (user.get().getRol().equals("BLOQUEADO")) {
+    // return "redirect:/usuario/bloqueado";
+    // }
+    // } else {
+    // logger.info("Contraseña incorrecta");
+
+    // // Alerta para contraseña incorrecta
+    // redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
+    // return "redirect:/usuario/iniciarSesion";
+    // }
+
+    // return "redirect:/usuario/iniciarSesion";
+    // }
+
     @PostMapping("/acceder")
     public String acceder(Usuario usuario, HttpSession session, RedirectAttributes redirectAttributes) {
 
         logger.info("Accesos : {}", usuario);
 
+        // Buscamos el usuario por su email
         Optional<Usuario> user = usuarioServicio.findByEmail(usuario.getEmail());
 
         // Verificamos si el usuario existe en la base de datos
@@ -91,8 +154,8 @@ public class UsuarioControlador {
 
         logger.info("Usuario de la bd: {}", user.get());
 
-        // Validación de la contraseña
-        if (user.get().getContrasena().equals(usuario.getContrasena())) {
+        // Validación de la contraseña encriptada
+        if (ContrasenaEncriptadaImpl.checkPassword(usuario.getContrasena(), user.get().getContrasena())) {
 
             // Obtenemos el id del usuario para usarlo en cualquier lugar de la app
             session.setAttribute("idusuario", user.get().getIdUsuario());
@@ -101,20 +164,22 @@ public class UsuarioControlador {
             // app
             session.setAttribute("usersession", user.get());
 
-            if (user.get().getRol().equals("ADMIN")) {
-                return "redirect:/administrador/homeAdmin";
-
-            } else if (user.get().getRol().equals("USER")) {
-                return "redirect:/usuario/homeNuevoUsuario";
-
-            } else if (user.get().getRol().equals("TECNICO")) {
-                return "redirect:/tecnico/homeTecnico";
-
-            } else if (user.get().getRol().equals("RECEPCIONISTA")) {
-                return "redirect:/recepcion/homeRecepcion";
-
-            } else if (user.get().getRol().equals("BLOQUEADO")) {
-                return "redirect:/usuario/bloqueado";
+            // Redireccionamos según el rol del usuario
+            switch (user.get().getRol()) {
+                case "ADMIN":
+                    return "redirect:/administrador/homeAdmin";
+                case "USER":
+                    return "redirect:/usuario/homeNuevoUsuario";
+                case "TECNICO":
+                    return "redirect:/tecnico/homeTecnico";
+                case "RECEPCIONISTA":
+                    return "redirect:/recepcion/homeRecepcion";
+                case "BLOQUEADO":
+                    return "redirect:/usuario/bloqueado";
+                default:
+                    // Si el rol no coincide con ninguno de los anteriores
+                    redirectAttributes.addFlashAttribute("error", "Rol no válido");
+                    return "redirect:/usuario/iniciarSesion";
             }
         } else {
             logger.info("Contraseña incorrecta");
@@ -123,9 +188,8 @@ public class UsuarioControlador {
             redirectAttributes.addFlashAttribute("error", "¡Contraseña incorrecta!");
             return "redirect:/usuario/iniciarSesion";
         }
-
-        return "redirect:/usuario/iniciarSesion";
     }
+
     // Metodo para usuario sin asignar Rol
     @GetMapping("/homeNuevoUsuario")
     public String homeNuevoUsuario(Usuario usuario, HttpSession session, Model model) {
@@ -261,6 +325,76 @@ public class UsuarioControlador {
     }
 
     // Actualizar contraseña con token
+    // @PostMapping("/actualizarContrasena")
+    // public String actualizarContrasena(Model model, Usuario usuario,
+    // @RequestParam String actualContrasena,
+    // @RequestParam String contrasena, @RequestParam String password2,
+    // @RequestParam String tokenCambioContrasena, HttpSession session,
+    // RedirectAttributes redirectAttributes) throws IOException {
+
+    // // Validar el token de cambio de contraseña
+    // String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
+    // if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
+    // redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña
+    // inválido");
+    // return "redirect:/";
+    // }
+
+    // // Obtener el ID del usuario desde la sesión
+    // Integer idUsuario = (Integer) session.getAttribute("idusuario");
+
+    // // Obtener el usuario desde la base de datos
+    // Usuario u = usuarioServicio.findByIdUsuario(idUsuario)
+    // .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+    // // Verificamos la contraseña actual del usuario
+    // if (!u.getContrasena().equals(actualContrasena)) {
+    // redirectAttributes.addFlashAttribute("error", "¡Contraseña actual
+    // incorrecta!");
+    // return "redirect:/usuario/cambiarContrasena";
+    // }
+
+    // // Verificamos que las nuevas contraseñas coincidan
+    // if (!contrasena.equals(password2)) {
+    // redirectAttributes.addFlashAttribute("error", "¡Las contraseñas no
+    // coinciden!");
+    // return "redirect:/usuario/cambiarContrasena";
+    // }
+
+    // // Actualizar la contraseña
+    // usuario.setContrasena(contrasena);
+
+    // // Seteamos estos datos para que no se pierdan
+    // usuario.setIdUsuario(u.getIdUsuario());
+    // usuario.setNombreUsuario(u.getNombreUsuario());
+    // usuario.setEmail(u.getEmail());
+    // usuario.setRol("USER");
+    // usuario.setFoto(u.getFoto());
+    // usuario.setNombre(u.getNombre());
+    // usuario.setApellido(u.getApellido());
+    // usuario.setDocumento(u.getDocumento());
+    // usuario.setTelefono(u.getTelefono());
+    // usuario.setDireccion(u.getDireccion());
+    // usuario.setAltura(u.getAltura());
+    // usuario.setPiso(u.getPiso());
+    // usuario.setDepto(u.getDepto());
+    // usuario.setLocalidad(u.getLocalidad());
+    // usuario.setProvincia(u.getProvincia());
+
+    // // Guardar el usuario actualizado
+    // usuarioServicio.save(usuario);
+
+    // // Eliminar el token de la sesión después de la actualización
+    // session.removeAttribute("tokenCambioContrasena");
+
+    // // Alerta para un cambio correcto
+    // redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada
+    // correctamente!");
+
+    // return "redirect:/usuario/homeNuevoUsuario";
+    // }
+
+    // Actualizar contraseña con token
     @PostMapping("/actualizarContrasena")
     public String actualizarContrasena(Model model, Usuario usuario,
             @RequestParam String actualContrasena,
@@ -283,7 +417,7 @@ public class UsuarioControlador {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         // Verificamos la contraseña actual del usuario
-        if (!u.getContrasena().equals(actualContrasena)) {
+        if (!ContrasenaEncriptadaImpl.checkPassword(actualContrasena, u.getContrasena())) {
             redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
             return "redirect:/usuario/cambiarContrasena";
         }
@@ -294,8 +428,11 @@ public class UsuarioControlador {
             return "redirect:/usuario/cambiarContrasena";
         }
 
-        // Actualizar la contraseña
-        usuario.setContrasena(contrasena);
+        // Encriptar la nueva contraseña antes de guardarla
+        String nuevaContrasenaEncriptada = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+
+        // Actualizar la contraseña en el objeto usuario
+        usuario.setContrasena(nuevaContrasenaEncriptada);
 
         // Seteamos estos datos para que no se pierdan
         usuario.setIdUsuario(u.getIdUsuario());
