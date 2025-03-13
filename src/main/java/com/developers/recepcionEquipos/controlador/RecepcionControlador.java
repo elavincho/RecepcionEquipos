@@ -21,6 +21,7 @@ import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.ClienteServicio;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -193,7 +194,7 @@ public class RecepcionControlador {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         // Verificamos la contraseña actual del usuario
-        if (!u.getContrasena().equals(actualContrasena)) {
+        if (!ContrasenaEncriptadaImpl.checkPassword(actualContrasena, u.getContrasena())) {
             redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
             return "redirect:/recepcion/cambiarContrasena";
         }
@@ -204,8 +205,11 @@ public class RecepcionControlador {
             return "redirect:/recepcion/cambiarContrasena";
         }
 
-        // Actualizar la contraseña
-        usuario.setContrasena(contrasena);
+        // Encriptar la nueva contraseña antes de guardarla
+        String nuevaContrasenaEncriptada = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+
+        // Actualizar la contraseña en el objeto usuario
+        usuario.setContrasena(nuevaContrasenaEncriptada);
 
         // Seteamos estos datos para que no se pierdan
         usuario.setIdUsuario(u.getIdUsuario());

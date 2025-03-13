@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -224,7 +225,7 @@ public class AdministradorControlador {
         String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
         if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
             redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña inválido");
-            return "redirect:/";
+            return "redirect:/administrador/cambiarContrasena";
         }
 
         // Obtener el ID del usuario desde la sesión
@@ -235,7 +236,7 @@ public class AdministradorControlador {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         // Verificamos la contraseña actual del usuario
-        if (!u.getContrasena().equals(actualContrasena)) {
+        if (!ContrasenaEncriptadaImpl.checkPassword(actualContrasena, u.getContrasena())) {
             redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
             return "redirect:/administrador/cambiarContrasena";
         }
@@ -246,8 +247,11 @@ public class AdministradorControlador {
             return "redirect:/administrador/cambiarContrasena";
         }
 
-        // Actualizar la contraseña
-        usuario.setContrasena(contrasena);
+        // Encriptar la nueva contraseña antes de guardarla
+        String nuevaContrasenaEncriptada = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+
+        // Actualizar la contraseña en el objeto usuario
+        usuario.setContrasena(nuevaContrasenaEncriptada);
 
         // Seteamos estos datos para que no se pierdan
         usuario.setIdUsuario(u.getIdUsuario());

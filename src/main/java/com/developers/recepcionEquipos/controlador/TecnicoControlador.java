@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
+import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,9 +26,9 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/tecnico")
 public class TecnicoControlador {
 
-     private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
+    private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
-     @Autowired
+    @Autowired
     private UsuarioServicio usuarioServicio;
 
     // @Autowired
@@ -36,7 +37,7 @@ public class TecnicoControlador {
     @Autowired
     private UploadFileService upload;
 
- @GetMapping("/homeTecnico")
+    @GetMapping("/homeTecnico")
     public String homeTecnico(Model model, Usuario usuario, HttpSession session) {
         // sesion
         model.addAttribute("sesion", session.getAttribute("idusuario"));
@@ -133,102 +134,105 @@ public class TecnicoControlador {
         return "redirect:/tecnico/homeTecnico";
     }
 
-     // Cambiar contraseña con token
-     @GetMapping("/cambiarContrasena")
-     public String cambiarContrasena(Model model, HttpSession session) {
- 
-         // sesion
-         model.addAttribute("sesion", session.getAttribute("idusuario"));
- 
-         // Con esto obtenemos todos los datos del usuario
-         model.addAttribute("usuario", session.getAttribute("usersession"));
- 
-         // Obtener el ID del usuario desde la sesión
-         Integer idUsuario = (Integer) session.getAttribute("idusuario");
- 
-         // Generar un UUID único
-         String uuid = UUID.randomUUID().toString();
- 
-         // Almacenar el UUID en la sesión
-         session.setAttribute("tokenCambioContrasena", uuid);
- 
-         // Obtener el usuario desde la base de datos
-         Usuario usuario = usuarioServicio.findByIdUsuario(idUsuario)
-                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
- 
-         // Agregar el usuario y el UUID al modelo
-         model.addAttribute("usuario", usuario);
-         model.addAttribute("tokenCambioContrasena", uuid);
- 
-         logger.info("Usuario a cambiar contraseña: {}", usuario);
- 
-         return "tecnico/cambiarContrasena";
-     }
- 
-     // Actualizar contraseña con token
-     @PostMapping("/actualizarContrasena")
-     public String actualizarContrasena(Model model, Usuario usuario,
-             @RequestParam String actualContrasena,
-             @RequestParam String contrasena, @RequestParam String password2,
-             @RequestParam String tokenCambioContrasena, HttpSession session,
-             RedirectAttributes redirectAttributes) throws IOException {
- 
-         // Validar el token de cambio de contraseña
-         String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
-         if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
-             redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña inválido");
-             return "redirect:/tecnico/homeTecnico";
-         }
- 
-         // Obtener el ID del usuario desde la sesión
-         Integer idUsuario = (Integer) session.getAttribute("idusuario");
- 
-         // Obtener el usuario desde la base de datos
-         Usuario u = usuarioServicio.findByIdUsuario(idUsuario)
-                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
- 
-         // Verificamos la contraseña actual del usuario
-         if (!u.getContrasena().equals(actualContrasena)) {
-             redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
-             return "redirect:/tecnico/cambiarContrasena";
-         }
- 
-         // Verificamos que las nuevas contraseñas coincidan
-         if (!contrasena.equals(password2)) {
-             redirectAttributes.addFlashAttribute("error", "¡Las contraseñas no coinciden!");
-             return "redirect:/tecnico/cambiarContrasena";
-         }
- 
-         // Actualizar la contraseña
-         usuario.setContrasena(contrasena);
- 
-         // Seteamos estos datos para que no se pierdan
-         usuario.setIdUsuario(u.getIdUsuario());
-         usuario.setNombreUsuario(u.getNombreUsuario());
-         usuario.setEmail(u.getEmail());
-         usuario.setRol("TECNICO");
-         usuario.setFoto(u.getFoto());
-         usuario.setNombre(u.getNombre());
-         usuario.setApellido(u.getApellido());
-         usuario.setDocumento(u.getDocumento());
-         usuario.setTelefono(u.getTelefono());
-         usuario.setDireccion(u.getDireccion());
-         usuario.setAltura(u.getAltura());
-         usuario.setPiso(u.getPiso());
-         usuario.setDepto(u.getDepto());
-         usuario.setLocalidad(u.getLocalidad());
-         usuario.setProvincia(u.getProvincia());
- 
-         // Guardar el usuario actualizado
-         usuarioServicio.save(usuario);
- 
-         // Eliminar el token de la sesión después de la actualización
-         session.removeAttribute("tokenCambioContrasena");
- 
-         // Alerta para un cambio correcto
-         redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
- 
-         return "redirect:/tecnico/homeTecnico";
-     }
+    // Cambiar contraseña con token
+    @GetMapping("/cambiarContrasena")
+    public String cambiarContrasena(Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
+
+        // Generar un UUID único
+        String uuid = UUID.randomUUID().toString();
+
+        // Almacenar el UUID en la sesión
+        session.setAttribute("tokenCambioContrasena", uuid);
+
+        // Obtener el usuario desde la base de datos
+        Usuario usuario = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Agregar el usuario y el UUID al modelo
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("tokenCambioContrasena", uuid);
+
+        logger.info("Usuario a cambiar contraseña: {}", usuario);
+
+        return "tecnico/cambiarContrasena";
+    }
+
+    // Actualizar contraseña con token
+    @PostMapping("/actualizarContrasena")
+    public String actualizarContrasena(Model model, Usuario usuario,
+            @RequestParam String actualContrasena,
+            @RequestParam String contrasena, @RequestParam String password2,
+            @RequestParam String tokenCambioContrasena, HttpSession session,
+            RedirectAttributes redirectAttributes) throws IOException {
+
+        // Validar el token de cambio de contraseña
+        String sessionToken = (String) session.getAttribute("tokenCambioContrasena");
+        if (sessionToken == null || !sessionToken.equals(tokenCambioContrasena)) {
+            redirectAttributes.addFlashAttribute("error", "Token de cambio de contraseña inválido");
+            return "redirect:/tecnico/homeTecnico";
+        }
+
+        // Obtener el ID del usuario desde la sesión
+        Integer idUsuario = (Integer) session.getAttribute("idusuario");
+
+        // Obtener el usuario desde la base de datos
+        Usuario u = usuarioServicio.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Verificamos la contraseña actual del usuario
+        if (!ContrasenaEncriptadaImpl.checkPassword(actualContrasena, u.getContrasena())) {
+            redirectAttributes.addFlashAttribute("error", "¡Contraseña actual incorrecta!");
+            return "redirect:/tecnico/cambiarContrasena";
+        }
+
+        // Verificamos que las nuevas contraseñas coincidan
+        if (!contrasena.equals(password2)) {
+            redirectAttributes.addFlashAttribute("error", "¡Las contraseñas no coinciden!");
+            return "redirect:/tecnico/cambiarContrasena";
+        }
+
+        // Encriptar la nueva contraseña antes de guardarla
+        String nuevaContrasenaEncriptada = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+
+        // Actualizar la contraseña en el objeto usuario
+        usuario.setContrasena(nuevaContrasenaEncriptada);
+
+        // Seteamos estos datos para que no se pierdan
+        usuario.setIdUsuario(u.getIdUsuario());
+        usuario.setNombreUsuario(u.getNombreUsuario());
+        usuario.setEmail(u.getEmail());
+        usuario.setRol("TECNICO");
+        usuario.setFoto(u.getFoto());
+        usuario.setNombre(u.getNombre());
+        usuario.setApellido(u.getApellido());
+        usuario.setDocumento(u.getDocumento());
+        usuario.setTelefono(u.getTelefono());
+        usuario.setDireccion(u.getDireccion());
+        usuario.setAltura(u.getAltura());
+        usuario.setPiso(u.getPiso());
+        usuario.setDepto(u.getDepto());
+        usuario.setLocalidad(u.getLocalidad());
+        usuario.setProvincia(u.getProvincia());
+
+        // Guardar el usuario actualizado
+        usuarioServicio.save(usuario);
+
+        // Eliminar el token de la sesión después de la actualización
+        session.removeAttribute("tokenCambioContrasena");
+
+        // Alerta para un cambio correcto
+        redirectAttributes.addFlashAttribute("exito", "¡Contraseña modificada correctamente!");
+
+        return "redirect:/tecnico/homeTecnico";
+    }
 
 }
