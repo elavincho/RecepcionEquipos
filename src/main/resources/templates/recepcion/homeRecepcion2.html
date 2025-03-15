@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recepción Equipos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
+
+    <!-- Main -->
+    <main>
+        <div class="contenedor-exito">
+            <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
+        </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
+        </div>
+
+        <h1 class="centrado">Home Recepción</h1>
+
+        
+        <div class="contenedor-formulario mrt-30">
+            <div class="formulario">
+                <!-- Grupo: Alta Cliente -->
+                <div class="contenedor-tarjeta">
+                    <div class="card border mr30">
+                        <a th:href="@{/recepcion/altaCliente}">
+                            <div class="card border mr15">
+                                <img class="img-card mr30" src="/iconos/agregar-cliente.png" alt="agregar-usuario">
+                                <h5 class="center black">Alta Cliente</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Grupo: Clientes -->
+                <div class="contenedor-tarjeta">
+                    <div class="card border mr30">
+                        <a th:href="@{/recepcion/clientes}">
+                            <div class="card border mr15">
+                                <img class="img-card mr30" src="/iconos/grupo5-negro.png" alt="grupo5-negro">
+                                <h4 class="center black">Clientes</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Grupo: Equipos -->
+                <div class="contenedor-tarjeta">
+                    <div class="card border mr30">
+                        <a th:href="@{/equipo/equipos}">
+                            <div class="card border mr15">
+                                <img class="img-card mr30" src="/iconos/equipos-negro.png" alt="equipos-negro">
+                                <h4 class="center black">Equipos</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Grupo: Ordenes -->
+                <div class="contenedor-tarjeta">
+                    <div class="card border mr30">
+                        <a th:href="@{/orden/ordenes}">
+                            <div class="card border mr15">
+                                <img class="img-card mr30" src="/iconos/reparaciones-negro.png"
+                                    alt="reparaciones-negro">
+                                <h4 class="center black">Ordenes</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+
+    </main>
+    <br><br>
+
+    <!-- Footer -->
+    <div th:insert="~{recepcion/templateRecepcion.html::footer-recepcion}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
