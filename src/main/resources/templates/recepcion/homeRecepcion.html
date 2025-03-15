@@ -36,21 +36,29 @@
                 <h1>Recepción</h1>
                 <h3 th:text="'Bienvenido, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
                 <!-- <h6>Buscador...</h6> -->
-                
+
             </div>
-            <div class="derecha" style="border: solid 1px;">
-                <h3 class="center">Lunes <span>31</span></h3>
-                <h3 class="center">Febrero <span>2025</span></h3>
+            <div class="derecha spac-around">
+                <div>
+                    <h3 class="center" id="diaSemana"></h3>
+                    <h3 class="center" id="diaMes"></h3>
+                </div>
+                <div>
+                    <h3 class="center" id="mes"></h3>
+                    <h3 class="center" id="anio"></h3>
+                </div>
             </div>
         </div>
+
         <div class="contenedor-exito">
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
         <div class="contenedor-error">
             <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
         </div>
+
         <div class="contenedor-dashboard">
-            <div class="izquierda" style="border: solid 1px">
+            <div class="izquierda">
                 <ul class="dropdown-menu card border">
 
                     <li class="center">
@@ -121,7 +129,7 @@
                 </ul>
             </div>
 
-            <div class="centro" style="border: solid 1px">
+            <div class="centro">
                 <div class="spac-around">
                     <div class="contenedor-tarjeta-estirada">
                         <div class="card border">
@@ -145,7 +153,7 @@
                 </div>
 
                 <div class="spac-around">
-                    <div class="contenedor-tarjeta-estirada">
+                    <div class="contenedor-tarjeta-estirada justify-end">
                         <div class="card border">
                             <div class="card border mr15">
                                 <br>
@@ -155,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="contenedor-tarjeta-estirada">
+                    <div class="contenedor-tarjeta-estirada justify-end">
                         <div class="card border">
                             <div class="card border mr15">
                                 <br>
@@ -166,64 +174,26 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="derecha" style="border: solid 1px">
-                <h1>derecha</h1>
+
+            <div class="derecha">
+
+                <div class="card border h-350 center">
+                    <!-- Grupo: Alta Cliente -->
+                    <div class="contenedor-tarjeta">
+                        <div class="card border mr30">
+                            <a th:href="@{/recepcion/altaCliente}">
+                                <div class="card border mr15">
+                                    <img class="img-card mr30" src="/iconos/agregar-cliente.png" alt="agregar-usuario">
+                                    <h5 class="center black">Alta Cliente</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="contenedor-formulario mrt-30">
-            <div class="formulario">
-                <!-- Grupo: Alta Cliente -->
-                <div class="contenedor-tarjeta">
-                    <div class="card border mr30">
-                        <a th:href="@{/recepcion/altaCliente}">
-                            <div class="card border mr15">
-                                <img class="img-card mr30" src="/iconos/agregar-cliente.png" alt="agregar-usuario">
-                                <h5 class="center black">Alta Cliente</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Grupo: Clientes -->
-                <div class="contenedor-tarjeta">
-                    <div class="card border mr30">
-                        <a th:href="@{/recepcion/clientes}">
-                            <div class="card border mr15">
-                                <img class="img-card mr30" src="/iconos/grupo5-negro.png" alt="grupo5-negro">
-                                <h4 class="center black">Clientes</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Grupo: Equipos -->
-                <div class="contenedor-tarjeta">
-                    <div class="card border mr30">
-                        <a th:href="@{/equipo/equipos}">
-                            <div class="card border mr15">
-                                <img class="img-card mr30" src="/iconos/equipos-negro.png" alt="equipos-negro">
-                                <h4 class="center black">Equipos</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Grupo: Ordenes -->
-                <div class="contenedor-tarjeta">
-                    <div class="card border mr30">
-                        <a th:href="@{/orden/ordenes}">
-                            <div class="card border mr15">
-                                <img class="img-card mr30" src="/iconos/reparaciones-negro.png"
-                                    alt="reparaciones-negro">
-                                <h4 class="center black">Ordenes</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <br>
-            </div>
-        </div>
 
     </main>
     <br><br>
@@ -234,6 +204,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script src="/scripts/formulario.js"></script>
 </body>
 
 </html>

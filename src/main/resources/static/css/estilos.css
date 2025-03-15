@@ -320,6 +320,12 @@ a {
     justify-content: space-around;
 }
 
+.justify-end {
+    display: grid;
+    grid-template-rows: 1fr;
+    align-items:end;
+}
+
 /* Estilos Registro */
 
 .formulario {
@@ -839,7 +845,7 @@ a {
 
 .contenedor-tarjeta-estirada {
     /* width: 350px; */
-    height: 200px;
+    height: 175px;
     width: 50%;
     margin-left: 10px;
     margin-right: 10px;

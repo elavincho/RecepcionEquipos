@@ -198,6 +198,8 @@ inputs.forEach((input) => {
   input.addEventListener("blur", validarFormulario);
 });
 
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
+
 // Fecha con Calendario
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -213,6 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Fin Fecha con Calendario
+
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
 
 // Verificación de Números y Fechas
 function validacionFormulario() {
@@ -248,6 +252,8 @@ function validarNumero() {
   }
 }
 //Fin Validar Numeros
+
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
 
 // Validar Fechas
 function validarFecha() {
@@ -291,5 +297,55 @@ document.addEventListener("keyup", (e) => {
   }
 });
 /* Fin Buscador*/
+
+//  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
+
+// Mostrar Fecha
+
+function mostrarFechaCompleta() {
+  const fecha = new Date();
+
+  // Arrays con los nombres de los días y meses
+  const diasSemana = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
+  const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
+  // Obtener el día de la semana, el día del mes, el mes y el año
+  const diaSemana = diasSemana[fecha.getDay()]; // getDay() devuelve 0 (domingo) a 6 (sábado)
+  const diaMes = fecha.getDate(); // Día del mes (1-31)
+  const mes = meses[fecha.getMonth()]; // getMonth() devuelve 0 (enero) a 11 (diciembre)
+  const anio = fecha.getFullYear(); // Año (4 dígitos)
+
+  // Mostrar la fecha en el elemento HTML
+  document.getElementById("diaSemana").textContent = `${diaSemana}`;
+  document.getElementById("diaMes").textContent = `${diaMes}`;
+  document.getElementById("mes").textContent = `${mes}`;
+  document.getElementById("anio").textContent = `${anio}`;
+}
+
+// Llamar a la función cuando la página se cargue
+window.onload = mostrarFechaCompleta;
+
+// Fin Mostrar Fecha
 
 //  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
