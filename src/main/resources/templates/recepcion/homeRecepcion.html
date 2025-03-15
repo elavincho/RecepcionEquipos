@@ -24,28 +24,34 @@
         <!-- <h1 class="centrado">Home Recepción</h1> -->
 
         <div class="contenedor-dashboard">
-            <div class="izquierda">
-                <div class="center">
+            <div class="izquierda card border" style="margin-right: 10px;">
+                <div class="card border mr15">
                     <div class="center">
-                        <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
+                        <img class="" style="width: 100px; height: 100px; border-radius: 5px;" th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
                     </div>
-                    <!-- <p class="user-name" th:text="${usuario.nombreUsuario}"></p> -->
                 </div>
             </div>
-            <div class="centro">
-                <h1>Recepción</h1>
-                <h3 th:text="'Bienvenido, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
-                <!-- <h6>Buscador...</h6> -->
 
-            </div>
-            <div class="derecha spac-around">
-                <div>
-                    <h3 class="center" id="diaSemana"></h3>
-                    <h3 class="center" id="diaMes"></h3>
+            <div class="card border">
+                <div class="centro card border mr15" style="padding: 10px;">
+                    <h1>Recepción</h1>
+                    <h3 th:text="'Bienvenido, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
                 </div>
-                <div>
-                    <h3 class="center" id="mes"></h3>
-                    <h3 class="center" id="anio"></h3>
+            </div>
+            
+            <div class="derecha spac-around">
+                <div class="card border">
+                    <div class="card border mr15" style="padding: 10px;">
+                        <h3 class="center" id="diaSemana"></h3>
+                        <h1 class="center" id="diaMes"></h1>
+                    </div>
+                </div>
+                
+                <div class="card border">
+                    <div class="card border mr15" style="padding: 10px;">
+                        <h3 class="center" id="mes"></h3>
+                        <h1 class="center" id="anio"></h1>
+                    </div>
                 </div>
             </div>
         </div>
