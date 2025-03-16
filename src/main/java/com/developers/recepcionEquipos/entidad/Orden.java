@@ -24,6 +24,7 @@ public class Orden {
     private String fallaCliente;
     private String fallaTecnico;
     private String prioridad;
+    @Column(name = "aviso_cliente") // Especifica el nombre de la columna en la base de datos
     private String avisoCliente;
     private String medioAviso;
     private String numero;

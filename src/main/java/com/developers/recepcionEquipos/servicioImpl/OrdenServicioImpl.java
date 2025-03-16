@@ -100,4 +100,18 @@ public class OrdenServicioImpl implements OrdenServicio {
 
         return ordenConteo;
     }
+
+    @Override
+    public Map<String, Long> contarOrdenesPorAvisoCliente() {
+        List<Object[]> resultados = ordenRepositorio.countByAvisoCliente();
+        Map<String, Long> ordenAviso = new HashMap<>();
+
+        for (Object[] resultado : resultados) {
+            String aviso = (String) resultado[0];
+            Long cantidad = (Long) resultado[1];
+            ordenAviso.put(aviso, cantidad);
+        }
+
+        return ordenAviso;
+    }
 }

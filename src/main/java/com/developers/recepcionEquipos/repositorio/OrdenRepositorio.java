@@ -17,4 +17,8 @@ public interface OrdenRepositorio extends JpaRepository<Orden, Integer> {
     // Obtenemos todos los conteos del estado (Orden es la entidad y estado es el atributo)
     @Query("SELECT o.estadoOrden, COUNT(o) FROM Orden o GROUP BY o.estadoOrden")
     List<Object[]> countByEstadoOrden();
+
+    // Obtenemos todos los conteos del aviso (Orden es la entidad y estado es el atributo)
+    @Query("SELECT o.avisoCliente, COUNT(o) FROM Orden o GROUP BY o.avisoCliente")
+    List<Object[]> countByAvisoCliente();
 }

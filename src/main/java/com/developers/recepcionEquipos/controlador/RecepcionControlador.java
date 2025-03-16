@@ -63,6 +63,10 @@ public class RecepcionControlador {
         Map<String, Long> ordenConteo = ordenServicio.contarOrdenesPorEstado();
         model.addAttribute("ordenConteo", ordenConteo);
 
+        // Obtenemos el conteo de avisos a los clientes y los pasamos a homeRecepcion
+        Map<String, Long> ordenAviso = ordenServicio.contarOrdenesPorAvisoCliente();
+        model.addAttribute("ordenAviso", ordenAviso);
+
         return "recepcion/homeRecepcion";
     }
 

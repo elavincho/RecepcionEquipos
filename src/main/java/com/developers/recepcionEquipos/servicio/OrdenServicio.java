@@ -24,4 +24,6 @@ public interface OrdenServicio {
     String generarNumeroOrden();
 
     Map<String, Long> contarOrdenesPorEstado();
+
+    Map<String, Long> contarOrdenesPorAvisoCliente();
 }

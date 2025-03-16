@@ -164,7 +164,7 @@
                             <div class="card border mr15">
                                 <br>
                                 <h3 class="center">Ordenes x Avisar</h3>
-                                <h1 class="center">3</h1>
+                                <h1 class="center" th:text="${ordenAviso.get('NO')}"></h1>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                             <div class="card border mr15">
                                 <br>
                                 <h3 class="center">Ordenes en Curso</h3>
-                                <h1 class="center"  th:text="${ordenConteo.get('EN_CURSO')}">1</h1>
+                                <h1 class="center" th:text="${ordenConteo.get('EN_CURSO')}"></h1>
                             </div>
                         </div>
                     </div>
