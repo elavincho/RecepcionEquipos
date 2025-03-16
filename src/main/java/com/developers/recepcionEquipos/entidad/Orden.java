@@ -1,5 +1,6 @@
 package com.developers.recepcionEquipos.entidad;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +44,7 @@ public class Orden {
     private String totalFormateado;
     private Double subTotal;
     private String subTotalFormateado;
+    @Column(name = "estado_orden") // Especifica el nombre de la columna en la base de datos
     private String estadoOrden;
 
     @ManyToOne

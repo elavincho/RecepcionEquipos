@@ -1,6 +1,7 @@
 package com.developers.recepcionEquipos.servicio;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.developers.recepcionEquipos.entidad.Cliente;
@@ -21,4 +22,6 @@ public interface OrdenServicio {
     List<Orden>  findByCliente(Cliente cliente);
 
     String generarNumeroOrden();
+
+    Map<String, Long> contarOrdenesPorEstado();
 }

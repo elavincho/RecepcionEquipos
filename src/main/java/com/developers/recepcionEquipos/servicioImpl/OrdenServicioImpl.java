@@ -1,7 +1,9 @@
 package com.developers.recepcionEquipos.servicioImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +85,19 @@ public class OrdenServicioImpl implements OrdenServicio {
         }
 
         return numeroConcatenado;
+    }
+
+    @Override
+    public Map<String, Long> contarOrdenesPorEstado() {
+        List<Object[]> resultados = ordenRepositorio.countByEstadoOrden();
+        Map<String, Long> ordenConteo = new HashMap<>();
+
+        for (Object[] resultado : resultados) {
+            String estado = (String) resultado[0];
+            Long cantidad = (Long) resultado[1];
+            ordenConteo.put(estado, cantidad);
+        }
+
+        return ordenConteo;
     }
 }

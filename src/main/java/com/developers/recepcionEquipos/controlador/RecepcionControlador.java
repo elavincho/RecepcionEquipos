@@ -2,6 +2,7 @@ package com.developers.recepcionEquipos.controlador;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.developers.recepcionEquipos.entidad.Cliente;
 import com.developers.recepcionEquipos.entidad.Usuario;
 import com.developers.recepcionEquipos.servicio.ClienteServicio;
+import com.developers.recepcionEquipos.servicio.OrdenServicio;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
 import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
@@ -39,6 +41,9 @@ public class RecepcionControlador {
     private ClienteServicio clienteServicio;
 
     @Autowired
+    private OrdenServicio ordenServicio;
+
+    @Autowired
     private UploadFileService upload;
 
     @GetMapping("/homeRecepcion")
@@ -53,6 +58,10 @@ public class RecepcionControlador {
         // Pasamos la cantidad de clientes a homeRecepcion
         long cantidadClientes = clienteServicio.obtenerCantidadClientes();
         model.addAttribute("cantidadClientes", cantidadClientes);
+
+        // Obtenemos el conteo de ordenes y los pasamos a homeRecepcion
+        Map<String, Long> ordenConteo = ordenServicio.contarOrdenesPorEstado();
+        model.addAttribute("ordenConteo", ordenConteo);
 
         return "recepcion/homeRecepcion";
     }
