@@ -50,6 +50,10 @@ public class RecepcionControlador {
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
+        // Pasamos la cantidad de clientes a homeRecepcion
+        long cantidadClientes = clienteServicio.obtenerCantidadClientes();
+        model.addAttribute("cantidadClientes", cantidadClientes);
+
         return "recepcion/homeRecepcion";
     }
 

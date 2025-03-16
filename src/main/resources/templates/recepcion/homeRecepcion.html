@@ -35,7 +35,7 @@
             <div class="card border">
                 <div class="centro card border mr15" style="padding: 10px;">
                     <h1>Recepción</h1>
-                    <h3 th:text="'Bienvenido, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
+                    <h3 th:text="'Welcome, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
                 </div>
             </div>
             
@@ -142,7 +142,7 @@
                             <div class="card border mr15">
                                 <br>
                                 <h3 class="center">Clientes Registrados</h3>
-                                <h1 class="center">74</h1>
+                                <h1 class="center" th:text="${cantidadClientes}"></h1>
                             </div>
                         </div>
                     </div>

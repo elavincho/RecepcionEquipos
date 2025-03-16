@@ -49,5 +49,10 @@ public class ClienteServicioImpl implements ClienteServicio {
     public void update(Cliente cliente) {
         clienteRepositorio.save(cliente);
     }
+
+    @Override
+    public long obtenerCantidadClientes() {
+        return clienteRepositorio.count();
+    }
     
 }

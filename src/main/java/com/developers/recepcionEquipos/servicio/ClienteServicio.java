@@ -22,4 +22,6 @@ public interface ClienteServicio {
 
     public void update(Cliente cliente);
 
+    public long obtenerCantidadClientes();
+
 }

@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ClienteRepositorio extends JpaRepository<Cliente, Integer>{
     
     Optional<Cliente> findByEmail(String email);
+
+    //Metodo para contar clientes, el metodo count ya esta definido en JpaRepository
+    long count();
 }
