@@ -70,6 +70,18 @@ public class RecepcionControlador {
         return "recepcion/homeRecepcion";
     }
 
+    @GetMapping("/perfilRecepcion")
+    public String perfilRecepcion(Usuario usuario, Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        return "recepcion/perfilRecepcion";
+    }
+
     // Metodo editar con token
     @GetMapping("/editarRecepcion")
     public String editar(Model model, HttpSession session) {
