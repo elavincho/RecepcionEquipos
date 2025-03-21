@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Recepción Equipos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{tecnico/templateTecnico.html::header-tecnico}" th:unless="${sesion==null}"></div>
+
+    <main>
+
+        <div class="contenedor-formulario">
+
+            <div id="formulario" th:each="usuario:${usuario}">
+                <!-- Obtenemos los datos del usuario -->
+                <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
+
+                <!-- Grupo: Perfil -->
+                <div class="card border mrt-10 center">
+                    <div class="card w90 mrt-30 mrb-30">
+                        <div class="contenedor-user-name white">
+                            <h4 class="center" th:text="${usuario.nombreUsuario}"></h4>
+                        </div>
+
+                        <div class="center mrt-30 w100 center">
+                            <div class="contenedor-img">
+                                <img class="circle" th:src="@{/images/{img} (img=${usuario.foto})}" alt="foto">
+                            </div>
+                        </div>
+
+                        <h2 class="center mrt-10" th:text="${usuario.nombre + ' ' + usuario.apellido}"></h2>
+
+                        <p class="center mrt-10" th:text="${usuario.email}"></p>
+                    </div>
+                </div>
+                <div class="card mrt-30 mrb-30 center w-500">
+                    <div class="card w90 formulario mrt-30 mrb-30">
+
+                        <!-- Grupo: Nombre -->
+                        <div class="formulario-grupo left" id="grupo-nombre">
+                            <label for="nombre" class="formulario-label">Nombre</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="nombre" name="nombre"
+                                    th:text="${usuario.nombre}">
+                                </h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Apellido -->
+                        <div class="formulario-grupo left" id="grupo-apellido">
+                            <label for="apellido" class="formulario-label">Apellido</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="apellido" name="apellido"
+                                    th:text="${usuario.apellido}"></h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: DNI -->
+                        <div class="formulario-grupo left" id="grupo-documento">
+                            <label for="documento" class="formulario-label">DNI</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="documento" name="documento"
+                                    th:text="${usuario.documento}">
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Teléfono -->
+                        <div class="formulario-grupo left" id="grupo-telefono">
+                            <label for="telefono" class="formulario-label">Teléfono</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="telefono" name="telefono"
+                                    th:text="${usuario.telefono}"></h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Calle -->
+                        <div class="formulario-grupo left" id="grupo-direccion">
+                            <label for="direccion" class="formulario-label">Calle</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="direccion" name="direccion"
+                                    th:text="${usuario.direccion}"></h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Nro -->
+                        <div class="formulario-grupo left" id="grupo-altura">
+                            <label for="altura" class="formulario-label">Nro</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="altura" name="altura"
+                                    th:text="${usuario.altura}">
+                                </h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Piso -->
+                        <div class="formulario-grupo left" id="grupo-piso">
+                            <label for="piso" class="formulario-label">Piso</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="piso" name="piso" th:text="${usuario.piso}">
+                                </h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Depto -->
+                        <div class="formulario-grupo left" id="grupo-depto">
+                            <label for="depto" class="formulario-label">Depto</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="depto" name="depto" th:text="${usuario.depto}">
+                                </h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Localidad -->
+                        <div class="formulario-grupo left" id="grupo-localidad">
+                            <label for="localidad" class="formulario-label">Localidad</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="localidad" name="localidad"
+                                    th:text="${usuario.localidad}"></h6>
+                            </div>
+                        </div>
+
+                        <!-- Grupo: Provincia -->
+                        <div class="formulario-grupo left" id="grupo-provincia">
+                            <label for="provincia" class="formulario-label">Provincia</label>
+                            <div class="formulario-grupo-input ml5 mr5">
+                                <h6 class="formulario-input border" id="provincia" name="provincia"
+                                    th:text="${usuario.provincia}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 center mrt-30">
+                <a class="btn btn-secondary mr-30" th:href="@{/tecnico/homeTecnico}"><img class="w25"
+                        th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div class="mrt-30" th:insert="~{tecnico/templateTecnico.html::footer-tecnico}"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/scripts/formulario.js}"></script>
+</body>
+
+</html>
