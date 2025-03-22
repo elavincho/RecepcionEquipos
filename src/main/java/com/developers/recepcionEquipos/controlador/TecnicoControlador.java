@@ -33,9 +33,6 @@ public class TecnicoControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // @Autowired
-    // private ClienteServicio clienteServicio;
-
     @Autowired
     private OrdenServicio ordenServicio;
 
@@ -59,6 +56,18 @@ public class TecnicoControlador {
         model.addAttribute("ordenAviso", ordenAviso);
 
         return "tecnico/homeTecnico";
+    }
+
+    @GetMapping("/perfilTecnico")
+    public String perfilTecnico(Usuario usuario, Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        return "tecnico/perfilTecnico";
     }
 
     // Metodo editar con token
