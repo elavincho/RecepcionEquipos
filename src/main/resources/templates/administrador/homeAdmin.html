@@ -8,6 +8,7 @@
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <link th:href="@{/css/estilos.css}" rel="stylesheet">
 </head>
 
@@ -18,59 +19,196 @@
 
     <!-- Main -->
     <main>
+        <br>
+        <div class="contenedor-dashboard">
+            <div class="izquierda card border" style="margin-right: 10px;">
+                <div class="card border mr15">
+                    <div class="center">
+                        <img class="" style="width: 100px; height: 100px; border-radius: 5px;"
+                            th:src="@{/images/{img} (img=${usuario.foto})}" alt="img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border">
+                <div class="centro card border mr15" style="padding: 10px;">
+                    <h1>Administrador</h1>
+                    <h3 th:text="'Welcome, ' + ${usuario.nombre + ' ' + usuario.apellido}"></h3>
+                </div>
+            </div>
+
+            <div class="derecha spac-around">
+                <div class="card border">
+                    <div class="card border mr15" style="padding: 10px;">
+                        <h3 class="center" id="diaSemana"></h3>
+                        <h1 class="center" id="diaMes"></h1>
+                    </div>
+                </div>
+
+                <div class="card border">
+                    <div class="card border mr15" style="padding: 10px;">
+                        <h3 class="center" id="mes"></h3>
+                        <h1 class="center" id="anio"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="contenedor-exito">
             <div th:if="${exito}" class="alerta-exito" th:text="${exito}"></div>
         </div>
-
-        <div class="contenedor-seccion">
-            <div class="seccion-img">
-                <img src="/imagenes/gerente.avif" alt="administrador">
-            </div>
-            <div class="seccion-texto">
-                <h1>Home Administrador</h1>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nisi fuga eligendi maxime nemo ex
-                    quam error molestias totam. Perferendis eius accusantium error assumenda nisi odit incidunt qui aut
-                    quasi! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo eum ex, voluptates
-                    consequuntur voluptatum ad architecto rerum magnam vel deleniti impedit alias quibusdam facilis
-                    officiis. </p>
-                <br>
-                <p> Maxime ea
-                    consectetur minima molestias perspiciatis rem adipisci error enim repellendus quae inventore eum
-                    possimus magni earum architecto, repellat suscipit impedit. Animi!</p>
-            </div>
+        <div class="contenedor-error">
+            <div th:if="${error}" class="alerta-error" th:text="${error}"></div>
         </div>
 
-        <br>
+        <div class="contenedor-dashboard">
+            <div class="izquierda">
+                <ul class="dropdown-menu card border">
 
-        <div class="contenedor-seccion">
-            <div class="seccion-texto">
-                <h1>Home Administrador</h1>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nisi fuga eligendi maxime nemo ex
-                    quam error molestias totam. Perferendis eius accusantium error assumenda nisi odit incidunt qui aut
-                    quasi! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo eum ex, voluptates
-                    consequuntur voluptatum ad architecto rerum magnam vel deleniti impedit alias quibusdam facilis
-                    officiis. </p>
-                <br>
-                <p> Maxime ea
-                    consectetur minima molestias perspiciatis rem adipisci error enim repellendus quae inventore eum
-                    possimus magni earum architecto, repellat suscipit impedit. Animi!</p>
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/recepcion/altaCliente}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/agregar-cliente.png}" alt="altaCliente">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Alta Cliente</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/recepcion/clientes}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/grupo5-negro.png}" alt="grupo5-negro">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Clientes</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/equipo/equipos}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/equipos-negro.png}" alt="equipos">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Equipos</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/orden/ordenes}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/reparaciones-negro.png}"
+                                        alt="reparaciones-negro">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Ordenes</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="center">
+                        <div class="card border mrt-5 w90 center">
+                            <a class="black dos-columnas-menu" th:href="@{/usuario/cerrar}">
+                                <div class="center">
+                                    <img class="w20" th:src="@{/iconos/btn_power.png}" alt="usuario">
+                                </div>
+                                <div class="mrt-10">
+                                    <p class="tf-14">Cerrar Sesión</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="seccion-img">
-                <img src="/imagenes/manager.jpg" alt="administrador">
+
+            <div class="centro">
+                <div class="spac-around">
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Clientes Registrados</h3>
+                                <h1 class="center" th:text="${cantidadClientes}"></h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-tarjeta-estirada">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes Pendientes</h3>
+                                <h1 class="center" th:text="${ordenConteo.get('PENDIENTE')}"></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spac-around">
+                    <div class="contenedor-tarjeta-estirada justify-end">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes x Avisar</h3>
+                                <h1 class="center" th:text="${ordenAviso.get('NO')}"></h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-tarjeta-estirada justify-end">
+                        <div class="card border">
+                            <div class="card border mr15">
+                                <br>
+                                <h3 class="center">Ordenes en Curso</h3>
+                                <h1 class="center" th:text="${ordenConteo.get('EN_CURSO')}"></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="derecha">
+                <div class="card border h-350 center">
+                    <!-- Grupo: Perfil -->
+                    <div class="contenedor-tarjeta">
+                        <div class="card border mr30">
+                            <a th:href="@{/recepcion/perfilRecepcion}">
+                                <div class="card border mr15">
+                                    <img class="img-card mr30" src="/iconos/usuario.png" alt="usuario">
+                                    <h5 class="center black">Ver Perfil</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
 
     </main>
-
+    <br><br>
 
     <!-- Footer -->
-    <div class="mrt-30" th:insert="~{administrador/templateAdmin.html::footer-admin}"></div>
-    
+    <div th:insert="~{administrador/templateAdmin.html::footer-admin}"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script src="/scripts/formulario.js"></script>
 </body>
 
 </html>
