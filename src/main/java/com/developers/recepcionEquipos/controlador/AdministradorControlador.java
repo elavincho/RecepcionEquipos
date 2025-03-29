@@ -17,11 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.developers.recepcionEquipos.entidad.Usuario;
+import com.developers.recepcionEquipos.servicio.ClienteServicio;
+import com.developers.recepcionEquipos.servicio.OrdenServicio;
 import com.developers.recepcionEquipos.servicio.UsuarioServicio;
 import com.developers.recepcionEquipos.servicioImpl.ContrasenaEncriptadaImpl;
 import com.developers.recepcionEquipos.servicioImpl.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -36,6 +40,12 @@ public class AdministradorControlador {
     @Autowired
     private UploadFileService upload;
 
+    @Autowired
+    private ClienteServicio clienteServicio;
+
+    @Autowired
+    private OrdenServicio ordenServicio;
+
     @GetMapping("/homeAdmin")
     public String homeAdmin(Model model, HttpSession session) {
 
@@ -44,6 +54,18 @@ public class AdministradorControlador {
 
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        // Pasamos la cantidad de clientes a homeRecepcion
+        long cantidadClientes = clienteServicio.obtenerCantidadClientes();
+        model.addAttribute("cantidadClientes", cantidadClientes);
+
+        // Obtenemos el conteo de ordenes y los pasamos a homeRecepcion
+        Map<String, Long> ordenConteo = ordenServicio.contarOrdenesPorEstado();
+        model.addAttribute("ordenConteo", ordenConteo);
+
+        // Obtenemos el conteo de avisos a los clientes y los pasamos a homeRecepcion
+        Map<String, Long> ordenAviso = ordenServicio.contarOrdenesPorAvisoCliente();
+        model.addAttribute("ordenAviso", ordenAviso);
 
         return "administrador/homeAdmin";
     }
