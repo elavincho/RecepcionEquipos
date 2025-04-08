@@ -83,7 +83,6 @@ public class AdministradorControlador {
         logger.info("Usuario Registro: {}", usuario);
 
         // Verificación de Autorización
-
         if (autorizacion.equals("admin")) {
 
             // Verificación de un usuario existente
