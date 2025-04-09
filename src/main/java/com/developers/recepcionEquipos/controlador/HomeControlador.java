@@ -28,6 +28,6 @@ public class HomeControlador {
         // Con esto obtenemos todos los datos del usuario
         model.addAttribute("usuario", session.getAttribute("usersession"));
 
-        return "usuario/home";
+        return "usuario/iniciarSesion";
     }
 }
