@@ -35,12 +35,7 @@ public class Usuario {
     private String foto;
 
     // El mapeo se va a hacer desde cliente
-    //@OneToMany(mappedBy = "usuario")
-    //private List<Equipo> equipos;
-
-    //@OneToMany(mappedBy = "usuario")
-    //private List<Orden> ordenes;
-
+    
     public Usuario() {
     }
 
