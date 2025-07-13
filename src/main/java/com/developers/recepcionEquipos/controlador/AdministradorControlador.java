@@ -77,7 +77,7 @@ public class AdministradorControlador {
 
     @PostMapping("/saveAdmin")
     public String saveAdmin(Usuario usuario, @RequestParam("img") MultipartFile file, @RequestParam String email,
-            @RequestParam String autorizacion,
+            @RequestParam String autorizacion, @RequestParam String contrasena,
             RedirectAttributes redirectAttributes)
             throws IOException {
         logger.info("Usuario Registro: {}", usuario);
@@ -92,6 +92,11 @@ public class AdministradorControlador {
                 // Alerta para un usuario existente
                 redirectAttributes.addFlashAttribute("error", "¡El Usuario ya se encuentra registrado!");
             } else {
+                // Encripta la contraseña antes de almacenarla
+                String hashedPassword = ContrasenaEncriptadaImpl.encryptPassword(contrasena);
+                // Guardamos la contraseña encriptada
+                usuario.setContrasena(hashedPassword);
+
                 usuario.setRol("ADMIN");
 
                 // Imagen cuando se crea un usuario

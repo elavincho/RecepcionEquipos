@@ -23,6 +23,16 @@ const campos = {
   apellido: false,
   contrasena: false,
   email: false,
+  contrasena: false,
+  password2: false,
+  email: false,
+  telefono: false,
+  direccion: false,
+  altura: false,
+  piso: false,
+  depto: false,
+  localidad: false,
+  provincia: false
 };
 
 const validarFormulario = (e) => {
@@ -349,3 +359,10 @@ window.onload = mostrarFechaCompleta;
 // Fin Mostrar Fecha
 
 //  <<<---------- * ---------- * ---------- * ---------- * ---------- * ---------->>>
+
+// Mostrar el nombre del archivo seleccionado en los input
+
+document.getElementById("img").onchange = function () {
+  document.getElementById("fichero").innerHTML = this.files[0].name;
+};
+

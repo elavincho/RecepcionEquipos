@@ -5,14 +5,15 @@
 }
 
 body {
-    background-color: #0d47a1;
+    /* background-color: #0d47a1; */
+    background-color: whitesmoke;
     /* background-color: rgb(52, 114, 155); */
     /* background-color: rgb(108, 177, 218); */
     /* background-color: rgb(208, 235, 254); */
     /* background-color: rgb(30, 84, 112); */
     /* background-color: rgb(96, 172, 185); */
     /* background-color: rgb(201, 235, 237); */
-    color: lavender;
+    color: rgb(21, 21, 22);
     font-family: "Krona One", serif;
 }
 
