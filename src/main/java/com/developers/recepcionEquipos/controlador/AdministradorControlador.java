@@ -391,4 +391,16 @@ public class AdministradorControlador {
         return "administrador/tecnicos";
     }
 
+     @GetMapping("/perfilAdmin")
+    public String perfilAdmin(Usuario usuario, Model model, HttpSession session) {
+
+        // sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
+        // Con esto obtenemos todos los datos del usuario
+        model.addAttribute("usuario", session.getAttribute("usersession"));
+
+        return "administrador/perfilAdmin";
+    }
+
 }
