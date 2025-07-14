@@ -14,7 +14,7 @@
 <body>
 
     <!-- Header -->
-    <div th:insert="~{administrador/templateAdmin.html::header-admin}" th:unless="${sesion==null}"></div>
+    <div th:insert="~{usuario/templateUsuario.html::header-inicial}" th:if="${sesion==null}"></div>
 
     <main>
 
@@ -30,18 +30,31 @@
 
                 <!-- Grupo: Foto Perfil -->
                 <div class="formulario-grupo" id="grupo-foto">
-                    <label class="formulario-label" for="img">Foto: (opcional)</label>
-                    <div class="formulario-grupo-input">
-                        <div class="w100 center mrt-10">
-                            <label for="img" class="btn btn-dark"><img class="w25 mr-10" th:src="@{/iconos/felicidad.png}"
-                                    alt="felicidad">
-                                Subí tu foto</label>
+                            <label class="formulario-label" for="img">Foto: (opcional)</label>
+                            <div class="w100 center mrt-10">
+                                <!-- Vista previa de la imagen (inicialmente oculta) -->
+                                <img id="vista-previa" src="#" alt="Vista previa"
+                                    style="display: none; width: 100px; height: 100px; margin-top: 10px; border-radius: 10%;">
+                            </div>
+                            <div class="w100 center mrt-10">
+                                <p id="fichero"></p>
+                            </div>
+
+                            <div class="formulario-grupo-input">
+                                <div class="w100 center mrt-10">
+                                    <label for="img" class="btn btn-dark">
+                                        <img class="w25 mr-10" th:src="@{/iconos/felicidad.png}" alt="felicidad">
+                                        Subí tu foto
+                                    </label>
+
+                                </div>
+                                <div class="oculto">
+                                    <input type="file" class="form-control-file btn" id="img" name="img"
+                                        accept="image/*">
+                                </div>
+                                <br>
+                            </div>
                         </div>
-                        <div class="oculto">
-                            <input type="file" class="form-control-file btn" id="img" name="img">
-                        </div>
-                    </div>
-                </div>
 
                 <div class="formulario">
 

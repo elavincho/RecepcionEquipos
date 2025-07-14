@@ -362,7 +362,22 @@ window.onload = mostrarFechaCompleta;
 
 // Mostrar el nombre del archivo seleccionado en los input
 
-document.getElementById("img").onchange = function () {
-  document.getElementById("fichero").innerHTML = this.files[0].name;
+document.getElementById("img").onchange = function(e) {
+    // Muestra el nombre del archivo
+    document.getElementById("fichero").innerHTML = this.files[0].name;
+    
+    // Vista previa de la imagen
+    const vistaPrevia = document.getElementById("vista-previa");
+    const archivo = e.target.files[0];  // Obtiene el archivo seleccionado
+    
+    if (archivo) {
+        const lector = new FileReader();  // Crea un lector de archivos
+        
+        lector.onload = function(e) {
+            vistaPrevia.src = e.target.result;  // Asigna la imagen al src
+            vistaPrevia.style.display = "block";  // Muestra la imagen
+        };
+        
+        lector.readAsDataURL(archivo);  // Convierte la imagen a base64
+    }
 };
-
