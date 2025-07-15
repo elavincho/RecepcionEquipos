@@ -858,7 +858,7 @@ a {
 
 .dropdown-menu {
     min-width: 200px;
-    min-height: 350px;
+    /* min-height: 350px; */
     justify-content: center;
 }
 
@@ -867,9 +867,24 @@ a {
     height: 250px;
 }
 
+.contenedor-tarjeta-2 {
+    width: 200px;
+    height: 155px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
 .contenedor-tarjeta-estirada {
     /* width: 350px; */
     height: 175px;
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.contenedor-tarjeta-estirada-2 {
+    /* width: 350px; */
+    height: 190px;
     width: 50%;
     margin-left: 10px;
     margin-right: 10px;
@@ -891,6 +906,10 @@ a {
 
 .h-350 {
     height: 350px;
+}
+
+.h-100 {
+    height: 100px;
 }
 
 /* Estilos de todos los Botones */
@@ -917,5 +936,11 @@ a {
     display: grid;
     grid-template-columns: 15% 65% 20%;
     width: 100%;
+}
+
+.img-card {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
 }
 
