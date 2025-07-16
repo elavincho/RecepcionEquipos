@@ -17,9 +17,7 @@
     <div th:insert="~{recepcion/templateRecepcion.html::header-recepcion}" th:unless="${sesion==null}"></div>
 
     <main>
-
         <div class="contenedor-formulario">
-
             <div id="formulario" th:each="usuario:${usuario}">
                 <!-- Obtenemos los datos del usuario -->
                 <input type="hidden" name="IdUsuario" th:value="${usuario.IdUsuario}">
@@ -42,6 +40,7 @@
                         <p class="center mrt-10" th:text="${usuario.email}"></p>
                     </div>
                 </div>
+
                 <div class="card mrt-30 mrb-30 center w-500">
                     <div class="card w90 formulario mrt-30 mrb-30">
 
@@ -139,6 +138,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-sm-12 center mrt-30">
                 <a class="btn btn-secondary mr-30" th:href="@{/recepcion/homeRecepcion}"><img class="w25"
                         th:src="@{/iconos/atras.png}" alt="atras"> Volver</a>
