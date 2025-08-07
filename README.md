@@ -19,7 +19,7 @@ Este proyecto es un sistema para la recepción de equipos de un **Servicio Técn
 
 ## Objetivo del Proyecto
 
-Este sistea tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes caracteristicas:
+Este sistema tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes caracteristicas:
 
 - Dashboard Administración
 - Dashboard Recepción
