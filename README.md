@@ -19,7 +19,7 @@ Este proyecto es un sistema para la recepción de equipos de un **Servicio Técn
 
 ## Objetivo del Proyecto
 
-Este sistea tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes caracteristicas:
+Este sistema tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes caracteristicas:
 
 - Dashboard Administración
 - Dashboard Recepción
@@ -75,7 +75,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 
 ## Imagenes del proyecto
 
-<img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_1.png" width="200" height="200" alt="img"/>                      <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_2.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_3.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_4.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/ecommerce/blob/master/images/Captura_de_pantalla_5.png" width="200" height="200" alt="img"/>
+<img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_1.png" width="200" height="200" alt="img"/>                      <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_2.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_3.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_4.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_5.png" width="200" height="200" alt="img"/>
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_6.png" width="200" height="200" alt="img"/>
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_7.png" width="200" height="200" alt="img"/>
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_8.png" width="200" height="200" alt="img"/>
