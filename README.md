@@ -84,3 +84,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_11.png" width="200" height="200" alt="img"/>
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_12.png" width="200" height="200" alt="img"/>
 
+
+## Video del proyecto
+
+[![Video tutorial](https://github.com/elavincho/RecepcionEquipos/blob/master/images/img_video.png)](https://youtu.be/pztlkAt0fdY)
