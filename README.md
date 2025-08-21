@@ -1,7 +1,7 @@
 
 # Sistema para la recepción de equipos en un **Servicio Técnico**
 
-Este proyecto es un sistema para la recepción de equipos de un **Servicio Técnico** el cual permite la administración completa desde el CRUD de los clientes, equipos, técnicos y la generación de ordenes de trabajo. Además de contar con un **Dashboard** con la información acerca de los clientes y el estado de los servicios.
+Este proyecto es un sistema para la recepción de equipos de un **Servicio Técnico** el cual permite la administración completa desde el CRUD de los clientes, equipos, técnicos y la generación de órdenes de trabajo. Además de contar con un **Dashboard** con la información acerca de los clientes y el estado de los servicios.
 
 ## Tecnologías utilizadas
 - **Backend**:
@@ -19,7 +19,7 @@ Este proyecto es un sistema para la recepción de equipos de un **Servicio Técn
 
 ## Objetivo del Proyecto
 
-Este sistema tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes caracteristicas:
+Este sistema tiene como finalidad gestionar la recepción de equipos de un **Servicio Técnico** teniendo las siguientes características:
 
 - Dashboard Administración
 - Dashboard Recepción
@@ -32,7 +32,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 ### Recepción
 - Registro
 - Login
-- Recuperación de contraseñas via e-mail
+- Recuperación de contraseñas vía e-mail
 - Home recepción
 - Ver perfil
 - Editar Perfil
@@ -44,7 +44,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 ### Técnicos
 - Registro
 - Login
-- Recuperación de contraseñas via e-mail
+- Recuperación de contraseñas vía e-mail
 - Home recepción
 - Ver perfil
 - Editar Perfil
@@ -55,7 +55,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 ### Administración
 - Registro
 - Login
-- Recuperación de contraseñas via e-mail
+- Recuperación de contraseñas vía e-mail
 - Home recepción
 - Ver perfil
 - Editar Perfil
@@ -66,14 +66,14 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 - Estado de las ordenes
 
 ## Requisitos del Sistema
-- Java 11 o superior
+- Java 21 o superior
 - MySQL
 
 ## Mejores Prácticas
 - Uso de **buenas prácticas UX/UI** para facilitar la experiencia del usuario.
 - Implementación de **técnicas de QA** necesarias para garantizar la calidad del producto.
 
-## Imagenes del proyecto
+## Imágenes del proyecto
 
 <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_1.png" width="200" height="200" alt="img"/>                      <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_2.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_3.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_4.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_5.png" width="200" height="200" alt="img"/>
                           <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_6.png" width="200" height="200" alt="img"/>
