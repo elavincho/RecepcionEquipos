@@ -1,3 +1,4 @@
+<img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/logo.webp" width="80" height="80" alt="img"/>
 
 # Sistema para la recepción de equipos en un **Servicio Técnico**
 
