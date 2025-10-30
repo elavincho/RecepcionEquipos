@@ -1,4 +1,4 @@
-<img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/logo.webp" width="80" height="80" alt="img"/>
+<!-- <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/logo.webp" width="80" height="80" alt="img"/> -->
 
 # Sistema para la recepción de equipos en un **Servicio Técnico**
 
@@ -74,6 +74,7 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 - Uso de **buenas prácticas UX/UI** para facilitar la experiencia del usuario.
 - Implementación de **técnicas de QA** necesarias para garantizar la calidad del producto.
 
+<!--
 ## Imágenes del proyecto
 
 <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_1.png" width="200" height="200" alt="img"/>                      <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_2.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_3.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_4.png" width="200" height="200" alt="img"/>                          <img src="https://github.com/elavincho/RecepcionEquipos/blob/master/images/Captura_de_pantalla_5.png" width="200" height="200" alt="img"/>
@@ -89,3 +90,5 @@ El sistema también permite la recuperación de contraseñas via e-mail y la ges
 ## Video del proyecto
 
 [![Video tutorial](https://github.com/elavincho/RecepcionEquipos/blob/master/images/img_video.png)](https://youtu.be/pztlkAt0fdY)
+-->
+
